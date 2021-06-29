@@ -1,0 +1,19 @@
+{
+  "name": "nucleale-app",
+  "version": "1.0.0",
+  "description": "Official Nucleale App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guilhermenicolini/nucleale-app.git"
+  },
+  "author": "Guilherme Nicolini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guilhermenicolini/nucleale-app/issues"
+  },
+  "homepage": "https://github.com/guilhermenicolini/nucleale-app#readme"
+}
