@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/guilhermenicolini/nucleale-app/issues"
   },
-  "homepage": "https://github.com/guilhermenicolini/nucleale-app#readme"
+  "homepage": "https://github.com/guilhermenicolini/nucleale-app#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^3.2.6"
+  }
 }
