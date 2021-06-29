@@ -6,6 +6,7 @@
   "scripts": {
     "test": "TZ=UTC jest --passWithNoTests --noStackTrace --runInBand",
     "test:unit": "npm test -- --watch --config jest-unit.config.js",
+    "test:staged": "npm test -- --findRelatedTests",
     "prepare": "husky install"
   },
   "repository": {
