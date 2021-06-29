@@ -1,4 +1,6 @@
+import { HttpStatusCode } from '@/data/protocols'
 import { RemoteAuthentication } from '@/data/usecases'
+import { ClientError } from '@/presentation/errors'
 import { HttpClientSpy } from '@/tests/data/mocks'
 import { mockAuthenticationParams } from '@/tests/domain/mocks'
 
@@ -29,5 +31,15 @@ describe('RemoteAuthentication Usecase', () => {
       method: 'post',
       body: params
     })
+  })
+
+  test('Should throw ClientError if HttpClient returns 400', async () => {
+    const { sut, httpClientSpy } = makeSut()
+    httpClientSpy.result = {
+      statusCode: HttpStatusCode.badRequest,
+      error: 'any_error'
+    }
+    const promise = sut.auth(mockAuthenticationParams())
+    expect(promise).rejects.toThrowError(new ClientError(httpClientSpy.result.error))
   })
 })

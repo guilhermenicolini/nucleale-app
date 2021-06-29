@@ -1,4 +1,4 @@
-import { HttpClient } from '@/data/protocols'
+import { HttpClient, HttpStatusCode } from '@/data/protocols'
 import { Authentication } from '@/domain/usecases'
 import { ClientError, ServerError } from '@/presentation/errors'
 
@@ -14,12 +14,10 @@ export class RemoteAuthentication implements Authentication {
       method: 'post',
       body: params
     })
-    if (response.statusCode >= 200 && response.statusCode <= 299) {
-      return response.body
-    } else if (response.statusCode >= 400 && response.statusCode <= 499) {
-      throw new ClientError(response.error)
-    } else {
-      throw new ServerError()
+    switch (response.statusCode) {
+      case HttpStatusCode.ok: return response.body
+      case HttpStatusCode.badRequest: throw new ClientError(response.error)
+      default: throw new ServerError()
     }
   }
 }
