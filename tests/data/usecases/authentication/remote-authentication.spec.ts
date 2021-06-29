@@ -52,4 +52,10 @@ describe('RemoteAuthentication Usecase', () => {
     const promise = sut.auth(mockAuthenticationParams())
     expect(promise).rejects.toThrowError(new ServerError())
   })
+
+  test('Should return AccountModel on success', async () => {
+    const { sut, httpClientSpy } = makeSut()
+    const account = await sut.auth(mockAuthenticationParams())
+    expect(account).toEqual(httpClientSpy.result.body)
+  })
 })
