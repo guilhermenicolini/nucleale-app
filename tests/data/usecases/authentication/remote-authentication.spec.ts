@@ -1,6 +1,6 @@
 import { HttpStatusCode } from '@/data/protocols'
 import { RemoteAuthentication } from '@/data/usecases'
-import { ClientError } from '@/presentation/errors'
+import { ClientError, ServerError } from '@/presentation/errors'
 import { HttpClientSpy } from '@/tests/data/mocks'
 import { mockAuthenticationParams } from '@/tests/domain/mocks'
 
@@ -41,5 +41,15 @@ describe('RemoteAuthentication Usecase', () => {
     }
     const promise = sut.auth(mockAuthenticationParams())
     expect(promise).rejects.toThrowError(new ClientError(httpClientSpy.result.error))
+  })
+
+  test('Should throw ServerError if HttpClient returns 500', async () => {
+    const { sut, httpClientSpy } = makeSut()
+    httpClientSpy.result = {
+      statusCode: HttpStatusCode.serverError,
+      error: 'any_error'
+    }
+    const promise = sut.auth(mockAuthenticationParams())
+    expect(promise).rejects.toThrowError(new ServerError())
   })
 })
