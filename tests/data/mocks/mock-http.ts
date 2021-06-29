@@ -7,11 +7,6 @@ export const mockHttpRequest = (): HttpRequest => ({
   body: faker.random.objectElement()
 })
 
-export const mockHttpResponse = (): any => ({
-  data: faker.random.objectElement(),
-  status: faker.datatype.number()
-})
-
 export class HttpClientSpy implements HttpClient {
   data: HttpRequest
   result: HttpResponse = ({
