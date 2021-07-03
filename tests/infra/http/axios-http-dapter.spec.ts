@@ -6,7 +6,7 @@ import { mockAxios, mockHttpResponse } from '@/tests/infra/mocks'
 jest.mock('axios')
 
 type SutTypes = {
-  sut: AxiosHttpAdapter,
+  sut: AxiosHttpAdapter
   mockedAxios: jest.Mocked<typeof axios>
 }
 

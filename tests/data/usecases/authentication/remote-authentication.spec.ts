@@ -7,7 +7,7 @@ import { mockAuthenticationParams } from '@/tests/domain/mocks'
 import faker from 'faker'
 
 type SutTypes = {
-  sut: RemoteAuthentication,
+  sut: RemoteAuthentication
   httpClientSpy: HttpClientSpy
 }
 
