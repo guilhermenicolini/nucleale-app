@@ -1,10 +1,11 @@
 module.exports = {
-  coverageDirectory: 'coverage',
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{ts,tsx}',
     '!<rootDir>/src/**/index.ts',
     '!**/*.d.ts'
   ],
+  coverageDirectory: 'coverage',
+  testEnvironment: 'jsdom',
   transform: {
     '.+\\.(ts|tsx)$': 'ts-jest'
   },
