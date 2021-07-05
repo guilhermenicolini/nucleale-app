@@ -9,8 +9,8 @@
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "jsx": "react",
-    "rootDir": "src",
+    "jsx": "react-jsx",
+    "rootDir": ".",
     "baseUrl": "src",
     "allowJs": true,
     "removeComments": true,
@@ -22,6 +22,7 @@
     },
   },
   "include": [
-    "src"
+    "src",
+    "tests"
   ]
 }

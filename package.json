@@ -9,7 +9,8 @@
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
     "prepare": "husky install",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "storybook": "start-storybook"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,10 @@
   },
   "homepage": "https://github.com/guilhermenicolini/nucleale-app#readme",
   "devDependencies": {
+    "@storybook/addon-essentials": "^6.3.2",
+    "@storybook/builder-webpack5": "^6.4.0-alpha.11",
+    "@storybook/manager-webpack5": "^6.4.0-alpha.11",
+    "@storybook/react": "^6.3.2",
     "@types/axios": "^0.14.0",
     "@types/faker": "^5.5.6",
     "@types/jest": "^26.0.23",
