@@ -1,13 +1,14 @@
 import ReactDOM from 'react-dom'
-import { Fragment } from 'react'
 import { Normalize } from '@/presentation/styles/normalize'
 import { GlobalStyle } from '@/presentation/styles/global'
+import { ThemeProvider } from 'styled-components'
+import { defaultTheme } from '@/presentation/styles/theme'
 
 ReactDOM.render(
-  <Fragment>
+  <ThemeProvider theme={defaultTheme}>
     <Normalize />
     <GlobalStyle />
     <div>App running</div>
-  </Fragment>,
+  </ThemeProvider>,
   document.getElementById('main')
 )

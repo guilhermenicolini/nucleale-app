@@ -1,9 +1,9 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, Theme } from 'styled-components'
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
   * {
-    font-family: 'Roboto', sans-serif;
-    font-size: 64px;
+    font-family: ${({ theme }) => theme.general.fontFamily};
+    font-size: ${({ theme }) => theme.general.fontSize};
     padding: 0;
     margin: 0;
     box-sizing: border-box;
