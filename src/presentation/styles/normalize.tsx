@@ -1,6 +1,6 @@
-import { createGlobalStyles } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
-export const Normalize = createGlobalStyles`
+export const Normalize = createGlobalStyle`
   html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */

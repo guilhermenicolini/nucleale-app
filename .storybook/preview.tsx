@@ -1,4 +1,13 @@
-import React from 'react';
-import { addDecorator } from '@storybook/react';
+import React, { Fragment } from 'react';
+import { Normalize } from '../src/presentation/styles/normalize'
+import { GlobalStyle } from '../src/presentation/styles/global'
 
-addDecorator((story) => <div style={{ background: 'pink' }}>{story()}</div>);
+export const decorators = [
+  (Story) => (
+    <Fragment>
+      <Normalize />
+      <GlobalStyle />
+      <Story />
+    </Fragment>
+  )
+]
