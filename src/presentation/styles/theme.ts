@@ -25,5 +25,72 @@ export const defaultTheme: Theme = {
       mediumEmphasis: 'rgba(0, 0, 0, 0.6)',
       disabled: 'rgba(0, 0, 0, 0.38)'
     }
+  },
+  typography: {
+    headline1: {
+      'font-size': '96px',
+      'font-weight': '300',
+      'line-height': '-1.5'
+    },
+    headline2: {
+      'font-size': '60px',
+      'font-weight': '300',
+      'line-height': '-0.5'
+    },
+    headline3: {
+      'font-size': '48px',
+      'font-weight': '400',
+      'line-height': '0'
+    },
+    headline4: {
+      'font-size': '34px',
+      'font-weight': '400',
+      'line-height': '0.25'
+    },
+    headline5: {
+      'font-size': '24px',
+      'font-weight': '400',
+      'line-height': '0'
+    },
+    headline6: {
+      'font-size': '20px',
+      'font-weight': '500',
+      'line-height': '0.15'
+    },
+    subtitle1: {
+      'font-size': '16px',
+      'font-weight': '400',
+      'line-height': '0.15'
+    },
+    subtitle2: {
+      'font-size': '14px',
+      'font-weight': '500',
+      'line-height': '0.1'
+    },
+    body1: {
+      'font-size': '16px',
+      'font-weight': '400',
+      'line-height': '0.5'
+    },
+    body2: {
+      'font-size': '14px',
+      'font-weight': '400',
+      'line-height': '0.25'
+    },
+    button: {
+      'font-size': '14px',
+      'font-weight': '500',
+      'line-height': '1.25'
+    },
+    caption: {
+      'font-size': '12px',
+      'font-weight': '400',
+      'line-height': '0.4'
+    },
+    overline: {
+      'font-size': '10px',
+      'font-weight': '400',
+      'line-height': '1.5'
+    }
   }
 }
