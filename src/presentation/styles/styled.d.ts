@@ -4,13 +4,13 @@ declare module 'styled-components' {
   export interface ThemeTypography {
     'font-size': string
     'font-weight': string
-    'line-height': string
   }
 
   export interface Theme {
     general: {
       fontFamily: string
       fontSize: string
+      borderRadius: string
     }
     colors: {
       palette: {
@@ -21,6 +21,7 @@ declare module 'styled-components' {
         success: string
         info: string
         placeHolder: string
+        form: string
       }
       light: {
         highEmphasis: string
