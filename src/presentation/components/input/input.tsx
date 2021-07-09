@@ -1,5 +1,5 @@
 import styled, { Theme } from 'styled-components'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { BaseInput } from '@/presentation/components/base'
 
 export interface InputProps {
