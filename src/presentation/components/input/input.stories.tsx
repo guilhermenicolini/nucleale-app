@@ -1,18 +1,35 @@
-import Input from './input'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import Input, { InputProps } from './input'
+import { Story, Meta } from '@storybook/react'
 
-const Meta: ComponentMeta<typeof Input> = {
-  title: 'Input'
+const meta: Meta = {
+  title: 'Components/Input',
+  component: Input
 }
 
-export default Meta
+export default meta
 
-const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />
+const Template: Story<InputProps> = (args) => <Input {...args} />
 
-export const Primary = Template.bind({})
-Primary.args = {
-  label: 'Label',
-  placeholder: 'Placeholder',
+export const Default = Template.bind({})
+Default.args = {
+  label: 'InputText',
+  required: false,
+  placeholder: 'Default',
   value: '',
-  error: ''
+  touched: false,
+  error: '',
+  disabled: false
+}
+
+export const Disabled = Template.bind({})
+Disabled.args = {
+  ...Default.args,
+  disabled: true
+}
+
+export const Invalid = Template.bind({})
+Invalid.args = {
+  ...Default.args,
+  touched: true,
+  error: 'Campo inválido'
 }
