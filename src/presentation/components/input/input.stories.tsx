@@ -31,5 +31,5 @@ export const Invalid = Template.bind({})
 Invalid.args = {
   ...Default.args,
   touched: true,
-  error: 'Campo inválido'
+  error: 'Invalid field'
 }
