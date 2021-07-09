@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const BaseInputLabel = styled.label`
+export const BaseFieldLabel = styled.label`
   ${(props) => props.theme.typography.subtitle1}
   color: ${(props) => props.theme.colors.dark.highEmphasis};
   &.invalid {
