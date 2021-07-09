@@ -1,7 +1,7 @@
 import { lighten } from '@/presentation/styles/utils'
 import styled from 'styled-components'
 
-export const BaseInput = styled.input`
+export const BaseField = styled.input`
   min-width: 230px;
   height: 30px;
   border-radius: ${(props) => props.theme.general.borderRadius};
