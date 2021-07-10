@@ -11,11 +11,8 @@ export const BaseField = styled.input`
   transition: background-color .2s,color .2s,border-color .2s,box-shadow .2s;
   color: ${(props) => props.theme.colors.dark.highEmphasis};
 
-  ::placeholder:enabled {
-    color: ${(props) => props.theme.colors.palette.placeHolder};
-  }
-  ::placeholder:disabled {
-    color: ${(props) => props.theme.colors.dark.disabled};
+  ::placeholder {
+    color: ${(props) => props.theme.colors.palette.placeholder};
   }
   &:enabled.invalid {
     border-color: ${(props) => props.theme.colors.palette.danger};
