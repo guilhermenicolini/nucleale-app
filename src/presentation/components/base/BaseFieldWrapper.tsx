@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const BaseFieldWrapper = styled.div`
+export const BaseFieldWrapper = styled.div<any>`
   margin-bottom: 8px;
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@ export const BaseFieldWrapper = styled.div`
 
   & svg {
     position: absolute;
-    top: 23px;
+    top: ${(props) => props.hasLabel ? '23px' : '5px'};
     right: 5px;
   }
 `

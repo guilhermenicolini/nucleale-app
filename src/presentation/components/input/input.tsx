@@ -14,8 +14,8 @@ export interface InputProps {
 const Input: FC<InputProps> = (props: InputProps) => {
   const isInvalid = props.touched && props.error?.length > 0
   return (
-    <BaseFieldWrapper>
-      <BaseFieldLabel className={isInvalid ? 'invalid' : ''}>{props.label}{props.required ? ' *' : '' }</BaseFieldLabel>
+    <BaseFieldWrapper hasLabel={props.label?.length > 0}>
+      {props.label ? <BaseFieldLabel className={isInvalid ? 'invalid' : ''}>{props.label}{props.required ? ' *' : '' }</BaseFieldLabel> : ''}
       <BaseField
         type="text"
         placeholder={props.placeholder}
