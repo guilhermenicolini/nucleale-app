@@ -4,21 +4,45 @@ export const defaultTheme: Theme = {
   general: {
     fontFamily: "'Roboto', sans-serif",
     fontSize: '14px',
-    borderRadius: '3px'
+    borderRadius: '5px',
+    placeHolder: 'rgba(0, 0, 0, 0.38)',
+    form: 'rgb(206, 212, 218)'
   },
   colors: {
     palette: {
-      primary: '#E8ACC2',
-      secondary: '#878787',
-      danger: '#FF4444',
-      warning: '#FFBB33',
-      success: '#00C851',
-      info: '#33B5E5',
-      placeHolder: 'rgba(0, 0, 0, 0.4)',
-      form: '#CED4DA'
+      primary: {
+        color: 'rgb(232, 172, 194)',
+        lighten: 10,
+        darken: 5
+      },
+      secondary: {
+        color: 'rgb(232, 221, 172)',
+        lighten: 10,
+        darken: 5
+      },
+      danger: {
+        color: 'rgb(255, 68, 68)',
+        lighten: 60,
+        darken: 5
+      },
+      warning: {
+        color: 'rgb(255, 187, 51)',
+        lighten: 60,
+        darken: 5
+      },
+      success: {
+        color: 'rgb(0, 200, 81)',
+        lighten: 20,
+        darken: 5
+      },
+      info: {
+        color: 'rgb(51, 181, 229)',
+        lighten: 20,
+        darken: 5
+      }
     },
     light: {
-      highEmphasis: '#FFFFFF',
+      highEmphasis: 'rgba(255, 255, 255, 1)',
       mediumEmphasis: 'rgba(255, 255, 255, .74)',
       disabled: 'rgba(255, 255, 255, .34)'
     },

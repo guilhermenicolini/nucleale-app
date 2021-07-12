@@ -6,22 +6,28 @@ declare module 'styled-components' {
     'font-weight': string
   }
 
+  export interface Palette {
+    color: string
+    lighten: number
+    darken: number
+  }
+
   export interface Theme {
     general: {
       fontFamily: string
       fontSize: string
       borderRadius: string
+      placeHolder: string
+      form: string
     }
     colors: {
       palette: {
-        primary: string
-        secondary: string
-        danger: string
-        warning: string
-        success: string
-        info: string
-        placeHolder: string
-        form: string
+        primary: Palette
+        secondary: Palette
+        danger: Palette
+        warning: Palette
+        success: Palette
+        info: Palette
       }
       light: {
         highEmphasis: string
