@@ -55,5 +55,8 @@ declare module 'styled-components' {
       caption: ThemeTypography
       overline: ThemeTypography
     }
+    zIndex: {
+      fab: number
+    }
   }
 }

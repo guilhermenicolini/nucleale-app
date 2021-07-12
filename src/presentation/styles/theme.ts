@@ -105,5 +105,8 @@ export const defaultTheme: Theme = {
       'font-size': '10px',
       'font-weight': '400'
     }
+  },
+  zIndex: {
+    fab: 100
   }
 }
