@@ -23,8 +23,11 @@ const StyledFab = styled.button`
   color: ${(props) => contrast(props.theme.colors.palette[props.color].color)};
   cursor: pointer;
 
-  & svg path {
-    fill: ${(props) => contrast(props.theme.colors.palette[props.color].color)};
+  & svg {
+    width: 23px;
+    & path {
+      fill: ${(props) => contrast(props.theme.colors.palette[props.color].color)};
+    }
   }
 
   &:hover:not(:disabled) {
