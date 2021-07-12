@@ -4,6 +4,7 @@ import styled from 'styled-components'
 export const BaseButton = styled.button`
   ${(props) => props.theme.typography.button}
   min-width: 230px;
+  width: 100%;
   height: 40px;
   border-radius: ${(props) => props.theme.general.borderRadius};
   border: none;
