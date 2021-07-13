@@ -1,2 +1,6 @@
 export * from './AddIcon'
+export * from './DangerIcon'
+export * from './InfoIcon'
 export * from './SearchIcon'
+export * from './SuccessIcon'
+export * from './WarningIcon'

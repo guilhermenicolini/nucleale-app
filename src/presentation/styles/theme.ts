@@ -6,7 +6,8 @@ export const defaultTheme: Theme = {
     fontSize: '14px',
     borderRadius: '5px',
     placeHolder: 'rgba(0, 0, 0, 0.38)',
-    form: 'rgb(206, 212, 218)'
+    form: 'rgb(206, 212, 218)',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'
   },
   colors: {
     palette: {
@@ -23,22 +24,22 @@ export const defaultTheme: Theme = {
       danger: {
         color: 'rgb(255, 68, 68)',
         lighten: 60,
-        darken: 5
+        darken: 15
       },
       warning: {
         color: 'rgb(255, 187, 51)',
         lighten: 60,
-        darken: 5
+        darken: 15
       },
       success: {
         color: 'rgb(0, 200, 81)',
         lighten: 20,
-        darken: 5
+        darken: 15
       },
       info: {
         color: 'rgb(51, 181, 229)',
         lighten: 20,
-        darken: 5
+        darken: 15
       }
     },
     light: {
@@ -107,6 +108,7 @@ export const defaultTheme: Theme = {
     }
   },
   zIndex: {
-    fab: 100
+    fab: 100,
+    alert: 120
   }
 }

@@ -19,6 +19,7 @@ declare module 'styled-components' {
       borderRadius: string
       placeHolder: string
       form: string
+      boxShadow: string
     }
     colors: {
       palette: {
@@ -57,6 +58,7 @@ declare module 'styled-components' {
     }
     zIndex: {
       fab: number
+      alert: number
     }
   }
 }
