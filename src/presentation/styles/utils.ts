@@ -18,6 +18,7 @@ export const lighten = (color: string, amount: number): string => {
 }
 
 export const darken = (color: string, amount: number): string => {
+  if (!color) return null
   const values = extractRgbColors(color)
   return adjust(values[0], values[1], values[2], 1 - (amount / 100))
 }

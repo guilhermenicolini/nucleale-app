@@ -1,5 +1,7 @@
 import Card, { CardProps } from './Card'
+import IconButton from '../icon-button/IconButton'
 import { Story, Meta } from '@storybook/react'
+import { DownloadIcon, DeleteIcon } from '../icons'
 
 const meta: Meta = {
   title: 'Components/Card',
@@ -8,7 +10,15 @@ const meta: Meta = {
 
 export default meta
 
-const Template: Story<CardProps> = (args) => <Card {...args}><div>#1</div><div>#2</div></Card>
+const Template: Story<CardProps> = (args) =>
+  <Card {...args}>
+    <IconButton color={args.color}>
+      <DownloadIcon />
+    </IconButton>
+    <IconButton color="danger">
+      <DeleteIcon />
+    </IconButton>
+  </Card>
 
 export const Default = Template.bind({})
 Default.args = {
