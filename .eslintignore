@@ -3,3 +3,4 @@ coverage
 .eslintcache
 public
 *.scss
+sb
