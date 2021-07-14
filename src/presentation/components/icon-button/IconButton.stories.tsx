@@ -1,6 +1,6 @@
 import IconButton, { IconButtonProps } from './IconButton'
 import { Story, Meta } from '@storybook/react'
-import { AddIcon } from '@/presentation/components/icons'
+import { DeleteIcon } from '@/presentation/components/icons'
 
 const meta: Meta = {
   title: 'Components/IconButton',
@@ -9,7 +9,7 @@ const meta: Meta = {
 
 export default meta
 
-const Template: Story<IconButtonProps> = (args) => <IconButton {...args}><AddIcon /></IconButton>
+const Template: Story<IconButtonProps> = (args) => <IconButton {...args}><DeleteIcon /></IconButton>
 
 export const Primary = Template.bind({})
 Primary.args = {
