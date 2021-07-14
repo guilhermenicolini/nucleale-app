@@ -52,3 +52,9 @@ Disabled.args = {
   ...Primary.args,
   disabled: true
 }
+
+export const Block = Template.bind({})
+Block.args = {
+  ...Primary.args,
+  block: true
+}

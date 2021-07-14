@@ -5,14 +5,15 @@ import { FC } from 'react'
 export interface ButtonProps {
   label: string
   color?: 'primary' | 'secondary' | 'danger' | 'warning' | 'success' | 'info'
+  block?: boolean
   disabled?: boolean
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<any>`
   ${(props) => props.theme.typography.button}
   text-transform: capitalize;
-  min-width: 230px;
-  width: 100%;
+  ${(props) => props.block ? 'min-width: 230px;' : ''};
+  ${(props) => props.block ? 'width: 100%;' : ''};
   height: 40px;
   border-radius: ${(props) => props.theme.general.borderRadius};
   border: none;
@@ -20,6 +21,7 @@ const StyledButton = styled.button`
   background-color: ${(props) => props.theme.colors.palette[props.color].color};
   color: ${(props) => contrast(props.theme.colors.palette[props.color].color)};
   cursor: pointer;
+  padding: 0 10px;
 
   &:hover:not(:disabled) {
     background-color: ${(props) => darken(props.theme.colors.palette[props.color].color, props.theme.colors.palette[props.color].darken)};
@@ -37,7 +39,12 @@ const StyledButton = styled.button`
 
 const Button: FC<ButtonProps> = (props: ButtonProps) => {
   return (
-    <StyledButton disabled={props.disabled} color={props.color} >{props.label}</StyledButton>
+    <StyledButton
+      disabled={props.disabled}
+      color={props.color}
+      block={props.block}>
+      {props.label}
+    </StyledButton>
   )
 }
 export default Button
