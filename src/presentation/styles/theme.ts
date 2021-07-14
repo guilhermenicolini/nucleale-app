@@ -109,6 +109,10 @@ export const defaultTheme: Theme = {
   },
   zIndex: {
     fab: 100,
-    alert: 120
+    alert: 120,
+    modal: 140
+  },
+  breakPoint: {
+    mobile: 320
   }
 }

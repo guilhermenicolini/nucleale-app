@@ -59,6 +59,10 @@ declare module 'styled-components' {
     zIndex: {
       fab: number
       alert: number
+      modal: number
+    }
+    breakPoint: {
+      mobile: number
     }
   }
 }
