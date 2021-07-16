@@ -6,6 +6,7 @@ import { ModalSeparator } from './ModalSeparator'
 import { ModalContent } from './ModalContent'
 import { ModalActions } from './ModalActions'
 import Button from '../button/Button'
+import { CSSTransition } from 'react-transition-group'
 
 export interface ModalProps {
   title: string
@@ -15,20 +16,18 @@ export interface ModalProps {
 }
 
 const Modal: FC<ModalProps> = (props: ModalProps) => {
-  return props.show
-    ? (
-    <ModalOverlay>
-      <ModalWrapper>
-        <ModalTitle>{props.title}</ModalTitle>
-        <ModalSeparator />
-        <ModalContent>{props.content}</ModalContent>
-        <ModalActions>
-          <Button label="Yes" color="danger" />
-          <Button label="No" color="secondary" />
-        </ModalActions>
-      </ModalWrapper>
-    </ModalOverlay>
-      )
-    : null
+  return <CSSTransition in={props.show} timeout={200} unmountOnExit classNames="fade">
+      <ModalOverlay>
+        <ModalWrapper>
+          <ModalTitle>{props.title}</ModalTitle>
+          <ModalSeparator />
+          <ModalContent>{props.content}</ModalContent>
+          <ModalActions>
+            <Button label="Yes" color="danger" />
+            <Button label="No" color="secondary" />
+          </ModalActions>
+        </ModalWrapper>
+      </ModalOverlay>
+    </CSSTransition>
 }
 export default Modal
