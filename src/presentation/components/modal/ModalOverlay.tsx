@@ -13,19 +13,35 @@ export const ModalOverlay = styled.div`
   align-items: center;
   transition: all .3s ease-in-out;
 
+  & > div {
+    transition: all .2s ease-in;
+  }
+
   &.fade-enter {
     opacity: 0;
+    & > div {
+      transform: scale(0.1);
+    }
   }
 
   &.fade-enter-active {
     opacity: 1;
+    & > div {
+      transform: scale(1);
+    }
   }
 
   &.fade-exit {
     opacity: 1;
+    & > div {
+      transform: scale(1);
+    }
   }
 
   &.fade-exit-active {
     opacity: 0;
+    & > div {
+      transform: scale(0.1);
+    }
   }
 `
