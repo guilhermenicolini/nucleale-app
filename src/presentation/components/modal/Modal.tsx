@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ModalOverlay } from './ModalOverlay'
+import { BaseOverlay } from '../base/BaseOverlay'
 import { ModalWrapper } from './ModalWrapper'
 import { ModalTitle } from './ModalTitle'
 import { ModalSeparator } from './ModalSeparator'
@@ -7,6 +7,7 @@ import { ModalContent } from './ModalContent'
 import { ModalActions } from './ModalActions'
 import Button from '../button/Button'
 import { CSSTransition } from 'react-transition-group'
+import { defaultTheme } from '@/presentation/styles/theme'
 
 export interface ModalProps {
   title: string
@@ -17,7 +18,7 @@ export interface ModalProps {
 
 const Modal: FC<ModalProps> = (props: ModalProps) => {
   return <CSSTransition in={props.show} timeout={200} unmountOnExit classNames="fade">
-      <ModalOverlay>
+      <BaseOverlay zIndex={defaultTheme.zIndex.modal}>
         <ModalWrapper>
           <ModalTitle>{props.title}</ModalTitle>
           <ModalSeparator />
@@ -27,7 +28,7 @@ const Modal: FC<ModalProps> = (props: ModalProps) => {
             <Button label="No" color="secondary" />
           </ModalActions>
         </ModalWrapper>
-      </ModalOverlay>
+      </BaseOverlay>
     </CSSTransition>
 }
 export default Modal

@@ -60,6 +60,7 @@ declare module 'styled-components' {
       fab: number
       alert: number
       modal: number
+      spinner: number
     }
     breakPoint: {
       mobile: number

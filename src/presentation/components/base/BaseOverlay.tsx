@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-export const ModalOverlay = styled.div`
+export const BaseOverlay = styled.div<any>`
   position: fixed;
-  z-index: ${(props) => props.theme.zIndex.modal};
+  z-index: ${(props) => props.zIndex};
   top: 0;
   left: 0;
   width: 100%;
