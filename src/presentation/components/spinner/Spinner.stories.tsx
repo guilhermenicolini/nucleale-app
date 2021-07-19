@@ -12,5 +12,5 @@ const Template: Story<SpinnerProps> = (args) => <Spinner {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
-  show: true
+  isLoading: true
 }

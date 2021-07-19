@@ -32,11 +32,11 @@ export const StyledSpinner = styled.div`
 `
 
 export interface SpinnerProps {
-  show?: boolean
+  isLoading?: boolean
 }
 
 const Spinner: FC<SpinnerProps> = (props: SpinnerProps) => {
-  return <CSSTransition in={props.show} timeout={200} unmountOnExit classNames="fade">
+  return <CSSTransition in={props.isLoading} timeout={200} unmountOnExit classNames="fade">
       <BaseOverlay zIndex={defaultTheme.zIndex.spinner}>
         <StyledSpinner />
       </BaseOverlay>
