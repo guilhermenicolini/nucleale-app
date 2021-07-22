@@ -7,6 +7,7 @@ export interface ButtonProps {
   color?: 'primary' | 'secondary' | 'danger' | 'warning' | 'success' | 'info'
   block?: boolean
   disabled?: boolean
+  onClick?: (e?: React.MouseEvent) => void
 }
 
 const StyledButton = styled.button<any>`
@@ -41,8 +42,9 @@ const Button: FC<ButtonProps> = (props: ButtonProps) => {
   return (
     <StyledButton
       disabled={props.disabled}
-      color={props.color}
-      block={props.block}>
+      color={props.color || 'primary'}
+      block={props.block}
+      onClick={props.onClick}>
       {props.label}
     </StyledButton>
   )
