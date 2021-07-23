@@ -5,7 +5,6 @@ import { contrast, darken, lighten } from '@/presentation/styles/utils'
 export type ButtonProps = {
   variant?: Variants
   block?: boolean
-  disabled?: boolean
 }
 
 const buttonColorModifier = (variant: string, theme: Theme): any => css`
