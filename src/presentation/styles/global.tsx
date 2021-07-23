@@ -9,6 +9,9 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
     margin: 0;
     box-sizing: border-box;
 
+    .Toastfy__toast {
+      box-shadow: ${(props) => props.theme.general.boxShadow};
+    }
     .Toastify__toast--info {
       background-color: ${({ theme }) => theme.colors.palette.info.color};
     }
@@ -17,6 +20,10 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
     }
     .Toastify__toast--warning {
       background-color: ${({ theme }) => theme.colors.palette.warning.color};
+      color: ${({ theme }) => theme.colors.dark.highEmphasis};
+      & svg path {
+        fill: ${({ theme }) => theme.colors.dark.highEmphasis};
+      }
     }
     .Toastify__toast--error {
       background-color: ${({ theme }) => theme.colors.palette.danger.color};
