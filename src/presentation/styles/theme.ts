@@ -1,5 +1,7 @@
 import { Theme } from 'styled-components'
 
+export type Variants = 'primary' | 'secondary' | 'danger' | 'warning' | 'success' | 'info'
+
 export const defaultTheme: Theme = {
   general: {
     fontFamily: "'Roboto', sans-serif",

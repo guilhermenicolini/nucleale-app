@@ -1,4 +1,4 @@
-import Button from '../button/Button'
+import { Button } from '../button/Button'
 import { Story, Meta } from '@storybook/react'
 import { toast } from 'react-toastify'
 
@@ -27,7 +27,7 @@ const clicks = {
 
 export default meta
 
-const Template: Story<ToastrProps> = (args) => <Button label="Show" onClick={clicks[args.variant]} />
+const Template: Story<ToastrProps> = (args) => <Button label="Show" variant={args.variant} onClick={clicks[args.variant]} />
 
 export const Default = Template.bind({})
 Default.args = {

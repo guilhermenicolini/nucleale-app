@@ -1,4 +1,4 @@
-import Button, { ButtonProps } from './Button'
+import { Button, ButtonProps } from './Button'
 import { Story, Meta } from '@storybook/react'
 
 const meta: Meta = {
@@ -8,43 +8,43 @@ const meta: Meta = {
 
 export default meta
 
-const Template: Story<ButtonProps> = (args) => <Button {...args} />
+const Template: Story<ButtonProps> = (args) => <Button {...args}>Label</Button>
 
 export const Primary = Template.bind({})
 Primary.args = {
-  label: 'Label',
-  color: 'primary',
-  disabled: false
+  variant: 'primary',
+  disabled: false,
+  block: false
 }
 
 export const Secondary = Template.bind({})
 Secondary.args = {
   ...Primary.args,
-  color: 'secondary'
+  variant: 'secondary'
 }
 
 export const Danger = Template.bind({})
 Danger.args = {
   ...Primary.args,
-  color: 'danger'
+  variant: 'danger'
 }
 
 export const Warning = Template.bind({})
 Warning.args = {
   ...Primary.args,
-  color: 'warning'
+  variant: 'warning'
 }
 
 export const Success = Template.bind({})
 Success.args = {
   ...Primary.args,
-  color: 'success'
+  variant: 'success'
 }
 
 export const Info = Template.bind({})
 Info.args = {
   ...Primary.args,
-  color: 'info'
+  variant: 'info'
 }
 
 export const Disabled = Template.bind({})
