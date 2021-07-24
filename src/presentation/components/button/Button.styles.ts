@@ -1,25 +1,10 @@
-import styled, { css, Theme } from 'styled-components'
-import { Variants } from '@/presentation/styles/theme'
+import styled, { css } from 'styled-components'
 import { contrast, darken, lighten } from '@/presentation/styles/utils'
+import { ButtonProps } from './Button'
 
-export type ButtonProps = {
-  variant?: Variants
-  block?: boolean
-}
+type StyledProps = Pick<ButtonProps, 'variant' | 'block'>
 
-const buttonColorModifier = (variant: string, theme: Theme): any => css`
-  background-color: ${theme.colors.palette[variant].color};
-  color: ${contrast(theme.colors.palette.primary.color)};
-
-  &:hover:not(:disabled) {
-    background-color: ${darken(theme.colors.palette.primary.color, theme.colors.palette.primary.darken)};
-  }
-  &:focus:not(:disabled) {
-    box-shadow: 0 0 0 0.15rem ${lighten(theme.colors.palette.primary.color, theme.colors.palette.primary.lighten)};
-  }
-`
-
-export const Button = styled.button<ButtonProps>`
+export const Button = styled.button<StyledProps>`
   ${({ theme, variant = 'primary', block = false }) => css`
     ${theme.typography.button}
     text-transform: capitalize;
@@ -31,8 +16,14 @@ export const Button = styled.button<ButtonProps>`
     padding: 0 10px;
     ${block ? 'min-width: 230px;' : ''}
     ${block ? 'width: 100%;' : ''}
+    background-color: ${theme.colors.palette[variant].color};
+    color: ${contrast(theme.colors.palette[variant].color)};
 
+    &:hover:not(:disabled) {
+      background-color: ${darken(theme.colors.palette[variant].color, theme.colors.palette[variant].darken)};
+    }
     &:focus:not(:disabled) {
+      box-shadow: 0 0 0 0.15rem ${lighten(theme.colors.palette[variant].color, theme.colors.palette[variant].lighten)};
       outline: 0 none;
       outline-offset: 0;
     }
@@ -40,7 +31,5 @@ export const Button = styled.button<ButtonProps>`
       opacity: 0.6;
       cursor: not-allowed;
     }
-
-    ${buttonColorModifier(variant, theme)}
   `}
 `

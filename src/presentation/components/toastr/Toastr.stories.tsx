@@ -27,7 +27,7 @@ const clicks = {
 
 export default meta
 
-const Template: Story<ToastrProps> = (args) => <Button label="Show" variant={args.variant} onClick={clicks[args.variant]} />
+const Template: Story<ToastrProps> = (args) => <Button variant={args.variant} onClick={clicks[args.variant]}>Show toastr</Button>
 
 export const Default = Template.bind({})
 Default.args = {

@@ -24,8 +24,8 @@ const Modal: FC<ModalProps> = (props: ModalProps) => {
         <ModalSeparator />
         <ModalContent>{props.content}</ModalContent>
         <ModalActions>
-          <Button label="Yes" variant="danger" />
-          <Button label="No" variant="secondary" />
+          <Button variant="danger">Yes</Button>
+          <Button variant="secondary">No</Button>
         </ModalActions>
       </ModalWrapper>
     </BaseOverlay>
