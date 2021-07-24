@@ -12,7 +12,7 @@ export default meta
 
 const Template: Story<CardProps> = (args) =>
   <Card {...args}>
-    <IconButton color={args.color}>
+    <IconButton color={args.variant}>
       <DownloadIcon />
     </IconButton>
     <IconButton color="danger">
@@ -30,35 +30,35 @@ Default.args = {
 export const Primary = Template.bind({})
 Primary.args = {
   ...Default.args,
-  color: 'primary'
+  variant: 'primary'
 }
 
 export const Secondary = Template.bind({})
 Secondary.args = {
   ...Default.args,
-  color: 'secondary'
+  variant: 'secondary'
 }
 
 export const Danger = Template.bind({})
 Danger.args = {
   ...Default.args,
-  color: 'danger'
+  variant: 'danger'
 }
 
 export const Warning = Template.bind({})
 Warning.args = {
   ...Default.args,
-  color: 'warning'
+  variant: 'warning'
 }
 
 export const Success = Template.bind({})
 Success.args = {
   ...Default.args,
-  color: 'success'
+  variant: 'success'
 }
 
 export const Info = Template.bind({})
 Info.args = {
   ...Default.args,
-  color: 'info'
+  variant: 'info'
 }

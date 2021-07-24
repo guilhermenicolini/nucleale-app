@@ -1,28 +1,25 @@
 import { FC } from 'react'
-import { CardWrapper } from './CardWrapper'
-import { CardSubtitle } from './CardSubtitle'
-import { CardTitle } from './CardTitle'
-import { CardContent } from './CardContent'
-import { CardActions } from './CardActions'
+import { Variants } from '@/presentation/styles/theme'
+import * as S from './Card.styles'
 
-export interface CardProps {
-  color?: 'primary' | 'secondary' | 'danger' | 'warning' | 'success' | 'info'
+export type CardProps = {
+  variant?: Variants
   title: string
   subtitle: string
   content: string
-  children?: any
+  children?: React.ReactNode
 }
 
 const Card: FC<CardProps> = (props: CardProps) => {
   return (
-    <CardWrapper color={props.color}>
-      <CardSubtitle>{props.subtitle}</CardSubtitle>
-      <CardTitle>{props.title}</CardTitle>
-      <CardContent>{props.content}</CardContent>
-      <CardActions>
+    <S.Wrapper variant={props.variant}>
+      <S.Subtitle>{props.subtitle}</S.Subtitle>
+      <S.Title>{props.title}</S.Title>
+      <S.Content>{props.content}</S.Content>
+      <S.Actions>
         {props.children}
-      </CardActions>
-    </CardWrapper>
+      </S.Actions>
+    </S.Wrapper>
   )
 }
 export default Card

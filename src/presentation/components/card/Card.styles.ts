@@ -1,20 +1,49 @@
-import styled from 'styled-components'
-// import { Variants } from '@/presentation/styles/theme'
-// import { contrast, darken, lighten } from '@/presentation/styles/utils'
+import styled, { css } from 'styled-components'
+import { CardProps } from './Card'
 
-export type CardProps = {
-  color?: 'primary' | 'secondary' | 'danger' | 'warning' | 'success' | 'info'
-  title: string
-  subtitle: string
-  content: string
-  children?: any
-}
+type StyledProps = Pick<CardProps, 'variant'>
 
-export const Wrapper = styled.div`
-  position: relative;
-  background-color: ${(props) => props.theme.colors.light.highEmphasis};
-  box-shadow: ${(props) => props.theme.general.boxShadow};
-  border-radius: ${(props) => props.theme.general.borderRadius};
-  padding: 10px;
-  border-left: 10px solid ${(props) => props.theme.colors.palette[props.color]?.color || 'transparent'}
+export const Wrapper = styled.div<StyledProps>`
+  ${({ theme, variant }) => css`
+    position: relative;
+    background-color: ${theme.colors.light.highEmphasis};
+    box-shadow: ${theme.general.boxShadow};
+    border-radius: ${theme.general.borderRadius};
+    padding: 10px;
+    border-left: 10px solid ${theme.colors.palette[variant]?.color || 'transparent'};
+  `}
+`
+
+export const Subtitle = styled.div`
+  ${({ theme }) => css`
+    ${theme.typography.overline};
+    color: ${theme.colors.dark.highEmphasis};
+    margin-bottom: 5px;
+  `}
+`
+export const Title = styled.div`
+  ${({ theme }) => css`
+    ${theme.typography.headline6};
+    color: ${theme.colors.dark.highEmphasis};
+  `}
+`
+
+export const Content = styled.div`
+  ${({ theme }) => css`
+    ${theme.typography.body2};
+    color: ${theme.colors.dark.mediumEmphasis};
+    margin-top: 5px;
+  `}
+`
+
+export const Actions = styled.div`
+  position: absolute;
+  display: flex;
+  top: 10px;
+  right: 10px;
+
+  & > * {
+    margin: 0 3px;
+  }
+
 `
