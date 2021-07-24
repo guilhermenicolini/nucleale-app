@@ -2,7 +2,7 @@ import { Variants } from '@/presentation/styles/theme'
 import { FC } from 'react'
 import * as S from './Fab.styles'
 
-export interface FabProps {
+export type FabProps = {
   variant?: Variants
   disabled?: boolean
   children?: React.ReactNode
