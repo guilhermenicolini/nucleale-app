@@ -12,10 +12,10 @@ export default meta
 
 const Template: Story<CardProps> = (args) =>
   <Card {...args}>
-    <IconButton color={args.variant}>
+    <IconButton variant={args.variant}>
       <DownloadIcon />
     </IconButton>
-    <IconButton color="danger">
+    <IconButton variant="danger">
       <DeleteIcon />
     </IconButton>
   </Card>
