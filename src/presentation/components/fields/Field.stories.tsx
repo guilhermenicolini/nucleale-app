@@ -1,14 +1,15 @@
-import Input, { InputProps } from './Input'
+import Field, { FieldProps } from './Field'
 import { Story, Meta } from '@storybook/react'
+import { SearchIcon } from '../icons'
 
 const meta: Meta = {
-  title: 'Components/Input',
-  component: Input
+  title: 'Components/Field',
+  component: Field
 }
 
 export default meta
 
-const Template: Story<InputProps> = (args) => <Input {...args} />
+const Template: Story<FieldProps> = (args) => <Field {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
@@ -31,4 +32,10 @@ Invalid.args = {
   ...Default.args,
   touched: true,
   error: 'Invalid field'
+}
+
+export const Icon = Template.bind({})
+Icon.args = {
+  ...Default.args,
+  icon: <SearchIcon />
 }
