@@ -1,10 +1,11 @@
 import React from 'react'
+import { defaultTheme } from '@/presentation/styles/theme'
 
 type MediaType = 'mobile' | 'desktop'
 
 export const useScreenSize = (): MediaType => {
   const getMediaType = (width: number): MediaType => {
-    return width <= 450 ? 'mobile' : 'desktop'
+    return width <= defaultTheme.breakPoint.mobile ? 'mobile' : 'desktop'
   }
 
   const [screen, setScreen] = React.useState<MediaType>(() => getMediaType(window.innerWidth))
