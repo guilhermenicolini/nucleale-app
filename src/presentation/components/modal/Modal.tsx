@@ -1,34 +1,30 @@
 import { FC } from 'react'
-import { BaseOverlay } from '../base/BaseOverlay'
-import { ModalWrapper } from './ModalWrapper'
-import { ModalTitle } from './ModalTitle'
-import { ModalSeparator } from './ModalSeparator'
-import { ModalContent } from './ModalContent'
-import { ModalActions } from './ModalActions'
+import { Overlay } from '../overlay/Overlay.styles'
+import * as S from './Modal.styles'
 import { Button } from '../button/Button'
 import { CSSTransition } from 'react-transition-group'
 import { defaultTheme } from '@/presentation/styles/theme'
 
-export interface ModalProps {
+export type ModalProps = {
   title: string
   content: string
   show?: boolean
-  children?: any
+  children?: React.ReactNode
 }
 
 const Modal: FC<ModalProps> = (props: ModalProps) => {
   return <CSSTransition in={props.show} timeout={200} unmountOnExit classNames="fade">
-    <BaseOverlay zIndex={defaultTheme.zIndex.modal}>
-      <ModalWrapper>
-        <ModalTitle>{props.title}</ModalTitle>
-        <ModalSeparator />
-        <ModalContent>{props.content}</ModalContent>
-        <ModalActions>
+    <Overlay zIndex={defaultTheme.zIndex.modal}>
+      <S.Wrapper>
+        <S.Title>{props.title}</S.Title>
+        <S.Separator />
+        <S.Content>{props.content}</S.Content>
+        <S.Actions>
           <Button variant="danger">Yes</Button>
           <Button variant="secondary">No</Button>
-        </ModalActions>
-      </ModalWrapper>
-    </BaseOverlay>
+        </S.Actions>
+      </S.Wrapper>
+    </Overlay>
   </CSSTransition>
 }
 export default Modal
