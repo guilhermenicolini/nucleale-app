@@ -1,4 +1,4 @@
-import Spinner, { SpinnerProps } from './Spinner'
+import { Spinner, SpinnerProps } from './Spinner'
 import { Story, Meta } from '@storybook/react'
 
 const meta: Meta = {

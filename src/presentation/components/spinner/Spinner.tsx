@@ -1,45 +1,17 @@
-import styled from 'styled-components'
-import { BaseOverlay } from '../base/BaseOverlay'
-import { defaultTheme } from '@/presentation/styles/theme'
-import { CSSTransition } from 'react-transition-group'
 import { FC } from 'react'
+import { Overlay } from '../overlay/Overlay.styles'
+import * as S from './Spinner.styles'
+import { CSSTransition } from 'react-transition-group'
+import { defaultTheme } from '@/presentation/styles/theme'
 
-export const StyledSpinner = styled.div`
-  display: inline-block;
-  width: 80px;
-  height: 80px;
-
-  :after {
-    content: '';
-    display: block;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border-radius: 50%;
-    border: 6px solid ${(props) => props.theme.colors.palette.primary.color};
-    border-color: ${(props) => props.theme.colors.palette.primary.color} transparent ${(props) => props.theme.colors.palette.primary.color} transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
-  }
-
-  @keyframes lds-dual-ring {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-`
-
-export interface SpinnerProps {
+export type SpinnerProps = {
   isLoading?: boolean
 }
 
-const Spinner: FC<SpinnerProps> = (props: SpinnerProps) => {
+export const Spinner: FC<SpinnerProps> = (props: SpinnerProps) => {
   return <CSSTransition in={props.isLoading} timeout={200} unmountOnExit classNames="fade">
-      <BaseOverlay zIndex={defaultTheme.zIndex.spinner}>
-        <StyledSpinner />
-      </BaseOverlay>
+      <Overlay zIndex={defaultTheme.zIndex.spinner}>
+        <S.Spinner />
+      </Overlay>
     </CSSTransition>
 }
-export default Spinner
