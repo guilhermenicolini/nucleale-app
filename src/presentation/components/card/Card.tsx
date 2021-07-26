@@ -10,7 +10,7 @@ export type CardProps = {
   children?: React.ReactNode
 }
 
-const Card: FC<CardProps> = (props: CardProps) => {
+export const Card: FC<CardProps> = (props: CardProps) => {
   return (
     <S.Wrapper variant={props.variant}>
       <S.Subtitle>{props.subtitle}</S.Subtitle>
@@ -22,4 +22,3 @@ const Card: FC<CardProps> = (props: CardProps) => {
     </S.Wrapper>
   )
 }
-export default Card

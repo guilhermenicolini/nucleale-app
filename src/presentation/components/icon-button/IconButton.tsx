@@ -9,12 +9,10 @@ export type IconButtonProps = {
   disabled?: boolean
 }
 
-const IconButton: FC<IconButtonProps> = (props: IconButtonProps) => {
+export const IconButton: FC<IconButtonProps> = (props: IconButtonProps) => {
   return (
     <S.Button disabled={props.disabled} variant={props.variant} svg={props.svg}>
       {props.children}
     </S.Button>
   )
 }
-
-export default IconButton

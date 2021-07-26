@@ -1,4 +1,4 @@
-import Fab, { FabProps } from './Fab'
+import { Fab, FabProps } from './Fab'
 import { Story, Meta } from '@storybook/react'
 import { AddIcon } from '@/presentation/components/icons'
 

@@ -13,7 +13,7 @@ export type FieldProps = {
   icon?: React.ReactNode
 }
 
-const Field: FC<FieldProps> = (props: FieldProps) => {
+export const Field: FC<FieldProps> = (props: FieldProps) => {
   const isInvalid = props.touched && props.error?.length > 0
   return (
     <S.Wrapper label={props.label}>
@@ -29,4 +29,3 @@ const Field: FC<FieldProps> = (props: FieldProps) => {
     </S.Wrapper>
   )
 }
-export default Field

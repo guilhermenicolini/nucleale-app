@@ -8,10 +8,8 @@ export type FabProps = {
   children?: React.ReactNode
 }
 
-const Fab: FC<FabProps> = (props: FabProps) => {
+export const Fab: FC<FabProps> = (props: FabProps) => {
   return (
     <S.Button disabled={props.disabled} variant={props.variant}>{props.children}</S.Button>
   )
 }
-
-export default Fab

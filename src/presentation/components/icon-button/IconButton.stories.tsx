@@ -1,4 +1,4 @@
-import IconButton, { IconButtonProps } from './IconButton'
+import { IconButton, IconButtonProps } from './IconButton'
 import { Story, Meta } from '@storybook/react'
 import { DownloadIcon } from '@/presentation/components/icons'
 

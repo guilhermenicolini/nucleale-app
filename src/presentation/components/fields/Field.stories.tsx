@@ -1,4 +1,4 @@
-import Field, { FieldProps } from './Field'
+import { Field, FieldProps } from './Field'
 import { Story, Meta } from '@storybook/react'
 import { SearchIcon } from '../icons'
 

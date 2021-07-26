@@ -1,5 +1,5 @@
-import Card, { CardProps } from './Card'
-import IconButton from '../icon-button/IconButton'
+import { Card, CardProps } from './Card'
+import { IconButton } from '../icon-button/IconButton'
 import { Story, Meta } from '@storybook/react'
 import { DownloadIcon, DeleteIcon } from '../icons'
 
