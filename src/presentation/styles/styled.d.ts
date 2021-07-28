@@ -4,6 +4,7 @@ declare module 'styled-components' {
   export interface ThemeTypography {
     'font-size': string
     'font-weight': string
+    'letter-spacing': string
   }
 
   export interface Palette {

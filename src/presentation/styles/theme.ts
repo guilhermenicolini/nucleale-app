@@ -58,55 +58,68 @@ export const defaultTheme: Theme = {
   typography: {
     headline1: {
       'font-size': '96px',
-      'font-weight': '300'
+      'font-weight': '300',
+      'letter-spacing': '-1.5px'
     },
     headline2: {
       'font-size': '60px',
-      'font-weight': '300'
+      'font-weight': '300',
+      'letter-spacing': '-0.5px'
     },
     headline3: {
       'font-size': '48px',
-      'font-weight': '400'
+      'font-weight': '400',
+      'letter-spacing': '0px'
     },
     headline4: {
       'font-size': '34px',
-      'font-weight': '400'
+      'font-weight': '400',
+      'letter-spacing': '0.25px'
     },
     headline5: {
       'font-size': '24px',
-      'font-weight': '400'
+      'font-weight': '400',
+      'letter-spacing': '0px'
     },
     headline6: {
       'font-size': '20px',
-      'font-weight': '500'
+      'font-weight': '500',
+      'letter-spacing': '0.15px'
     },
     subtitle1: {
       'font-size': '16px',
-      'font-weight': '400'
+      'font-weight': '400',
+      'letter-spacing': '0.15px'
     },
     subtitle2: {
       'font-size': '14px',
-      'font-weight': '500'
+      'font-weight': '500',
+      'letter-spacing': '0.1px'
     },
     body1: {
       'font-size': '16px',
-      'font-weight': '400'
+      'font-weight': '400',
+      'letter-spacing': '0.5px'
     },
     body2: {
       'font-size': '14px',
-      'font-weight': '400'
+      'font-weight': '400',
+      'letter-spacing': '0.25px'
     },
     button: {
       'font-size': '14px',
-      'font-weight': '500'
+      'font-weight': '500',
+      'letter-spacing': '1.25px'
     },
     caption: {
       'font-size': '12px',
-      'font-weight': '400'
+      'font-weight': '400',
+      'letter-spacing': '0.4px'
     },
     overline: {
       'font-size': '10px',
-      'font-weight': '400'
+      'font-weight': '400',
+      'letter-spacing': '1.5px'
     }
   },
   zIndex: {
