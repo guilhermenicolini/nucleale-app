@@ -7,7 +7,7 @@ type StyledProps = Pick<LinkButtonProps, 'variant'>
 export const LinkButton = styled.button<StyledProps>`
   ${({ theme, variant = 'primary' }) => css`
     ${theme.typography.button};
-    text-transform: capitalize;
+    text-transform: uppercase;
     min-width: 230px;
     width: 100%;
     height: 40px;

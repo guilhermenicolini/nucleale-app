@@ -7,7 +7,7 @@ type StyledProps = Pick<ButtonProps, 'variant' | 'block'>
 export const Button = styled.button<StyledProps>`
   ${({ theme, variant = 'primary', block = false }) => css`
     ${theme.typography.button}
-    text-transform: capitalize;
+    text-transform: uppercase;
     height: 40px;
     border-radius: ${theme.general.borderRadius};
     border: none;
