@@ -18,6 +18,7 @@ export const Button = styled.button<StyledProps>`
     ${block ? 'width: 100%;' : ''}
     background-color: ${theme.colors.palette[variant].color};
     color: ${contrast(theme.colors.palette[variant].color)};
+    margin-bottom: 8px;
 
     &:hover:not(:disabled) {
       background-color: ${darken(theme.colors.palette[variant].color, theme.colors.palette[variant].darken)};
