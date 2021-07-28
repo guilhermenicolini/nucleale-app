@@ -64,6 +64,7 @@ declare module 'styled-components' {
     }
     breakPoint: {
       mobile: number
+      tablet: number
     }
   }
 }

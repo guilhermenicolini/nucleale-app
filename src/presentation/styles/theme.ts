@@ -116,6 +116,7 @@ export const defaultTheme: Theme = {
     spinner: 150
   },
   breakPoint: {
-    mobile: 320
+    mobile: 350,
+    tablet: 640
   }
 }
