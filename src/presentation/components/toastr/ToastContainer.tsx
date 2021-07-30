@@ -1,9 +1,8 @@
 import { FC } from 'react'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer as Container } from 'react-toastify'
 import { useScreenSize } from '@/presentation/hooks'
 
-const Container: FC = () => {
+export const ToastContainer: FC = () => {
   const screen = useScreenSize()
-  return <ToastContainer position={screen === 'mobile' ? 'bottom-center' : 'top-right'} />
+  return <Container position={screen === 'mobile' ? 'bottom-center' : 'top-right'} />
 }
-export default Container

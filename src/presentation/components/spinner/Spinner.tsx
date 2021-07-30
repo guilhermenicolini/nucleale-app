@@ -10,8 +10,8 @@ export type SpinnerProps = {
 
 export const Spinner: FC<SpinnerProps> = (props: SpinnerProps) => {
   return <CSSTransition in={props.isLoading} timeout={200} unmountOnExit classNames="fade">
-      <Overlay zIndex={defaultTheme.zIndex.spinner}>
-        <S.Spinner />
-      </Overlay>
-    </CSSTransition>
+    <Overlay zIndex={defaultTheme.zIndex.spinner}>
+      <S.Spinner />
+    </Overlay>
+  </CSSTransition>
 }
