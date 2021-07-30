@@ -3,7 +3,7 @@ import { Normalize } from '@/presentation/styles/normalize'
 import { GlobalStyle } from '@/presentation/styles/global'
 import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from '@/presentation/styles/theme'
-import { Notification } from '@/presentation/components'
+import { ToastContainer } from '@/presentation/components'
 import { Router } from '@/main/routes/router'
 
 ReactDOM.render(
@@ -11,7 +11,7 @@ ReactDOM.render(
     <Normalize />
     <GlobalStyle />
     <Router />
-    <Notification />
+    <ToastContainer />
   </ThemeProvider>,
   document.getElementById('main')
 )
