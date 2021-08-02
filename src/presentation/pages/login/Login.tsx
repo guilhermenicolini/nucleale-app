@@ -5,7 +5,8 @@ import { FormContext } from '@/presentation/contexts'
 
 export const Login: React.FC = () => {
   const [state, setState] = useState({
-    isLoading: false
+    isLoading: false,
+    formValid: false
   })
 
   const submit = async (): Promise<void> => {
@@ -21,7 +22,7 @@ export const Login: React.FC = () => {
         <S.Form>
           <Field type="email" label="E-mail" />
           <Field type="password" label="Senha" />
-          <Button block onClick={submit}>Entrar</Button>
+          <Button type="submit" block disabled={!state.formValid} onClick={submit}>Entrar</Button>
           <Button variant="secondary" block>Criar Conta</Button>
           <LinkButton>Esqueceu sua senha?</LinkButton>
         </S.Form>
