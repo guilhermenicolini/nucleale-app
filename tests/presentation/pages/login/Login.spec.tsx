@@ -7,7 +7,7 @@ describe('Login Component', () => {
   test('Should start with initial values', async () => {
     render(<App><Login /></App>)
     expect(screen.queryByRole('status')).not.toBeInTheDocument()
-    expect(screen.getByRole('textbox', { name: 'E-mail' })).toHaveValue('')
-    expect(screen.getByPlaceholderText('Informe a senha')).toHaveValue('')
+    expect(screen.getByPlaceholderText('Informe seu e-mail')).toHaveValue('')
+    expect(screen.getByPlaceholderText('Informe sua senha')).toHaveValue('')
   })
 })

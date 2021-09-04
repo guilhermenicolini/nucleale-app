@@ -22,7 +22,8 @@ export const Field: FC<FieldProps> = (props: FieldProps) => {
       {props.icon}
       <S.Field
         id={props.name}
-        type={props.type}
+        as={props.type === 'select' ? 'select' : null}
+        type={props.type === 'select' ? null : props.type}
         placeholder={props.placeholder}
         defaultValue={props.value}
         className={isInvalid ? 'invalid' : ''}
