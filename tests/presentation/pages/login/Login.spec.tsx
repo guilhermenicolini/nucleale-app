@@ -9,5 +9,6 @@ describe('Login Component', () => {
     expect(screen.queryByRole('status')).not.toBeInTheDocument()
     expect(screen.getByPlaceholderText('Informe seu e-mail')).toHaveValue('')
     expect(screen.getByPlaceholderText('Informe sua senha')).toHaveValue('')
+    expect(screen.getByRole('button', { name: 'Entrar' })).toBeDisabled()
   })
 })
