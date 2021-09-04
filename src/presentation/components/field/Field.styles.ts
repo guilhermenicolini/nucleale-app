@@ -19,7 +19,7 @@ export const Wrapper = styled.div<StyledProps>`
   `}
 `
 
-export const Label = styled.label`
+export const Label = styled.label<{ htmlFor: string }>`
   ${({ theme }) => css`
     ${theme.typography.subtitle1};
     color: ${theme.colors.dark.highEmphasis};

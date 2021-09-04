@@ -20,8 +20,8 @@ export const Login: React.FC = () => {
     <Public>
       <FormContext.Provider value={{ state, setState }}>
         <S.Form>
-          <Field type="email" label="E-mail" />
-          <Field type="password" label="Senha" />
+          <Field type="email" name="email" label="E-mail" />
+          <input type="password" name="password" placeholder="Informe a senha" />
           <Button type="submit" block disabled={!state.formValid} onClick={submit}>Entrar</Button>
           <Button variant="secondary" block>Criar Conta</Button>
           <LinkButton>Esqueceu sua senha?</LinkButton>

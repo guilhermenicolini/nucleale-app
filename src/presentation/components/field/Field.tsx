@@ -3,6 +3,7 @@ import * as S from './Field.styles'
 
 export type FieldProps = {
   label?: string
+  name: string
   type?: 'text' | 'select' | 'email' | 'password'
   required?: boolean
   placeholder?: string
@@ -16,12 +17,12 @@ export type FieldProps = {
 export const Field: FC<FieldProps> = (props: FieldProps) => {
   const isInvalid = props.touched && props.error?.length > 0
   return (
-    <S.Wrapper label={props.label}>
-      {props.label ? <S.Label className={isInvalid ? 'invalid' : ''}>{props.label}{props.required ? ' *' : ''}</S.Label> : ''}
+    <S.Wrapper>
+      {props.label ? <S.Label htmlFor={props.name} className={isInvalid ? 'invalid' : ''}>{props.label}{props.required ? ' *' : ''}</S.Label> : ''}
       {props.icon}
       <S.Field
-        as={props.type === 'select' ? 'select' : null}
-        type={props.type === 'select' ? null : props.type}
+        id={props.name}
+        type={props.type}
         placeholder={props.placeholder}
         defaultValue={props.value}
         className={isInvalid ? 'invalid' : ''}

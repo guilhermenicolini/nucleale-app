@@ -1,11 +1,13 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { Login } from '@/presentation/pages/login/Login'
 import App from '@/main/config/App'
 
 describe('Login Component', () => {
-  test('Should not render spinner on start', () => {
+  test('Should start with initial values', async () => {
     render(<App><Login /></App>)
-    expect(document.querySelector('.spinner')).toBeFalsy()
+    expect(screen.queryByRole('status')).not.toBeInTheDocument()
+    expect(screen.getByRole('textbox', { name: 'E-mail' })).toHaveValue('')
+    expect(screen.getByPlaceholderText('Informe a senha')).toHaveValue('')
   })
 })

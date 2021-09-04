@@ -3,6 +3,7 @@ import * as S from '@/presentation/components/field/Field.styles'
 
 export interface SelectProps {
   label?: string
+  name: string
   required?: boolean
   placeholder?: string
   items?: any[]
@@ -16,9 +17,10 @@ export const Select: FC<SelectProps> = (props: SelectProps) => {
   const isInvalid = props.touched && props.error?.length > 0
   return (
     <S.Wrapper>
-      <S.Label className={isInvalid ? 'invalid' : ''}>{props.label}{props.required ? ' *' : ''}</S.Label>
+      <S.Label htmlFor={props.name} className={isInvalid ? 'invalid' : ''}>{props.label}{props.required ? ' *' : ''}</S.Label>
       <S.Field
         as="select"
+        id={props.name}
         defaultValue={props.value}
         className={isInvalid ? 'invalid' : ''}
         disabled={props.disabled}>
