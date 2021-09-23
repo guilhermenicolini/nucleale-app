@@ -1,7 +1,7 @@
-import { Validation } from '@/presentation/protocols'
+import { FieldValidation } from '@/validation/protocols'
 import { InvalidFieldError } from '@/validation/errors'
 
-export class PasswordValidator implements Validation {
+export class PasswordValidator implements FieldValidation {
   constructor (readonly field: string) {}
 
   validate (input: any): Error {
