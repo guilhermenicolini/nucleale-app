@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { ForwardRefRenderFunction, forwardRef } from 'react'
 import * as S from './Field.styles'
 
 export type FieldProps = {
@@ -14,21 +14,38 @@ export type FieldProps = {
   icon?: React.ReactNode
 }
 
-export const Field: FC<FieldProps> = (props: FieldProps) => {
-  const isInvalid = props.touched && props.error?.length > 0
+const FieldBase: ForwardRefRenderFunction<any, FieldProps> = (
+  {
+    label,
+    touched,
+    error,
+    required,
+    placeholder,
+    name,
+    icon,
+    type,
+    disabled,
+    ...rest
+  }: FieldProps,
+  ref) => {
+  const isInvalid = touched && error?.length > 0
   return (
-    <S.Wrapper>
-      {props.label ? <S.Label htmlFor={props.name} className={isInvalid ? 'invalid' : ''}>{props.label}{props.required ? ' *' : ''}</S.Label> : ''}
-      {props.icon}
+    <S.Wrapper label={label}>
+      {label ? <S.Label htmlFor={name} className={isInvalid ? 'invalid' : ''}>{label}{required ? ' *' : ''}</S.Label> : ''}
+      {icon}
       <S.Field
-        id={props.name}
-        as={props.type === 'select' ? 'select' : null}
-        type={props.type === 'select' ? null : props.type}
-        placeholder={props.placeholder}
-        defaultValue={props.value}
+        type={type === 'select' ? null : type}
+        as={type === 'select' ? 'select' : null}
+        id={name}
+        name={name}
+        placeholder={placeholder}
+        disabled={disabled}
         className={isInvalid ? 'invalid' : ''}
-        disabled={props.disabled} />
-      <S.Span>{props.error}</S.Span>
+        ref={ref}
+        {...rest} />
+      <S.Span>{error}</S.Span>
     </S.Wrapper>
   )
 }
+
+export const Field = forwardRef(FieldBase)
