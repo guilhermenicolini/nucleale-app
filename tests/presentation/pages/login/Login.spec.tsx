@@ -1,4 +1,4 @@
-import { render, waitFor, fireEvent } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import { Helper } from '@/tests/presentation/helpers'
 import { Login } from '@/presentation/pages/login/Login'
 import App from '@/main/config/App'
@@ -39,11 +39,9 @@ const makeSut = (params?: SutParams): SutTypes => {
 }
 
 const simulateValidSubmit = (email = faker.internet.email(), password = faker.internet.password()): void => {
-  Helper.setPlaceholder(form.email, email)
-  Helper.setPlaceholder(form.password, password)
-
-  const button = Helper.getButton(form.enter)
-  fireEvent.click(button)
+  Helper.populateField(form.email, email)
+  Helper.populateField(form.password, password)
+  Helper.clickButton(form.enter)
 }
 
 describe('Login Component', () => {
@@ -52,8 +50,8 @@ describe('Login Component', () => {
 
     await waitFor(() => {
       expect(Helper.getRole(form.status)).not.toBeInTheDocument()
-      expect(Helper.getPlaceholder(form.email)).toHaveValue('')
-      expect(Helper.getPlaceholder(form.password)).toHaveValue('')
+      expect(Helper.getField(form.email)).toHaveValue('')
+      expect(Helper.getField(form.password)).toHaveValue('')
       expect(Helper.getButton(form.enter)).toBeDisabled()
     })
   })
@@ -64,7 +62,7 @@ describe('Login Component', () => {
     makeSut({ validationError, validationField })
 
     await waitFor(() => {
-      Helper.setPlaceholder(form.email)
+      Helper.populateField(form.email)
       Helper.testErrorMessage(validationError.message)
       expect(Helper.getButton(form.enter)).toBeDisabled()
     })
@@ -75,7 +73,7 @@ describe('Login Component', () => {
     const validationError = new Error(faker.random.words())
     makeSut({ validationError, validationField })
     await waitFor(() => {
-      Helper.setPlaceholder(form.password)
+      Helper.populateField(form.password)
       Helper.testErrorMessage(validationError.message)
       expect(Helper.getButton(form.enter)).toBeDisabled()
     })
@@ -87,8 +85,8 @@ describe('Login Component', () => {
     makeSut({ validationError, validationField })
 
     await waitFor(() => {
-      Helper.setPlaceholder(form.email)
-      Helper.setPlaceholder(form.password)
+      Helper.populateField(form.email)
+      Helper.populateField(form.password)
       Helper.testErrorMessage(validationError.message, false)
       expect(Helper.getButton(form.enter)).toBeDisabled()
     })
@@ -97,16 +95,17 @@ describe('Login Component', () => {
   test('Should enable submit button if form is valid', async () => {
     makeSut()
     await waitFor(() => {
-      Helper.setPlaceholder(form.password, faker.internet.email())
-      Helper.setPlaceholder(form.password, faker.internet.password())
+      Helper.populateField(form.password, faker.internet.email())
+      Helper.populateField(form.password, faker.internet.password())
       expect(Helper.getButton(form.enter)).toBeEnabled()
     })
   })
 
   test('Should show spinner on submit', async () => {
     makeSut()
+    simulateValidSubmit()
+
     await waitFor(() => {
-      simulateValidSubmit()
       expect(Helper.getRole(form.status)).toBeInTheDocument()
     })
   })
@@ -116,8 +115,9 @@ describe('Login Component', () => {
     const email = faker.internet.email()
     const password = faker.internet.password()
 
+    simulateValidSubmit(email, password)
+
     await waitFor(() => {
-      simulateValidSubmit(email, password)
       expect(authenticationSpy.params).toEqual({ email, password })
     })
   })
@@ -125,9 +125,11 @@ describe('Login Component', () => {
   test('Should call Authentication only once', async () => {
     const { authenticationSpy } = makeSut()
     const spy = jest.spyOn(authenticationSpy, 'auth')
+
+    simulateValidSubmit()
+    simulateValidSubmit()
+
     await waitFor(() => {
-      simulateValidSubmit()
-      simulateValidSubmit()
       expect(spy).toHaveBeenCalledTimes(1)
     })
   })
@@ -138,10 +140,21 @@ describe('Login Component', () => {
     const { authenticationSpy } = makeSut({ validationError, validationField })
     const spy = jest.spyOn(authenticationSpy, 'auth')
 
+    simulateValidSubmit()
+
     await waitFor(() => {
-      simulateValidSubmit()
-      simulateValidSubmit()
       expect(spy).toHaveBeenCalledTimes(0)
+    })
+  })
+
+  test('Should present error if Authentication fails', async () => {
+    const { authenticationSpy } = makeSut()
+    jest.spyOn(authenticationSpy, 'auth').mockImplementation(Helper.throwError)
+
+    simulateValidSubmit()
+
+    await waitFor(() => {
+      expect(Helper.testErrorMessage('Usuário ou senha inválida'))
     })
   })
 })

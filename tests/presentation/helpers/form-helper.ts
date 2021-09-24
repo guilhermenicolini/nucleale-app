@@ -1,15 +1,18 @@
 import { fireEvent, screen } from '@testing-library/react'
 import faker from 'faker'
 
-export const getPlaceholder = (placeholder: string): HTMLElement => screen.queryByPlaceholderText(placeholder)
-
 export const getRole = (role: string): HTMLElement => screen.queryByRole(role)
 
 export const getButton = (name: string): HTMLElement => screen.queryByRole('button', { name })
 
-export const setPlaceholder = (placeholder: string, value: string = faker.random.word()): void => {
-  const input = getPlaceholder(placeholder)
-  fireEvent.input(input, { target: { value } })
+export const getField = (placeholder: string): HTMLElement => screen.queryByPlaceholderText(placeholder)
+
+export const populateField = (placeholder: string, value: string = faker.random.word()): void => {
+  fireEvent.input(getField(placeholder), { target: { value } })
+}
+
+export const clickButton = (name: string): void => {
+  fireEvent.submit(getButton(name))
 }
 
 export const testErrorMessage = (errorMessage: string, inDocument: boolean = true): void => {
@@ -18,4 +21,8 @@ export const testErrorMessage = (errorMessage: string, inDocument: boolean = tru
   } else {
     expect(screen.queryByText(errorMessage)).not.toBeInTheDocument()
   }
+}
+
+export const throwError = (): never => {
+  throw new Error()
 }
