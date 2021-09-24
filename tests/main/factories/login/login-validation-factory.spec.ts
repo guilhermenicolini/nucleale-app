@@ -1,5 +1,5 @@
 import { makeLoginValidation } from '@/main/factories/pages'
-import { ValidationComposite, RequiredFieldValidator, EmailValidator, PasswordValidator } from '@/validation/validators'
+import { ValidationComposite, RequiredFieldValidator, EmailValidator } from '@/validation/validators'
 import { EmailValidationAdapter } from '@/infra/validations'
 
 describe('LoginValidationFactory', () => {
@@ -8,8 +8,7 @@ describe('LoginValidationFactory', () => {
     expect(composite).toEqual(ValidationComposite.build([
       new RequiredFieldValidator('email'),
       new EmailValidator('email', new EmailValidationAdapter()),
-      new RequiredFieldValidator('password'),
-      new PasswordValidator('password')
+      new RequiredFieldValidator('password')
     ]))
   })
 })
