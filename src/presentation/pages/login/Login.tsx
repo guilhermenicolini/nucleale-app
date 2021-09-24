@@ -17,7 +17,7 @@ type LoginProps = {
 }
 
 export const Login: React.FC<LoginProps> = ({ validation, authentication }: LoginProps) => {
-  const { register, handleSubmit, formState: { isValid, isDirty, errors } } = useForm<FormData>(
+  const { register, handleSubmit, formState: { isSubmitting, isValid, isDirty, errors } } = useForm<FormData>(
     { mode: 'all' }
   )
 
@@ -31,6 +31,10 @@ export const Login: React.FC<LoginProps> = ({ validation, authentication }: Logi
   }
 
   const submit = async (data: any): Promise<void> => {
+    if (isSubmitting) {
+      return
+    }
+
     setState(s => ({ ...s, isLoading: true }))
     try {
       await authentication.auth({

@@ -121,4 +121,27 @@ describe('Login Component', () => {
       expect(authenticationSpy.params).toEqual({ email, password })
     })
   })
+
+  test('Should call Authentication only once', async () => {
+    const { authenticationSpy } = makeSut()
+    const spy = jest.spyOn(authenticationSpy, 'auth')
+    await waitFor(() => {
+      simulateValidSubmit()
+      simulateValidSubmit()
+      expect(spy).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  test('Should not call Authentication if form is invalid', async () => {
+    const validationField = 'email'
+    const validationError = new Error(faker.random.words())
+    const { authenticationSpy } = makeSut({ validationError, validationField })
+    const spy = jest.spyOn(authenticationSpy, 'auth')
+
+    await waitFor(() => {
+      simulateValidSubmit()
+      simulateValidSubmit()
+      expect(spy).toHaveBeenCalledTimes(0)
+    })
+  })
 })
