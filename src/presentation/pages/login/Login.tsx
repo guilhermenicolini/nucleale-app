@@ -15,7 +15,7 @@ type LoginProps = {
 }
 
 export const Login: React.FC<LoginProps> = ({ validation }: LoginProps) => {
-  const { register, handleSubmit, formState: { isDirty, errors } } = useForm<FormData>(
+  const { register, handleSubmit, formState: { isValid, isDirty, errors } } = useForm<FormData>(
     { mode: 'all' }
   )
 
@@ -55,7 +55,7 @@ export const Login: React.FC<LoginProps> = ({ validation }: LoginProps) => {
             {...register('password', { validate: value => validate('password', value) })}
             error={errors.password?.message}
             touched={isDirty} />
-          <Button type="submit" block disabled={true} >Entrar</Button>
+          <Button type="submit" block disabled={!isValid} >Entrar</Button>
           <Button variant="secondary" block>Criar Conta</Button>
           <LinkButton>Esqueceu sua senha?</LinkButton>
         </S.Form>
