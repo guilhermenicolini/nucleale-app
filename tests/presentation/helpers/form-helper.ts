@@ -12,6 +12,10 @@ export const setPlaceholder = (placeholder: string, value: string = faker.random
   fireEvent.input(input, { target: { value } })
 }
 
-export const testErrorMessage = (errorMessage: string): void => {
-  expect(screen.getByText(errorMessage)).toBeInTheDocument()
+export const testErrorMessage = (errorMessage: string, inDocument: boolean = true): void => {
+  if (inDocument) {
+    expect(screen.getByText(errorMessage)).toBeInTheDocument()
+  } else {
+    expect(screen.queryByText(errorMessage)).not.toBeInTheDocument()
+  }
 }
