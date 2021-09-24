@@ -2,7 +2,7 @@ import { render, waitFor, fireEvent } from '@testing-library/react'
 import { Helper } from '@/tests/presentation/helpers'
 import { Login } from '@/presentation/pages/login/Login'
 import App from '@/main/config/App'
-import { ValidationSpy } from '@/tests/presentation/mocks'
+import { ValidationSpy, AuthenticationSpy } from '@/tests/presentation/mocks'
 
 import faker from 'faker'
 
@@ -18,10 +18,24 @@ type SutParams = {
   validationError: Error
 }
 
-const makeSut = (params?: SutParams): any => {
+type SutTypes = {
+  authenticationSpy: AuthenticationSpy
+}
+
+const makeSut = (params?: SutParams): SutTypes => {
   const validationSpy = new ValidationSpy(params?.validationField)
+  const authenticationSpy = new AuthenticationSpy()
   validationSpy.result = params?.validationError
-  return render(<App><Login validation={validationSpy} /></App>)
+  render(
+    <App>
+      <Login
+        validation={validationSpy}
+        authentication={authenticationSpy} />
+    </App>
+  )
+  return {
+    authenticationSpy
+  }
 }
 
 const simulateValidSubmit = (email = faker.internet.email(), password = faker.internet.password()): void => {
@@ -94,6 +108,17 @@ describe('Login Component', () => {
     await waitFor(() => {
       simulateValidSubmit()
       expect(Helper.getRole(form.status)).toBeInTheDocument()
+    })
+  })
+
+  test('Should call Authentication with correct values', async () => {
+    const { authenticationSpy } = makeSut()
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+
+    await waitFor(() => {
+      simulateValidSubmit(email, password)
+      expect(authenticationSpy.params).toEqual({ email, password })
     })
   })
 })

@@ -4,6 +4,7 @@ import * as S from './Login.styles'
 import { FormContext } from '@/presentation/contexts'
 import { useForm } from 'react-hook-form'
 import { Validation } from '@/presentation/protocols'
+import { Authentication } from '@/domain/usecases'
 
 type FormData = {
   email: string
@@ -12,9 +13,10 @@ type FormData = {
 
 type LoginProps = {
   validation: Validation
+  authentication: Authentication
 }
 
-export const Login: React.FC<LoginProps> = ({ validation }: LoginProps) => {
+export const Login: React.FC<LoginProps> = ({ validation, authentication }: LoginProps) => {
   const { register, handleSubmit, formState: { isValid, isDirty, errors } } = useForm<FormData>(
     { mode: 'all' }
   )
@@ -30,9 +32,16 @@ export const Login: React.FC<LoginProps> = ({ validation }: LoginProps) => {
 
   const submit = async (data: any): Promise<void> => {
     setState(s => ({ ...s, isLoading: true }))
-    setTimeout(() => {
+    try {
+      await authentication.auth({
+        email: data.email,
+        password: data.password
+      })
+    } catch (err) {
+      console.error(err)
+    } finally {
       setState(s => ({ ...s, isLoading: false }))
-    }, 2000)
+    }
   }
 
   return (
