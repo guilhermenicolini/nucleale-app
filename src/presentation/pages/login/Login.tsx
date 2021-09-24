@@ -5,6 +5,7 @@ import { FormContext } from '@/presentation/contexts'
 import { useForm } from 'react-hook-form'
 import { Validation } from '@/presentation/protocols'
 import { Authentication } from '@/domain/usecases'
+import { toast } from 'react-toastify'
 
 type FormData = {
   email: string
@@ -31,18 +32,19 @@ export const Login: React.FC<LoginProps> = ({ validation, authentication }: Logi
   }
 
   const submit = async (data: any): Promise<void> => {
-    if (isSubmitting) {
+    if (state.isLoading || isSubmitting) {
       return
     }
 
     setState(s => ({ ...s, isLoading: true }))
     try {
-      await authentication.auth({
+      const account = await authentication.auth({
         email: data.email,
         password: data.password
       })
+      console.log('passou', account)
     } catch (err) {
-      console.error(err)
+      toast.error('Usuário ou senha inválida')
     } finally {
       setState(s => ({ ...s, isLoading: false }))
     }
