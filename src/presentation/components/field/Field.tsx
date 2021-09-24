@@ -43,7 +43,7 @@ const FieldBase: ForwardRefRenderFunction<any, FieldProps> = (
         className={isInvalid ? 'invalid' : ''}
         ref={ref}
         {...rest} />
-      <S.Span>{error}</S.Span>
+      <S.Span role="alert">{error}</S.Span>
     </S.Wrapper>
   )
 }
