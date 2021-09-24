@@ -1,4 +1,4 @@
-
+const { DefinePlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
@@ -35,6 +35,9 @@ module.exports = merge(common, {
     'react-router-dom': 'ReactRouterDOM'
   },
   plugins: [
+    new DefinePlugin({
+      'process.env.API_URL': JSON.stringify('https://api.nucleale.com')
+    }),
     new HtmlWebpackPlugin({
       template: './template.prod.html'
     }),

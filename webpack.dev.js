@@ -1,3 +1,4 @@
+const { DefinePlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { merge } = require('webpack-merge')
 const common = require('./webpack.common')
@@ -34,6 +35,9 @@ module.exports = merge(common, {
     port: 8080
   },
   plugins: [
+    new DefinePlugin({
+      'process.env.API_URL': JSON.stringify('http://localhost:5050')
+    }),
     new HtmlWebpackPlugin({
       template: './template.dev.html'
     })
