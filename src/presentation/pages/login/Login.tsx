@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Public, Field, Button, LinkButton, Spinner } from '@/presentation/components'
 import * as S from './Login.styles'
-import { FormContext } from '@/presentation/contexts'
+import { FormContext, ApiContext } from '@/presentation/contexts'
 import { useForm } from 'react-hook-form'
 import { Validation } from '@/presentation/protocols'
 import { Authentication } from '@/domain/usecases'
 import { toast } from 'react-toastify'
+import { useHistory } from 'react-router-dom'
 
 type FormData = {
   email: string
@@ -18,6 +19,8 @@ type LoginProps = {
 }
 
 export const Login: React.FC<LoginProps> = ({ validation, authentication }: LoginProps) => {
+  const { setCurrentAccount } = useContext(ApiContext)
+  const history = useHistory()
   const { register, handleSubmit, formState: { isSubmitting, isValid, isDirty, errors } } = useForm<FormData>(
     { mode: 'all' }
   )
@@ -42,7 +45,8 @@ export const Login: React.FC<LoginProps> = ({ validation, authentication }: Logi
         email: data.email,
         password: data.password
       })
-      console.log('passou', account)
+      setCurrentAccount(account)
+      history.replace('/')
     } catch (err) {
       toast.error('Usuário ou senha inválida')
     } finally {
