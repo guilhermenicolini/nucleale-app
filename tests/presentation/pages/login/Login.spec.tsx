@@ -1,10 +1,15 @@
 import { render, waitFor } from '@testing-library/react'
 import { Helper } from '@/tests/presentation/helpers'
 import { Login } from '@/presentation/pages/login/Login'
-import App from '@/main/config/App'
 import { ValidationSpy, AuthenticationSpy } from '@/tests/presentation/mocks'
+import { ThemeProvider } from 'styled-components'
+import { defaultTheme } from '@/presentation/styles'
+import { ToastContainer } from '@/presentation/components'
+import { createMemoryHistory } from 'history'
+import { Router } from 'react-router-dom'
 
 import faker from 'faker'
+import { ApiContext } from '@/presentation/contexts'
 
 const form = {
   email: 'Informe seu e-mail',
@@ -20,21 +25,30 @@ type SutParams = {
 
 type SutTypes = {
   authenticationSpy: AuthenticationSpy
+  setCurrentAccountMock: (account: AuthenticationSpy.Params) => void
 }
 
+const history = createMemoryHistory({ initialEntries: ['/login'] })
 const makeSut = (params?: SutParams): SutTypes => {
   const validationSpy = new ValidationSpy(params?.validationField)
   const authenticationSpy = new AuthenticationSpy()
   validationSpy.result = params?.validationError
+  const setCurrentAccountMock = jest.fn()
   render(
-    <App>
-      <Login
-        validation={validationSpy}
-        authentication={authenticationSpy} />
-    </App>
+    <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock }}>
+      <ThemeProvider theme={defaultTheme}>
+        <Router history={history}>
+          <Login
+            validation={validationSpy}
+            authentication={authenticationSpy} />
+        </Router>
+        <ToastContainer />
+      </ThemeProvider>
+    </ApiContext.Provider>
   )
   return {
-    authenticationSpy
+    authenticationSpy,
+    setCurrentAccountMock
   }
 }
 
@@ -155,6 +169,17 @@ describe('Login Component', () => {
 
     await waitFor(() => {
       expect(Helper.testErrorMessage('Usuário ou senha inválida'))
+    })
+  })
+
+  test('Should call SetCurrentAccount on success', async () => {
+    const { authenticationSpy, setCurrentAccountMock } = makeSut()
+    simulateValidSubmit()
+
+    await waitFor(() => {
+      expect(setCurrentAccountMock).toHaveBeenCalledWith(authenticationSpy.result)
+      expect(history.length).toBe(1)
+      expect(history.location.pathname).toBe('/')
     })
   })
 })

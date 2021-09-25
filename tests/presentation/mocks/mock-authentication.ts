@@ -2,8 +2,8 @@ import { Authentication } from '@/domain/usecases'
 import faker from 'faker'
 
 export class AuthenticationSpy implements Authentication {
-  params: Authentication.Params = null
-  result: Authentication.Result = {
+  params: AuthenticationSpy.Params = null
+  result: AuthenticationSpy.Result = {
     accessToken: faker.datatype.uuid()
   }
 
@@ -11,4 +11,9 @@ export class AuthenticationSpy implements Authentication {
     this.params = params
     return this.result
   }
+}
+
+export namespace AuthenticationSpy {
+  export type Params = Authentication.Params
+  export type Result = Authentication.Result
 }
