@@ -1,15 +1,14 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import { makeLogin } from '@/main/factories/pages'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { makeLogin, makeDashboard } from '@/main/factories/pages'
+import { PrivateRoute } from '@/presentation/components'
 
 export const Router: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/login" exact component={makeLogin} />
-        <Route path="" exact>
-          <Redirect to="/login" />
-        </Route>
+        <PrivateRoute path="/" exact component={makeDashboard} />
       </Switch>
     </BrowserRouter>
   )
