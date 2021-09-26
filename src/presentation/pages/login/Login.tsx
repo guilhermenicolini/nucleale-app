@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Public, Field, Button, LinkButton, Spinner } from '@/presentation/components'
+import { Public, Field, Button, Spinner } from '@/presentation/components'
 import * as S from './Login.styles'
 import { FormContext, ApiContext } from '@/presentation/contexts'
 import { useForm } from 'react-hook-form'
@@ -75,8 +75,8 @@ export const Login: React.FC<LoginProps> = ({ validation, authentication }: Logi
             error={errors.password?.message}
             touched={isDirty} />
           <Button type="submit" block disabled={!isValid} >Entrar</Button>
-          <Button variant="secondary" block>Criar Conta</Button>
-          <LinkButton>Esqueceu sua senha?</LinkButton>
+          {/* <Button variant="secondary" block >Criar Conta</Button>
+          <LinkButton>Esqueceu sua senha?</LinkButton> */}
         </S.Form>
         <Spinner isLoading={state.isLoading} />
       </FormContext.Provider>
