@@ -8,6 +8,8 @@ export const Router: React.FC = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/login" exact component={makeLogin} />
+        <Route path="/sign-up" exact component={() => <div>Sign Up</div> } />
+        <Route path="/password-recovey" exact component={() => <div>Password Recovey</div> } />
         <PrivateRoute path="/" exact component={makeDashboard} />
       </Switch>
     </BrowserRouter>
