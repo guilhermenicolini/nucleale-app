@@ -5,6 +5,8 @@ export const getRole = (role: string): HTMLElement => screen.queryByRole(role)
 
 export const getButton = (name: string): HTMLElement => screen.queryByRole('button', { name })
 
+export const getLink = (name: string): HTMLElement => screen.queryByRole('link', { name })
+
 export const getField = (placeholder: string): HTMLElement => screen.queryByPlaceholderText(placeholder)
 
 export const populateField = (placeholder: string, value: string = faker.random.word()): void => {
@@ -13,6 +15,10 @@ export const populateField = (placeholder: string, value: string = faker.random.
 
 export const clickButton = (name: string): void => {
   fireEvent.submit(getButton(name))
+}
+
+export const clickLink = (name: string): void => {
+  fireEvent.click(getLink(name))
 }
 
 export const testErrorMessage = (errorMessage: string, inDocument: boolean = true): void => {

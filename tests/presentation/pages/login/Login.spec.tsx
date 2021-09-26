@@ -15,7 +15,9 @@ const form = {
   email: 'Informe seu e-mail',
   password: 'Informe sua senha',
   status: 'status',
-  enter: 'Entrar'
+  enter: 'Entrar',
+  signup: 'Criar Conta',
+  recovery: 'Esqueceu sua senha?'
 }
 
 type SutParams = {
@@ -180,6 +182,26 @@ describe('Login Component', () => {
       expect(setCurrentAccountMock).toHaveBeenCalledWith(authenticationSpy.result)
       expect(history.length).toBe(1)
       expect(history.location.pathname).toBe('/')
+    })
+  })
+
+  test('Should go to sign-up page', async () => {
+    makeSut()
+    Helper.clickLink(form.signup)
+
+    await waitFor(() => {
+      expect(history.length).toBe(2)
+      expect(history.location.pathname).toBe('/sign-up')
+    })
+  })
+
+  test('Should go to password-recovery page', async () => {
+    makeSut()
+    Helper.clickLink(form.recovery)
+
+    await waitFor(() => {
+      expect(history.length).toBe(3)
+      expect(history.location.pathname).toBe('/password-recovery')
     })
   })
 })
