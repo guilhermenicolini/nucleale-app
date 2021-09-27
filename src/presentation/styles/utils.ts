@@ -13,12 +13,15 @@ export const contrast = (color: string): string => {
 }
 
 export const lighten = (color: string, amount: number): string => {
+  if (!color) return null
+  if (amount < 0) return darken(color, -1 * amount)
   const values = extractRgbColors(color)
   return `rgb(${values[0]}, ${values[1]}, ${values[2]}, ${1 - (amount / 100)})`
 }
 
 export const darken = (color: string, amount: number): string => {
   if (!color) return null
+  if (amount < 0) return lighten(color, -1 * amount)
   const values = extractRgbColors(color)
   return adjust(values[0], values[1], values[2], 1 - (amount / 100))
 }

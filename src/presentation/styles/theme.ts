@@ -1,6 +1,6 @@
 import { Theme } from 'styled-components'
 
-export type Variants = 'primary' | 'secondary' | 'danger' | 'warning' | 'success' | 'info'
+export type Variants = 'primary' | 'secondary' | 'danger' | 'warning' | 'success' | 'info' | 'white' | 'black'
 
 export const defaultTheme: Theme = {
   general: {
@@ -42,6 +42,16 @@ export const defaultTheme: Theme = {
         color: 'rgb(51, 181, 229)',
         lighten: 20,
         darken: 15
+      },
+      white: {
+        color: 'rgb(255, 255, 255)',
+        lighten: 20,
+        darken: 15
+      },
+      black: {
+        color: 'rgba(0, 0, 0, .87)',
+        lighten: 40,
+        darken: -40
       }
     },
     light: {

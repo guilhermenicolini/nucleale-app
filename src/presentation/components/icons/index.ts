@@ -1,4 +1,5 @@
 export * from './AddIcon'
+export * from './CloseIcon'
 export * from './DangerIcon'
 export * from './DeleteIcon'
 export * from './DownloadIcon'

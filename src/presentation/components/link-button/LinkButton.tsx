@@ -8,10 +8,20 @@ export type LinkButtonProps = {
   disabled?: boolean
   block?: boolean
   children?: React.ReactNode
-  to: string
+  to?: string
+  onClick?: (e?: React.MouseEvent) => void
 }
 
-export const LinkButton: FC<LinkButtonProps> = ({ type = 'button', block = false, disabled = false, to, children, variant = 'primary' }: LinkButtonProps) => {
+export const LinkButton: FC<LinkButtonProps> = (
+  {
+    type = 'button',
+    block = false,
+    disabled = false,
+    to,
+    children,
+    variant = 'primary',
+    onClick
+  }: LinkButtonProps) => {
   const styles = []
   if (disabled) {
     styles.push('disabled')
@@ -25,13 +35,16 @@ export const LinkButton: FC<LinkButtonProps> = ({ type = 'button', block = false
       ? <S.Button
         variant={variant}
         className={styles.join(' ')}
-        to={to}>
+        to={to}
+        onClick={onClick}
+        >
           {children}
       </S.Button>
       : <S.Text
         variant={variant}
         className={styles.join(' ')}
-        to={to}>
+        to={to}
+        onClick={onClick}>
         {children}
       </S.Text>
   )

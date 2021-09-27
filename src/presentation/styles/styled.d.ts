@@ -30,6 +30,8 @@ declare module 'styled-components' {
         warning: Palette
         success: Palette
         info: Palette
+        white: Palette
+        black: Palette
       }
       light: {
         highEmphasis: string
