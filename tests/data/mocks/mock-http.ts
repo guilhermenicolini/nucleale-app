@@ -8,9 +8,11 @@ export const mockHttpRequest = (): HttpRequest => ({
 })
 
 export class HttpClientSpy implements HttpClient {
+  constructor (readonly status: HttpStatusCode = HttpStatusCode.ok) {}
+
   data: HttpRequest
   result: HttpResponse = ({
-    statusCode: HttpStatusCode.ok
+    statusCode: this.status
   })
 
   async request (data: HttpRequest): Promise<HttpResponse> {

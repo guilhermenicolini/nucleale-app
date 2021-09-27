@@ -43,6 +43,16 @@ describe('RemoteAuthentication Usecase', () => {
     expect(promise).rejects.toThrowError(new ClientError(httpClientSpy.result.error))
   })
 
+  test('Should throw ClientError if HttpClient returns 401', async () => {
+    const { sut, httpClientSpy } = makeSut()
+    httpClientSpy.result = {
+      statusCode: HttpStatusCode.unauthorized,
+      error: 'any_error'
+    }
+    const promise = sut.auth(mockAuthenticationParams())
+    expect(promise).rejects.toThrowError(new ClientError(httpClientSpy.result.error))
+  })
+
   test('Should throw ServerError if HttpClient returns 500', async () => {
     const { sut, httpClientSpy } = makeSut()
     httpClientSpy.result = {
