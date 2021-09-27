@@ -1,6 +1,6 @@
 import React from 'react'
 import { ApiContext } from '@/presentation/contexts'
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 
 type ResultType = () => void
 
