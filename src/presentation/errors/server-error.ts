@@ -1,6 +1,6 @@
 export class ServerError extends Error {
   constructor () {
-    super('Something wrong happened. Please try again later.')
+    super('Ocorreu um erro ao processar sua solicitação. Por favor tente novamente')
     this.name = 'ServerError'
   }
 }
