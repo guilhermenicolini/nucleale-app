@@ -17,7 +17,7 @@ export const LinkButton: FC<LinkButtonProps> = (
     type = 'button',
     block = false,
     disabled = false,
-    to,
+    to = '',
     children,
     variant = 'primary',
     onClick
