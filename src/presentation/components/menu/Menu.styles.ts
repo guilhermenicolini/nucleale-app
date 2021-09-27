@@ -1,9 +1,9 @@
 import { darken, lighten } from '@/presentation/styles/utils'
-import { Link, LinkProps } from 'react-router-dom'
+import { NavLink, NavLinkProps } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import { MenuProps } from './Menu'
 
-type NavLinkProps = Pick<MenuProps, 'mode'> & LinkProps
+type ReactLinkProps = Pick<MenuProps, 'mode'> & NavLinkProps
 type OrientationProps = Pick<MenuProps, 'orientation'>
 
 const setOrientation = {
@@ -63,9 +63,13 @@ export const Item = styled.li<OrientationProps>`
 
 const setMode = {
   light: ({ theme }) => css`
-    color: ${theme.colors.light.highEmphasis};
+    color: ${theme.colors.light.mediumEmphasis};
     &:hover {
-      color: ${darken(theme.colors.light.highEmphasis, 15)};
+      color: ${darken(theme.colors.light.mediumEmphasis, 15)};
+    }
+
+    &.active {
+      color: ${theme.colors.palette.secondary.color};
     }
   `,
   dark: ({ theme }) => css`
@@ -73,15 +77,18 @@ const setMode = {
     &:hover {
       color: ${lighten(theme.colors.dark.highEmphasis, 40)};
     }
+    &.active {
+      color: ${theme.colors.palette.primary.color};
+    }
   `
 }
 
-export const NavLink = styled(Link)<NavLinkProps>`
+export const ReactLink = styled(NavLink)<ReactLinkProps>`
   ${({ theme, mode = 'light' }) => css`
     ${theme.typography.headline6}
     
     text-decoration: none;
-    transition: background-color .2s,box-shadow .2s;
+    transition: color .2s;
     ${setMode[mode]};
   `}
 `

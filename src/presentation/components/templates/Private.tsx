@@ -33,7 +33,8 @@ export const Private: React.FC<PrivateProps> = ({ children }: PrivateProps) => {
         <LinkButton type="text" block onClick={doLogout}>Sair</LinkButton>
       </SideMenu>
       <S.Content>
-        {state.opened.toString()}
+        {children}
+        <div>{state.opened.toString()}</div>
       </S.Content>
     </S.Wrapper>
   )

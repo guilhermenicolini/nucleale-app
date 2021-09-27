@@ -4,7 +4,7 @@ import { Private } from '@/presentation/components'
 export const Dashboard: React.FC = () => {
   return (
     <Private>
-      Dashboard: Logged
+      Dashboard
     </Private>
   )
 }

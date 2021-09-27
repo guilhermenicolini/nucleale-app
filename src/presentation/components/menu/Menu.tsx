@@ -10,11 +10,11 @@ export const Menu: React.FC<MenuProps> = ({ mode = 'light', orientation = 'horiz
   return (
     <S.Nav orientation={orientation}>
       <S.Menu orientation={orientation}>
-        <S.Item orientation={orientation}><S.NavLink mode={mode} to="/">Painel</S.NavLink></S.Item>
-        <S.Item orientation={orientation}><S.NavLink mode={mode} to="/invoices">Notas Fiscais</S.NavLink></S.Item>
-        <S.Item orientation={orientation}><S.NavLink mode={mode} to="/address">Endereço</S.NavLink></S.Item>
-        <S.Item orientation={orientation}><S.NavLink mode={mode} to="/childrens">Filhos</S.NavLink></S.Item>
-        <S.Item orientation={orientation}><S.NavLink mode={mode} to="/family">Família</S.NavLink></S.Item>
+        <S.Item orientation={orientation}><S.ReactLink exact mode={mode} to="/">Painel</S.ReactLink></S.Item>
+        <S.Item orientation={orientation}><S.ReactLink exact mode={mode} to="/invoices">Notas Fiscais</S.ReactLink></S.Item>
+        <S.Item orientation={orientation}><S.ReactLink exact mode={mode} to="/address">Endereço</S.ReactLink></S.Item>
+        <S.Item orientation={orientation}><S.ReactLink exact mode={mode} to="/childrens">Filhos</S.ReactLink></S.Item>
+        <S.Item orientation={orientation}><S.ReactLink exact mode={mode} to="/family">Família</S.ReactLink></S.Item>
       </S.Menu>
     </S.Nav>
   )
