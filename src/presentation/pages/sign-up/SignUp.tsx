@@ -7,6 +7,7 @@ import { Validation } from '@/presentation/protocols'
 import { AddAccount } from '@/domain/usecases'
 import { toast } from 'react-toastify'
 import { useHistory } from 'react-router-dom'
+import moment from 'moment-timezone'
 
 type FormData = {
   taxId: string
@@ -51,7 +52,7 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
         name: data.name,
         email: data.email,
         mobilePhone: data.mobilePhone,
-        birth: data.birth,
+        birth: moment.utc(data.birth).valueOf(),
         password: data.password,
         passwordConfirmation: data.passwordConfirmation
       })

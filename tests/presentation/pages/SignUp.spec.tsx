@@ -7,6 +7,7 @@ import { defaultTheme } from '@/presentation/styles'
 import { ToastContainer } from '@/presentation/components'
 import { createMemoryHistory } from 'history'
 import { Router } from 'react-router-dom'
+import moment from 'moment-timezone'
 
 import faker from 'faker'
 import { ApiContext } from '@/presentation/contexts'
@@ -225,8 +226,13 @@ describe('SignUp Component', () => {
 
     simulateValidSubmit(input)
 
+    const { birth, ...rest } = input
+
     await waitFor(() => {
-      expect(addAccountSpy.params).toEqual(input)
+      expect(addAccountSpy.params).toEqual({
+        ...rest,
+        birth: moment.utc(birth).valueOf()
+      })
     })
   })
 
