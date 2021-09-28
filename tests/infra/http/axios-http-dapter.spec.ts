@@ -1,7 +1,7 @@
 import { AxiosHttpAdapter } from '@/infra'
 import { mockHttpRequest } from '@/tests/data/mocks'
 import axios from 'axios'
-import { mockAxios, mockHttpResponse } from '@/tests/infra/mocks'
+import { mockAxios, mockHttpRequestError, mockHttpResponseError } from '@/tests/infra/mocks'
 
 jest.mock('axios')
 
@@ -46,14 +46,43 @@ describe('AxioHttpClient Adapter', () => {
     })
   })
 
-  test('Should return correct error', () => {
+  test('Should return correct response error', async () => {
     const { sut, mockedAxios } = makeSut()
+    const errorResponse = mockHttpResponseError()
+
     mockedAxios.request.mockRejectedValueOnce({
-      response: mockHttpResponse()
+      response: errorResponse
     })
 
-    const promise = sut.request(mockHttpRequest())
+    const result = await sut.request(mockHttpRequest())
+    expect(result).toEqual({
+      statusCode: errorResponse.status,
+      error: errorResponse.data.error
+    })
+  })
 
-    expect(promise).toEqual(mockedAxios.request.mock.results[0].value)
+  test('Should return correct request error', async () => {
+    const { sut, mockedAxios } = makeSut()
+    const errorResponse = mockHttpRequestError()
+
+    mockedAxios.request.mockRejectedValueOnce({
+      request: errorResponse
+    })
+
+    const result = await sut.request(mockHttpRequest())
+    expect(result).toEqual({
+      statusCode: errorResponse.status
+    })
+  })
+
+  test('Should return correct unhandled error', async () => {
+    const { sut, mockedAxios } = makeSut()
+
+    mockedAxios.request.mockRejectedValueOnce({})
+
+    const result = await sut.request(mockHttpRequest())
+    expect(result).toEqual({
+      statusCode: 500
+    })
   })
 })

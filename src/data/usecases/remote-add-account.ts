@@ -17,7 +17,9 @@ export class RemoteAddAccount implements AddAccount {
     switch (response.statusCode) {
       case HttpStatusCode.created: return response.body
       case HttpStatusCode.badRequest:
-      case HttpStatusCode.conflict: throw new ClientError(response.error)
+      case HttpStatusCode.conflict: {
+        throw new ClientError(response.error)
+      }
       default: throw new ServerError()
     }
   }

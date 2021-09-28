@@ -6,6 +6,15 @@ export const mockHttpResponse = (): any => ({
   status: faker.datatype.number()
 })
 
+export const mockHttpResponseError = (): any => ({
+  data: { error: faker.random.words() },
+  status: faker.datatype.number()
+})
+
+export const mockHttpRequestError = (): any => ({
+  status: faker.datatype.number()
+})
+
 export const mockAxios = (): jest.Mocked<typeof axios> => {
   const mockedAxios = axios as jest.Mocked<typeof axios>
   mockedAxios.request.mockClear().mockResolvedValue(mockHttpResponse())

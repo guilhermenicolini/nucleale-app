@@ -12,7 +12,20 @@ export class AxiosHttpAdapter implements HttpClient {
         data: data.body
       })
     } catch (error) {
-      axiosResponse = error.response
+      if (error.response) {
+        return {
+          statusCode: error.response.status,
+          error: error.response.data.error
+        }
+      }
+      if (error.request) {
+        return {
+          statusCode: error.request.status
+        }
+      }
+      return {
+        statusCode: 500
+      }
     }
     return {
       statusCode: axiosResponse.status,
