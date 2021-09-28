@@ -4,7 +4,7 @@ import {
   EmailValidator,
   PasswordValidator,
   TaxIdValidator,
-  SameAsFieldValidation
+  SameAsFieldValidator
 } from '@/validation/validators'
 import { EmailValidationAdapter } from '@/infra/validations'
 
@@ -39,7 +39,7 @@ export class ValidationBuilder {
   }
 
   sameAs (fieldToCompare: string, message?: string): ValidationBuilder {
-    this.validations.push(new SameAsFieldValidation(this.field, fieldToCompare, message))
+    this.validations.push(new SameAsFieldValidator(this.field, fieldToCompare, message))
     return this
   }
 

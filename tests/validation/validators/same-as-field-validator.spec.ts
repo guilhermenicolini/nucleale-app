@@ -1,10 +1,10 @@
-import { SameAsFieldValidation } from '@/validation/validators'
+import { SameAsFieldValidator } from '@/validation/validators'
 import { InvalidFieldError } from '@/validation/errors'
 import faker from 'faker'
 
-const makeSut = (field: string, fieldToCompare: string): SameAsFieldValidation => new SameAsFieldValidation(field, fieldToCompare)
+const makeSut = (field: string, fieldToCompare: string): SameAsFieldValidator => new SameAsFieldValidator(field, fieldToCompare)
 
-describe('SameAsFieldValidation', () => {
+describe('SameAsFieldValidator', () => {
   test('Should return falsy if field is not present', () => {
     const field = faker.database.column()
     const fieldToCompare = faker.database.column()

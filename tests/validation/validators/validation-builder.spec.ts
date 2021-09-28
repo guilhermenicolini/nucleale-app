@@ -4,7 +4,7 @@ import {
   EmailValidator,
   PasswordValidator,
   TaxIdValidator,
-  SameAsFieldValidation
+  SameAsFieldValidator
 } from '@/validation/validators'
 import { EmailValidationAdapter } from '@/infra/validations'
 import faker from 'faker'
@@ -34,11 +34,11 @@ describe('ValidationBuilder', () => {
     expect(validations).toEqual([new TaxIdValidator(field)])
   })
 
-  test('Should return SameAsFieldValidation', () => {
+  test('Should return SameAsFieldValidator', () => {
     const field = faker.database.column()
     const fieldToCompare = faker.database.column()
     const validations = sut.field(field).sameAs(fieldToCompare).build()
-    expect(validations).toEqual([new SameAsFieldValidation(field, fieldToCompare)])
+    expect(validations).toEqual([new SameAsFieldValidator(field, fieldToCompare)])
   })
 
   test('Should return a list of validations', () => {
