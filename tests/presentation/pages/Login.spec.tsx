@@ -1,6 +1,6 @@
 import { render, waitFor } from '@testing-library/react'
 import { Helper } from '@/tests/presentation/helpers'
-import { Login } from '@/presentation/pages/login/Login'
+import { Login } from '@/presentation/pages'
 import { ValidationSpy, AuthenticationSpy } from '@/tests/presentation/mocks'
 import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from '@/presentation/styles'
