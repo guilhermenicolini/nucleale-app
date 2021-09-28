@@ -165,7 +165,7 @@ describe('Login Component', () => {
 
   test('Should present error if Authentication fails', async () => {
     const { authenticationSpy } = makeSut()
-    jest.spyOn(authenticationSpy, 'auth').mockImplementation(Helper.throwError)
+    jest.spyOn(authenticationSpy, 'auth').mockRejectedValueOnce(new Error())
 
     simulateValidSubmit()
 
