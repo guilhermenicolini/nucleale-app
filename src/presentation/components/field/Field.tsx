@@ -4,7 +4,7 @@ import * as S from './Field.styles'
 export type FieldProps = {
   label?: string
   name: string
-  type?: 'text' | 'select' | 'email' | 'password'
+  type?: 'text' | 'select' | 'email' | 'password' | 'number' | 'date' | 'tel'
   required?: boolean
   placeholder?: string
   value?: string

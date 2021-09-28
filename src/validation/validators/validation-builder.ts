@@ -1,5 +1,11 @@
 import { FieldValidation } from '@/validation/protocols'
-import { RequiredFieldValidator, EmailValidator, PasswordValidator } from '@/validation/validators'
+import {
+  RequiredFieldValidator,
+  EmailValidator,
+  PasswordValidator,
+  TaxIdValidator,
+  SameAsFieldValidation
+} from '@/validation/validators'
 import { EmailValidationAdapter } from '@/infra/validations'
 
 export class ValidationBuilder {
@@ -24,6 +30,16 @@ export class ValidationBuilder {
 
   password (): ValidationBuilder {
     this.validations.push(new PasswordValidator(this.field))
+    return this
+  }
+
+  cpf (): ValidationBuilder {
+    this.validations.push(new TaxIdValidator(this.field))
+    return this
+  }
+
+  sameAs (fieldToCompare: string, message?: string): ValidationBuilder {
+    this.validations.push(new SameAsFieldValidation(this.field, fieldToCompare, message))
     return this
   }
 

@@ -21,7 +21,7 @@ type LoginProps = {
 export const Login: React.FC<LoginProps> = ({ validation, authentication }: LoginProps) => {
   const { setCurrentAccount } = useContext(ApiContext)
   const history = useHistory()
-  const { register, handleSubmit, formState: { isSubmitting, isValid, isDirty, errors } } = useForm<FormData>(
+  const { register, getValues, handleSubmit, formState: { isSubmitting, isValid, isDirty, errors } } = useForm<FormData>(
     { mode: 'all' }
   )
 
@@ -29,8 +29,8 @@ export const Login: React.FC<LoginProps> = ({ validation, authentication }: Logi
     isLoading: false
   })
 
-  const validate = (field: string, value: string): string | boolean => {
-    const error = validation.validate(field, { [field]: value })
+  const validateField = (field: string): string | boolean => {
+    const error = validation.validate(field, getValues())
     return error ? error.message : true
   }
 
@@ -63,15 +63,15 @@ export const Login: React.FC<LoginProps> = ({ validation, authentication }: Logi
             placeholder="Informe seu e-mail"
             name="email"
             type="email"
-            {...register('email', { validate: value => validate('email', value) })}
+            {...register('email', { validate: () => validateField('email') })}
             error={errors.email?.message}
             touched={isDirty} />
           <Field
             label="Senha"
             placeholder="Informe sua senha"
-            name="email"
+            name="password"
             type="password"
-            {...register('password', { validate: value => validate('password', value) })}
+            {...register('password', { validate: () => validateField('password') })}
             error={errors.password?.message}
             touched={isDirty} />
           <Button type="submit" block disabled={!isValid} >Entrar</Button>
