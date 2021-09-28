@@ -1,4 +1,4 @@
-import { EmailValidation, FieldValidation } from '@/validation/protocols'
+import { EmailValidation, FieldValidation, MobileValidation } from '@/validation/protocols'
 
 export class EmailValidationSpy implements EmailValidation {
   isEmailValid = true
@@ -17,5 +17,15 @@ export class FieldValidationSpy implements FieldValidation {
 
   validate (input: object): Error {
     return this.error
+  }
+}
+
+export class MobileValidationSpy implements MobileValidation {
+  isMobileValid = true
+  mobilePhone: string
+
+  isValid (mobilePhone: string): boolean {
+    this.mobilePhone = mobilePhone
+    return this.isMobileValid
   }
 }
