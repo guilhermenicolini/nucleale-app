@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Public, Field, Button, Spinner, LinkButton } from '@/presentation/components'
+import { Public, Field, FieldMask, Button, Spinner, LinkButton } from '@/presentation/components'
 import * as S from './SignUp.styles'
 import { FormContext, ApiContext } from '@/presentation/contexts'
 import { useForm } from 'react-hook-form'
@@ -47,7 +47,7 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
     setState(s => ({ ...s, isLoading: true }))
     try {
       const account = await addAccount.add({
-        taxId: data.taxId,
+        taxId: data.taxId.replace(/[^0-9]/g, ''),
         name: data.name,
         email: data.email,
         mobilePhone: data.mobilePhone,
@@ -68,11 +68,12 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
     <Public>
       <FormContext.Provider value={{ state, setState }}>
         <S.Form onSubmit={handleSubmit(submit)} noValidate>
-          <Field
+          <FieldMask
             label="CPF"
             placeholder="Informe seu CPF"
             name="taxId"
             type="text"
+            mask="999.999.999-99"
             {...register('taxId', { validate: () => validateField('taxId') })}
             error={errors.taxId?.message}
             touched={isDirty} />

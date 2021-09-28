@@ -1,4 +1,5 @@
 import { ForwardRefRenderFunction, forwardRef } from 'react'
+import InputMask from 'react-input-mask'
 import * as S from './Field.styles'
 
 export type FieldProps = {
@@ -12,6 +13,7 @@ export type FieldProps = {
   error?: string
   disabled?: boolean
   icon?: React.ReactNode
+  mask?: string
 }
 
 const FieldBase: ForwardRefRenderFunction<any, FieldProps> = (
@@ -49,3 +51,19 @@ const FieldBase: ForwardRefRenderFunction<any, FieldProps> = (
 }
 
 export const Field = forwardRef(FieldBase)
+
+const FieldMaskBase: ForwardRefRenderFunction<any, FieldProps> = (
+  {
+    value,
+    mask,
+    ...rest
+  }: FieldProps,
+  ref) => {
+  return (
+    <InputMask mask={mask} value={value} {...rest}>
+      {(inputProps) => <Field {...inputProps} ref={ref} />}
+    </InputMask>
+  )
+}
+
+export const FieldMask = forwardRef(FieldMaskBase)

@@ -1,5 +1,5 @@
 export { Public, Private } from './templates'
-export { Field } from './field/Field'
+export { Field, FieldMask } from './field/Field'
 export { Button } from './button/Button'
 export { LinkButton } from './link-button/LinkButton'
 export { ToastContainer } from './toastr/ToastContainer'

@@ -10,7 +10,7 @@ export class TaxIdValidator implements FieldValidation {
       return null
     }
 
-    const value = input[this.field] || ''
+    const value = (input[this.field] || '').replace(/[^0-9]/g, '')
     if (!isValidCpf(value)) return new InvalidFieldError('CPF inválido')
   }
 }
