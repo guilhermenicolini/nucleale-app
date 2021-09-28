@@ -28,7 +28,3 @@ export const testErrorMessage = (errorMessage: string, inDocument: boolean = tru
     expect(screen.queryByText(errorMessage)).not.toBeInTheDocument()
   }
 }
-
-export const throwError = (): never => {
-  throw new Error()
-}
