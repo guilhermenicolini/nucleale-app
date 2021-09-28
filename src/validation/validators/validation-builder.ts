@@ -4,9 +4,10 @@ import {
   EmailValidator,
   PasswordValidator,
   TaxIdValidator,
-  SameAsFieldValidator
+  SameAsFieldValidator,
+  MobileValidator
 } from '@/validation/validators'
-import { EmailValidationAdapter } from '@/infra/validations'
+import { EmailValidationAdapter, MobileValidationAdapter } from '@/infra/validations'
 
 export class ValidationBuilder {
   private constructor (
@@ -40,6 +41,11 @@ export class ValidationBuilder {
 
   sameAs (fieldToCompare: string, message?: string): ValidationBuilder {
     this.validations.push(new SameAsFieldValidator(this.field, fieldToCompare, message))
+    return this
+  }
+
+  mobile (): ValidationBuilder {
+    this.validations.push(new MobileValidator(this.field, new MobileValidationAdapter()))
     return this
   }
 

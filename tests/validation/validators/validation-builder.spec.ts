@@ -4,9 +4,10 @@ import {
   EmailValidator,
   PasswordValidator,
   TaxIdValidator,
-  SameAsFieldValidator
+  SameAsFieldValidator,
+  MobileValidator
 } from '@/validation/validators'
-import { EmailValidationAdapter } from '@/infra/validations'
+import { EmailValidationAdapter, MobileValidationAdapter } from '@/infra/validations'
 import faker from 'faker'
 
 describe('ValidationBuilder', () => {
@@ -39,6 +40,12 @@ describe('ValidationBuilder', () => {
     const fieldToCompare = faker.database.column()
     const validations = sut.field(field).sameAs(fieldToCompare).build()
     expect(validations).toEqual([new SameAsFieldValidator(field, fieldToCompare)])
+  })
+
+  test('Should return MobileValidator', () => {
+    const field = faker.database.column()
+    const validations = sut.field(field).mobile().build()
+    expect(validations).toEqual([new MobileValidator(field, new MobileValidationAdapter())])
   })
 
   test('Should return a list of validations', () => {
