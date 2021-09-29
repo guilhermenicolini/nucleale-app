@@ -74,7 +74,10 @@ export const Field = styled.input`
 export const Span = styled.span`
   ${({ theme }) => css`
     ${theme.typography.caption};
-    color: ${theme.colors.palette.danger.color};
     min-height: 13px;
+    color: ${theme.colors.dark.disabled};
+    &.invalid {
+      color: ${theme.colors.palette.danger.color};
+    }
   `}
 `

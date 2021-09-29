@@ -11,6 +11,7 @@ export type FieldProps = {
   value?: string
   touched?: boolean
   error?: string
+  message?: string
   disabled?: boolean
   icon?: React.ReactNode
   mask?: string
@@ -21,6 +22,7 @@ const FieldBase: ForwardRefRenderFunction<any, FieldProps> = (
     label,
     touched,
     error,
+    message,
     required,
     placeholder,
     name,
@@ -45,7 +47,7 @@ const FieldBase: ForwardRefRenderFunction<any, FieldProps> = (
         className={isInvalid ? 'invalid' : ''}
         ref={ref}
         {...rest} />
-      <S.Span role={`${name}-alert`}>{error}</S.Span>
+      <S.Span role={`${name}-alert`} className={isInvalid ? 'invalid' : ''} >{error || message}</S.Span>
     </S.Wrapper>
   )
 }

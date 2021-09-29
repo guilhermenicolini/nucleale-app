@@ -105,6 +105,7 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
             required
             {...register('mobilePhone', { validate: () => validateField('mobilePhone') })}
             error={errors.mobilePhone?.message}
+            message="(ex: +55...)"
             touched={isDirty} />
           <Field
             label="Nascimento"
