@@ -6,7 +6,8 @@ import {
   TaxIdValidator,
   SameAsFieldValidator,
   MobileValidator,
-  DialCodeValidator
+  DialCodeValidator,
+  MinLengthValidator
 } from '@/validation/validators'
 import { EmailValidationAdapter, MobileValidationAdapter } from '@/infra/validations'
 import faker from 'faker'
@@ -53,6 +54,12 @@ describe('ValidationBuilder', () => {
     const field = faker.database.column()
     const validations = sut.field(field).dial().build()
     expect(validations).toEqual([new DialCodeValidator(field)])
+  })
+
+  test('Should return MinLengthValidator', () => {
+    const field = faker.database.column()
+    const validations = sut.field(field).min(5).build()
+    expect(validations).toEqual([new MinLengthValidator(field, 5)])
   })
 
   test('Should return a list of validations', () => {

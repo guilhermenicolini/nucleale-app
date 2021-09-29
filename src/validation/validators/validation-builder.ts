@@ -6,7 +6,8 @@ import {
   TaxIdValidator,
   SameAsFieldValidator,
   MobileValidator,
-  DialCodeValidator
+  DialCodeValidator,
+  MinLengthValidator
 } from '@/validation/validators'
 import { EmailValidationAdapter, MobileValidationAdapter } from '@/infra/validations'
 
@@ -52,6 +53,11 @@ export class ValidationBuilder {
 
   dial (): ValidationBuilder {
     this.validations.push(new DialCodeValidator(this.field))
+    return this
+  }
+
+  min (minLength: number): ValidationBuilder {
+    this.validations.push(new MinLengthValidator(this.field, minLength))
     return this
   }
 
