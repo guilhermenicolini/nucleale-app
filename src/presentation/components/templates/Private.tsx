@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import * as S from './Private.styles'
-import { Header, SideMenu, Menu, LinkButton } from '@/presentation/components'
+import { Header, SideMenu, Menu, LinkButton, Footer } from '@/presentation/components'
 import { useLogout } from '@/presentation/hooks'
 
 type PrivateProps = {
@@ -36,6 +36,7 @@ export const Private: React.FC<PrivateProps> = ({ children }: PrivateProps) => {
         {children}
         <div>{state.opened.toString()}</div>
       </S.Content>
+      <Footer />
     </S.Wrapper>
   )
 }

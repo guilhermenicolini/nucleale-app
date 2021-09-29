@@ -1,6 +1,7 @@
 import React from 'react'
 import * as S from './Public.styles'
 import { Logotype, Logomark, Slogan } from '../logos'
+import { Footer } from '@/presentation/components'
 
 type PublicProps = {
   children?: React.ReactNode
@@ -19,6 +20,7 @@ export const Public: React.FC<PublicProps> = (props: PublicProps) => {
       <S.ColumnContent>
         {props.children}
       </S.ColumnContent>
+      <Footer />
     </S.Content>
   )
 }
