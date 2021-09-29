@@ -1,4 +1,4 @@
-import { AddAccount } from '@/domain/usecases'
+import { AddAccount, RecoverAccount } from '@/domain/usecases'
 import faker from 'faker'
 
 export class AddAccountSpy implements AddAccount {
@@ -16,4 +16,12 @@ export class AddAccountSpy implements AddAccount {
 export namespace AddAccountSpy {
   export type Params = AddAccount.Params
   export type Result = AddAccount.Result
+}
+
+export class RecoverAccountSpy implements RecoverAccount {
+  email: string = null
+
+  async recover (email: string): Promise<void> {
+    this.email = email
+  }
 }
