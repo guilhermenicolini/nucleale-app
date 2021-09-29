@@ -74,6 +74,7 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
             placeholder="Informe seu CPF"
             name="taxId"
             type="text"
+            required
             mask="999.999.999-99"
             {...register('taxId', { validate: () => validateField('taxId') })}
             error={errors.taxId?.message}
@@ -83,6 +84,7 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
             placeholder="Informe seu nome completo"
             name="name"
             type="text"
+            required
             {...register('name', { validate: () => validateField('name') })}
             error={errors.name?.message}
             touched={isDirty} />
@@ -91,6 +93,7 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
             placeholder="Informe seu e-mail"
             name="email"
             type="email"
+            required
             {...register('email', { validate: () => validateField('email') })}
             error={errors.email?.message}
             touched={isDirty} />
@@ -99,6 +102,7 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
             placeholder="Informe seu whatsapp"
             name="mobilePhone"
             type="text"
+            required
             {...register('mobilePhone', { validate: () => validateField('mobilePhone') })}
             error={errors.mobilePhone?.message}
             touched={isDirty} />
@@ -107,6 +111,7 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
             placeholder="dd/mm/aaaa"
             name="birth"
             type="date"
+            required
             {...register('birth', { validate: () => validateField('birth') })}
             error={errors.birth?.message}
             touched={isDirty} />
@@ -115,6 +120,7 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
             placeholder="Informe sua senha"
             name="password"
             type="password"
+            required
             {...register('password', { validate: () => validateField('password') })}
             error={errors.password?.message}
             touched={isDirty} />
@@ -123,6 +129,7 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
             placeholder="Repita a senha"
             name="passwordConfirmation"
             type="password"
+            required
             {...register('passwordConfirmation', { validate: () => validateField('passwordConfirmation') })}
             error={errors.passwordConfirmation?.message}
             touched={isDirty} />

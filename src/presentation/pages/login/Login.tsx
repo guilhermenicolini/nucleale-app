@@ -63,6 +63,7 @@ export const Login: React.FC<LoginProps> = ({ validation, authentication }: Logi
             placeholder="Informe seu e-mail"
             name="email"
             type="email"
+            required
             {...register('email', { validate: () => validateField('email') })}
             error={errors.email?.message}
             touched={isDirty} />
@@ -71,6 +72,7 @@ export const Login: React.FC<LoginProps> = ({ validation, authentication }: Logi
             placeholder="Informe sua senha"
             name="password"
             type="password"
+            required
             {...register('password', { validate: () => validateField('password') })}
             error={errors.password?.message}
             touched={isDirty} />
