@@ -2,7 +2,7 @@ import { SameAsFieldValidator } from '@/validation/validators'
 import { InvalidFieldError } from '@/validation/errors'
 import faker from 'faker'
 
-const makeSut = (field: string, fieldToCompare: string): SameAsFieldValidator => new SameAsFieldValidator(field, fieldToCompare)
+const makeSut = (field: string, fieldToCompare: string): SameAsFieldValidator => new SameAsFieldValidator(field, fieldToCompare, null)
 
 describe('SameAsFieldValidator', () => {
   test('Should return falsy if field is not present', () => {
@@ -17,7 +17,7 @@ describe('SameAsFieldValidator', () => {
     const field = faker.database.column()
     const fieldToCompare = faker.database.column()
     const sut = makeSut(field, fieldToCompare)
-    const error = sut.validate({ [field]: null })
+    const error = sut.validate({ [field]: null, [fieldToCompare]: 'other_Value' })
     expect(error).toEqual(new InvalidFieldError())
   })
 
