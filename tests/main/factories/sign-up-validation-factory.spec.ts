@@ -7,7 +7,8 @@ import {
   TaxIdValidator,
   PasswordValidator,
   SameAsFieldValidator,
-  DialCodeValidator
+  DialCodeValidator,
+  MinLengthValidator
 } from '@/validation/validators'
 import { EmailValidationAdapter, MobileValidationAdapter } from '@/infra/validations'
 
@@ -18,6 +19,7 @@ describe('SignUpValidationFactory', () => {
       new RequiredFieldValidator('taxId'),
       new TaxIdValidator('taxId'),
       new RequiredFieldValidator('name'),
+      new MinLengthValidator('name', 5),
       new RequiredFieldValidator('email'),
       new EmailValidator('email', new EmailValidationAdapter()),
       new RequiredFieldValidator('mobilePhone'),
