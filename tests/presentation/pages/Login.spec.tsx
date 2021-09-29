@@ -111,7 +111,7 @@ describe('Login Component', () => {
   test('Should enable submit button if form is valid', async () => {
     makeSut()
     await waitFor(() => {
-      Helper.populateField(form.password, faker.internet.email())
+      Helper.populateField(form.email, faker.internet.email())
       Helper.populateField(form.password, faker.internet.password())
       expect(Helper.getButton(form.enter)).toBeEnabled()
     })
