@@ -1,3 +1,4 @@
+export * from './dial-code-validator'
 export * from './email-validator'
 export * from './mobile-validator'
 export * from './password-validator'

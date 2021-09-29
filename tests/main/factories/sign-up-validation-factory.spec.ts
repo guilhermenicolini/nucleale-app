@@ -6,7 +6,8 @@ import {
   MobileValidator,
   TaxIdValidator,
   PasswordValidator,
-  SameAsFieldValidator
+  SameAsFieldValidator,
+  DialCodeValidator
 } from '@/validation/validators'
 import { EmailValidationAdapter, MobileValidationAdapter } from '@/infra/validations'
 
@@ -20,6 +21,7 @@ describe('SignUpValidationFactory', () => {
       new RequiredFieldValidator('email'),
       new EmailValidator('email', new EmailValidationAdapter()),
       new RequiredFieldValidator('mobilePhone'),
+      new DialCodeValidator('mobilePhone'),
       new MobileValidator('mobilePhone', new MobileValidationAdapter()),
       new RequiredFieldValidator('birth'),
       new RequiredFieldValidator('password'),

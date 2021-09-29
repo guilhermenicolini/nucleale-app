@@ -5,7 +5,8 @@ import {
   PasswordValidator,
   TaxIdValidator,
   SameAsFieldValidator,
-  MobileValidator
+  MobileValidator,
+  DialCodeValidator
 } from '@/validation/validators'
 import { EmailValidationAdapter, MobileValidationAdapter } from '@/infra/validations'
 
@@ -46,6 +47,11 @@ export class ValidationBuilder {
 
   mobile (): ValidationBuilder {
     this.validations.push(new MobileValidator(this.field, new MobileValidationAdapter()))
+    return this
+  }
+
+  dial (): ValidationBuilder {
+    this.validations.push(new DialCodeValidator(this.field))
     return this
   }
 

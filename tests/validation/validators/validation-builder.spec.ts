@@ -5,7 +5,8 @@ import {
   PasswordValidator,
   TaxIdValidator,
   SameAsFieldValidator,
-  MobileValidator
+  MobileValidator,
+  DialCodeValidator
 } from '@/validation/validators'
 import { EmailValidationAdapter, MobileValidationAdapter } from '@/infra/validations'
 import faker from 'faker'
@@ -46,6 +47,12 @@ describe('ValidationBuilder', () => {
     const field = faker.database.column()
     const validations = sut.field(field).mobile().build()
     expect(validations).toEqual([new MobileValidator(field, new MobileValidationAdapter())])
+  })
+
+  test('Should return DialCodeValidator', () => {
+    const field = faker.database.column()
+    const validations = sut.field(field).dial().build()
+    expect(validations).toEqual([new DialCodeValidator(field)])
   })
 
   test('Should return a list of validations', () => {
