@@ -5,3 +5,7 @@ export const Form = styled.form`
   max-width: 280px;
   margin: 10px;
 `
+
+export const Message = styled.div`
+  margin-bottom: 20px;
+`

@@ -22,7 +22,8 @@ export const PasswordRecovery: React.FC<PasswordRecoveryProps> = ({ validation, 
   )
 
   const [state, setState] = useState({
-    isLoading: false
+    isLoading: false,
+    done: false
   })
 
   const validateField = (field: string): string | boolean => {
@@ -38,6 +39,7 @@ export const PasswordRecovery: React.FC<PasswordRecoveryProps> = ({ validation, 
     setState(s => ({ ...s, isLoading: true }))
     try {
       await recoverAccount.recover(data.email)
+      setState(s => ({ ...s, done: true }))
     } catch (err) {
       toast.error(err.message)
     } finally {
@@ -49,18 +51,23 @@ export const PasswordRecovery: React.FC<PasswordRecoveryProps> = ({ validation, 
     <Public>
       <FormContext.Provider value={{ state, setState }}>
         <S.Form onSubmit={handleSubmit(submit)} noValidate>
-          <>
-            <Field
-              label="E-mail"
-              placeholder="Informe seu e-mail"
-              name="email"
-              type="email"
-              required
-              {...register('email', { validate: () => validateField('email') })}
-              error={errors.email?.message}
-              touched={isDirty} />
-            <Button type="submit" block disabled={!isValid} >Recuperar senha</Button>
-          </>
+          {!state.done
+            ? <>
+              <Field
+                label="E-mail"
+                placeholder="Informe seu e-mail"
+                name="email"
+                type="email"
+                required
+                {...register('email', { validate: () => validateField('email') })}
+                error={errors.email?.message}
+                touched={isDirty} />
+              <Button type="submit" block disabled={!isValid} >Recuperar senha</Button>
+            </>
+            : <S.Message role="message">
+              Acabamos de enviar um e-mail ou uma mensagem em seu whatsapp contendo um link para alterar sua senha. Caso não receba, entre em contato conosco.
+            </S.Message>
+          }
           <LinkButton type="text" block to="/login">Voltar para login</LinkButton>
         </S.Form>
         <Spinner isLoading={state.isLoading} />

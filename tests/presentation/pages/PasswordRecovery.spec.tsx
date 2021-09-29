@@ -14,7 +14,8 @@ const form = {
   email: 'Informe seu e-mail',
   status: 'status',
   enter: 'Recuperar senha',
-  login: 'Voltar para login'
+  login: 'Voltar para login',
+  message: 'message'
 }
 
 type SutParams = {
@@ -57,6 +58,7 @@ describe('PasswordRecovery Component', () => {
 
     await waitFor(() => {
       expect(Helper.getRole(form.status)).not.toBeInTheDocument()
+      expect(Helper.getRole(form.message)).not.toBeInTheDocument()
       expect(Helper.getField(form.email)).toHaveValue('')
       expect(Helper.getButton(form.enter)).toBeDisabled()
     })
@@ -150,16 +152,14 @@ describe('PasswordRecovery Component', () => {
     })
   })
 
-  // test('Should call SetCurrentAccount on success', async () => {
-  //   const { authenticationSpy, setCurrentAccountMock } = makeSut()
-  //   simulateValidSubmit()
+  test('Should show message on success', async () => {
+    makeSut()
+    simulateValidSubmit()
 
-  //   await waitFor(() => {
-  //     expect(setCurrentAccountMock).toHaveBeenCalledWith(authenticationSpy.result)
-  //     expect(history.length).toBe(1)
-  //     expect(history.location.pathname).toBe('/')
-  //   })
-  // })
+    await waitFor(() => {
+      expect(Helper.getRole(form.message)).toBeInTheDocument()
+    })
+  })
 
   test('Should go to login page', async () => {
     makeSut()
