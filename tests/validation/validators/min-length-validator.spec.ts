@@ -19,12 +19,19 @@ describe('MinLengthValidator', () => {
     expect(error).toEqual(new InvalidFieldError('Mínimo de 5 caracteres requerido'))
   })
 
-  test('Should return error if field has not min length', () => {
+  test('Should return error if field has not min length > 1', () => {
     const field = faker.database.column()
     const min = faker.datatype.number({ min: 3, max: 9 })
     const sut = makeSut(field, min)
     const error = sut.validate({ [field]: faker.random.alphaNumeric(min - 1) })
     expect(error).toEqual(new InvalidFieldError(`Mínimo de ${min} caracteres requerido`))
+  })
+
+  test('Should return error if field has not min length = 1', () => {
+    const field = faker.database.column()
+    const sut = makeSut(field, 1)
+    const error = sut.validate({ [field]: faker.random.alphaNumeric(0) })
+    expect(error).toEqual(new InvalidFieldError('Mínimo de 1 caracter requerido'))
   })
 
   test('Should return falsy if field is valid', () => {

@@ -14,6 +14,6 @@ export class MinLengthValidator implements FieldValidation {
     const characters = `caracter${this.minLength > 1 ? 'es' : ''}`
     const value = input[this.field]
 
-    return !value || input[this.field]?.length < this.minLength ? new InvalidFieldError(`Mínimo de ${this.minLength} ${characters} requerido`) : null
+    return !value || input[this.field].length < this.minLength ? new InvalidFieldError(`Mínimo de ${this.minLength} ${characters} requerido`) : null
   }
 }
