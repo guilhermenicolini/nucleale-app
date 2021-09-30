@@ -13,7 +13,8 @@
     "storybook": "start-storybook",
     "build:storybook": "build-storybook -c .storybook -o sb",
     "build": "webpack --config webpack.prod.js",
-    "start": "node index"
+    "start": "node index",
+    "start:api": "npm --prefix ../nucleale-api run dev"
   },
   "repository": {
     "type": "git",
