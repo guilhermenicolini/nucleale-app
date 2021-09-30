@@ -8,9 +8,9 @@ export class RemoteCheckPasswordRequest implements CheckPasswordRequest {
     private readonly httpClient: HttpClient<void>
   ) {}
 
-  async check (token: string): Promise<boolean> {
+  async check (): Promise<boolean> {
     const response = await this.httpClient.request({
-      url: `${this.url}/${token}`,
+      url: this.url,
       method: 'get'
     })
     switch (response.statusCode) {

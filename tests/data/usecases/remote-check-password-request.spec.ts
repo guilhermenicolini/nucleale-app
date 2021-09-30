@@ -22,11 +22,10 @@ const makeSut = (url: string = faker.internet.url()): SutTypes => {
 describe('RemoteCheckPasswordRequest Usecase', () => {
   test('Should call HttpClient with correct values', async () => {
     const url = faker.internet.url()
-    const token = faker.datatype.uuid()
     const { sut, httpClientSpy } = makeSut(url)
-    await sut.check(token)
+    await sut.check()
     expect(httpClientSpy.data).toEqual({
-      url: `${url}/${token}`,
+      url,
       method: 'get'
     })
   })
@@ -37,7 +36,7 @@ describe('RemoteCheckPasswordRequest Usecase', () => {
       statusCode: HttpStatusCode.badRequest,
       error: 'any_error'
     }
-    const result = await sut.check(faker.datatype.uuid())
+    const result = await sut.check()
     expect(result).toBe(false)
   })
 
@@ -47,7 +46,7 @@ describe('RemoteCheckPasswordRequest Usecase', () => {
       statusCode: HttpStatusCode.notFound,
       error: 'any_error'
     }
-    const result = await sut.check(faker.datatype.uuid())
+    const result = await sut.check()
     expect(result).toBe(false)
   })
 
@@ -57,13 +56,13 @@ describe('RemoteCheckPasswordRequest Usecase', () => {
       statusCode: HttpStatusCode.serverError,
       error: 'any_error'
     }
-    const promise = sut.check(faker.datatype.uuid())
+    const promise = sut.check()
     expect(promise).rejects.toThrowError(new ServerError())
   })
 
   test('Should return true on success', async () => {
     const { sut } = makeSut()
-    const result = await sut.check(faker.datatype.uuid())
+    const result = await sut.check()
     expect(result).toBe(true)
   })
 })
