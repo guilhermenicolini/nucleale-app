@@ -5,7 +5,7 @@ import { FormContext } from '@/presentation/contexts'
 import { useForm } from 'react-hook-form'
 import { Validation } from '@/presentation/protocols'
 import { toast } from 'react-toastify'
-import { CheckPasswordRequest } from '@/domain/usecases'
+import { UpdatePassword, CheckPasswordRequest } from '@/domain/usecases'
 
 type FormData = {
   password: string
@@ -22,6 +22,7 @@ enum status {
 type ChangePasswordProps = {
   validation: Validation
   checkPasswordRequest: CheckPasswordRequest
+  updatePassword: UpdatePassword
 }
 
 export const ChangePassword: React.FC<ChangePasswordProps> = ({ validation, checkPasswordRequest }: ChangePasswordProps) => {

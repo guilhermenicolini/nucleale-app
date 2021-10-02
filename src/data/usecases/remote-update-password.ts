@@ -1,14 +1,14 @@
 import { HttpClient, HttpStatusCode } from '@/data/protocols'
-import { ChangePassword } from '@/domain/usecases'
+import { UpdatePassword } from '@/domain/usecases'
 import { ClientError, ServerError } from '@/presentation/errors'
 
-export class RemoteChangePassword implements ChangePassword {
+export class RemoteUpdatePassword implements UpdatePassword {
   constructor (
     private readonly url: string,
     private readonly httpClient: HttpClient<void>
   ) {}
 
-  async change (params: ChangePassword.Params): Promise<void> {
+  async update (params: UpdatePassword.Params): Promise<void> {
     const response = await this.httpClient.request({
       url: this.url,
       method: 'post',

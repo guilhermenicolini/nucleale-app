@@ -10,6 +10,7 @@ export const makeChangePassword: React.FC = () => {
     <ChangePassword
       validation={makeChangePasswordValidation()}
       checkPasswordRequest={makeRemoteCheckPasswordRequest(token)}
+      updatePassword={null}
     />
   )
 }
