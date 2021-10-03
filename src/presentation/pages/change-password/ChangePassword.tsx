@@ -16,7 +16,8 @@ enum status {
   pending,
   valid,
   notValid,
-  error
+  error,
+  done
 }
 
 type ChangePasswordProps = {
@@ -25,7 +26,7 @@ type ChangePasswordProps = {
   updatePassword: UpdatePassword
 }
 
-export const ChangePassword: React.FC<ChangePasswordProps> = ({ validation, checkPasswordRequest }: ChangePasswordProps) => {
+export const ChangePassword: React.FC<ChangePasswordProps> = ({ validation, checkPasswordRequest, updatePassword }: ChangePasswordProps) => {
   const { register, getValues, handleSubmit, formState: { isSubmitting, isValid, isDirty, errors } } = useForm<FormData>(
     { mode: 'all' }
   )
@@ -46,9 +47,8 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({ validation, chec
   useEffect(() => {
     setState(s => ({ ...s, isLoading: true, status: status.pending }))
     checkPasswordRequest.check()
-      .then((isValid) => setState(old => ({ ...old, status: isValid ? status.valid : status.notValid })))
-      .catch(() => setState(old => ({ ...old, status: status.error })))
-      .finally(() => setState(old => ({ ...old, isLoading: false })))
+      .then((valid) => setState(old => ({ ...old, isLoading: false, status: valid ? status.valid : status.notValid })))
+      .catch(() => setState(old => ({ ...old, isLoading: false, status: status.error })))
   }, [state.reload])
 
   const submit = async (data: any): Promise<void> => {
@@ -58,7 +58,11 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({ validation, chec
 
     setState(s => ({ ...s, isLoading: true }))
     try {
-      console.log('teste')
+      await updatePassword.update({
+        password: data.password,
+        passwordConfirmation: data.passwordConfirmation
+      })
+      setState(s => ({ ...s, status: status.done }))
     } catch (err) {
       toast.error(err.message)
     } finally {
@@ -69,9 +73,9 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({ validation, chec
   return (
     <Public>
       <FormContext.Provider value={{ state, setState }}>
-        <S.Form onSubmit={handleSubmit(submit)} noValidate>
+        <S.Wrapper>
           {state.status === status.valid &&
-            <>
+            <S.Form aria-label="form" onSubmit={handleSubmit(submit)} noValidate>
               <Field
                 label="Senha"
                 placeholder="Informe sua nova senha"
@@ -91,18 +95,25 @@ export const ChangePassword: React.FC<ChangePasswordProps> = ({ validation, chec
                 error={errors.passwordConfirmation?.message}
                 touched={isDirty} />
               <Button type="submit" block disabled={!isValid} >Alterar senha</Button>
-            </>
+            </S.Form>
           }
           {state.status === status.notValid &&
-            <S.Message>
+            <S.Message role="message">
               Link de recuperação de senha inválido ou expirado
+            </S.Message>
+          }
+          {state.status === status.done &&
+            <S.Message role="message">
+              Senha alterada com sucesso
             </S.Message>
           }
           {state.status === status.error &&
             <Reload onReload={reload} message="Falha ao buscar link" />
           }
-          <LinkButton type="text" block to="/login">Voltar para login</LinkButton>
-        </S.Form>
+          <S.Actions>
+            <LinkButton type="text" block to="/login">Voltar para login</LinkButton>
+          </S.Actions>
+        </S.Wrapper>
         <Spinner isLoading={state.isLoading} />
       </FormContext.Provider>
     </Public>
