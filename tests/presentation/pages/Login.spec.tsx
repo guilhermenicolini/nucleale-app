@@ -104,7 +104,7 @@ describe('Login Component', () => {
       Helper.populateField(form.email)
       Helper.populateField(form.password)
       Helper.testErrorMessage(validationError.message, false)
-      expect(Helper.getButton(form.enter)).toBeDisabled()
+      expect(Helper.getButton(form.enter)).not.toBeDisabled()
     })
   })
 

@@ -179,7 +179,7 @@ describe('SignUp Component', () => {
     })
   })
 
-  test('Should not show form errors if validation succeds', async () => {
+  test('Should not show form errors if validation succeeds', async () => {
     const validationField = 'field'
     const validationError = new Error(faker.random.words())
     makeSut({ validationError, validationField })
@@ -193,7 +193,7 @@ describe('SignUp Component', () => {
       Helper.populateField(form.password)
       Helper.populateField(form.passwordConfirmation)
       Helper.testErrorMessage(validationError.message, false)
-      expect(Helper.getButton(form.createAccount)).toBeDisabled()
+      expect(Helper.getButton(form.createAccount)).not.toBeDisabled()
     })
   })
 

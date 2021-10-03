@@ -76,7 +76,7 @@ describe('PasswordRecovery Component', () => {
     })
   })
 
-  test('Should not show form errors if validation succeds', async () => {
+  test('Should not show form errors if validation succeeds', async () => {
     const validationField = 'field'
     const validationError = new Error(faker.random.words())
     makeSut({ validationError, validationField })
@@ -84,7 +84,7 @@ describe('PasswordRecovery Component', () => {
     await waitFor(() => {
       Helper.populateField(form.email)
       Helper.testErrorMessage(validationError.message, false)
-      expect(Helper.getButton(form.enter)).toBeDisabled()
+      expect(Helper.getButton(form.enter)).not.toBeDisabled()
     })
   })
 
