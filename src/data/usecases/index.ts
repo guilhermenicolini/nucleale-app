@@ -1,5 +1,6 @@
 export * from './remote-add-account'
 export * from './remote-authentication'
-export * from './remote-update-password'
 export * from './remote-check-password-request'
+export * from './remote-load-invoices'
 export * from './remote-recover-account'
+export * from './remote-update-password'

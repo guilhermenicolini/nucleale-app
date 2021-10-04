@@ -7,6 +7,13 @@ export const mockHttpRequest = (): HttpRequest => ({
   body: faker.random.objectElement()
 })
 
+export const mockInvoiceItem = (): any => ({
+  id: faker.datatype.uuid(),
+  invoiceNo: faker.datatype.number(),
+  invoiceDate: faker.date.recent().valueOf(),
+  description: faker.random.words()
+})
+
 export class HttpClientSpy implements HttpClient {
   constructor (readonly status: HttpStatusCode = HttpStatusCode.ok) {}
 
