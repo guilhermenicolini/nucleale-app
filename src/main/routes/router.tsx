@@ -16,7 +16,7 @@ export const Router: React.FC = () => {
         <Route path="/login" exact component={makeLogin} />
         <Route path="/sign-up" exact component={makeSignUp} />
         <Route path="/password-recovery" exact component={makePasswordRecovery} />
-        <Route path="/change-password/:token" exact component={makeChangePassword} />
+        <Route path="/change-password/:token?" exact component={makeChangePassword} />
         <PrivateRoute path="/" exact component={makeDashboard} />
         <PrivateRoute path="/invoices" exact component={() => <Private><div>Notas Fiscais</div></Private> } />
         <PrivateRoute path="/address" exact component={() => <Private><div>Endereço</div></Private> } />
