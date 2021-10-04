@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Form = styled.form`
   width: 100%;
@@ -9,7 +9,6 @@ export const Form = styled.form`
 export const Actions = styled.div`
   width: 100%;
   max-width: 280px;
-  margin: 0 10px;
 `
 
 export const Wrapper = styled.div`
@@ -17,6 +16,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `
 
-export const Message = styled.div`
-  margin-bottom: 20px;
+export const Message = styled.div<{ align?: 'center' | 'left' }>`
+  ${({ align = 'center' }) => css`
+    margin-bottom: 20px;
+    width: 280px;
+    text-align: ${align};
+  `}
 `
