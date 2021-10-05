@@ -72,7 +72,7 @@ const simulateValidSubmit = async (obj: any = mockInput(), clicks: number = 1): 
     Helper.populateField(form.password, obj.password)
     Helper.populateField(form.passwordConfirmation, obj.passwordConfirmation)
     for (let n = 0; n < clicks; n++) {
-      Helper.clickButton(form.change)
+      Helper.submitButton(form.change)
     }
   })
 }

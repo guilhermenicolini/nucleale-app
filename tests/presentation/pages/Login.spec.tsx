@@ -57,7 +57,7 @@ const makeSut = (params?: SutParams): SutTypes => {
 const simulateValidSubmit = (email = faker.internet.email(), password = faker.internet.password()): void => {
   Helper.populateField(form.email, email)
   Helper.populateField(form.password, password)
-  Helper.clickButton(form.enter)
+  Helper.submitButton(form.enter)
 }
 
 describe('Login Component', () => {

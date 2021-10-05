@@ -77,7 +77,7 @@ const simulateValidSubmit = (obj: any = mockInput()): void => {
   Helper.populateField(form.birth, obj.birth)
   Helper.populateField(form.password, obj.password)
   Helper.populateField(form.passwordConfirmation, obj.passwordConfirmation)
-  Helper.clickButton(form.createAccount)
+  Helper.submitButton(form.createAccount)
 }
 
 describe('SignUp Component', () => {

@@ -49,7 +49,7 @@ const makeSut = (params?: SutParams): SutTypes => {
 
 const simulateValidSubmit = (email = faker.internet.email()): void => {
   Helper.populateField(form.email, email)
-  Helper.clickButton(form.enter)
+  Helper.submitButton(form.enter)
 }
 
 describe('PasswordRecovery Component', () => {

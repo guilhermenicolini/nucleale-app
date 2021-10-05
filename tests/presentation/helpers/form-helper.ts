@@ -3,9 +3,13 @@ import faker from 'faker'
 
 export const getRole = (role: string): HTMLElement => screen.queryByRole(role)
 
+export const getRoles = (role: string): HTMLElement[] => screen.queryAllByRole(role)
+
 export const getButton = (name: string): HTMLElement => screen.queryByRole('button', { name })
 
 export const getLink = (name: string): HTMLElement => screen.queryByRole('link', { name })
+
+export const getText = (text: string): HTMLElement => screen.queryByText(text)
 
 export const getField = (placeholder: string): HTMLElement => screen.queryByPlaceholderText(placeholder)
 
@@ -13,8 +17,12 @@ export const populateField = (placeholder: string, value: string = faker.random.
   fireEvent.input(getField(placeholder), { target: { value } })
 }
 
-export const clickButton = (name: string): void => {
+export const submitButton = (name: string): void => {
   fireEvent.submit(getButton(name))
+}
+
+export const clickButton = (name: string): void => {
+  fireEvent.click(getText(name))
 }
 
 export const clickLink = (name: string): void => {
