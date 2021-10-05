@@ -27,6 +27,7 @@ export namespace RemoteLoadInvoices {
     id: string
     invoiceNo: number
     invoiceDate: number
+    invoiceValue: number
     description: string
   }
 }

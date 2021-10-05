@@ -34,7 +34,6 @@ export const Private: React.FC<PrivateProps> = ({ children }: PrivateProps) => {
       </SideMenu>
       <S.Content>
         {children}
-        <div>{state.opened.toString()}</div>
       </S.Content>
       <Footer />
     </S.Wrapper>

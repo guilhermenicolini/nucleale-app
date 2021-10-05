@@ -7,6 +7,7 @@ export namespace LoadInvoices {
     id: string
     invoiceNo: number
     invoiceDate: number
+    invoiceValue: number
     description: string
   }
 }

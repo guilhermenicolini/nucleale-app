@@ -11,6 +11,7 @@ export const Wrapper = styled.div<StyledProps>`
     border-radius: ${theme.general.borderRadius};
     padding: 10px;
     border-left: 10px solid ${theme.colors.palette[variant]?.color || 'transparent'};
+    margin-bottom: 10px;
   `}
 `
 

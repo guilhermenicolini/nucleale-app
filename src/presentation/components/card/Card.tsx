@@ -3,6 +3,7 @@ import { Variants } from '@/presentation/styles/theme'
 import * as S from './Card.styles'
 
 export type CardProps = {
+  key?: string
   variant?: Variants
   title: string
   subtitle: string
