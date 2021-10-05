@@ -10,6 +10,7 @@ import { ApiContext } from '@/presentation/contexts'
 import { createMemoryHistory, MemoryHistory } from 'history'
 import { AccountModel } from '@/domain/models'
 import { ServerError, UnauthorizedError } from '@/presentation/errors'
+import { mockInvoiceItem } from '@/tests/data/mocks'
 
 type SutTypes = {
   loadInvoicesSpy: LoadInvoicesSpy
@@ -75,6 +76,14 @@ describe('Dashboard Page', () => {
   test('Should render invoices on success', async () => {
     await waitFor(() => makeSut())
     expect(Helper.getRoles('card')).toHaveLength(2)
+  })
+
+  test('Should render only 3 invoices on success', async () => {
+    const loadInvoicesSpy = new LoadInvoicesSpy()
+    loadInvoicesSpy.result = [mockInvoiceItem(), mockInvoiceItem(), mockInvoiceItem(), mockInvoiceItem()]
+
+    await waitFor(() => makeSut(loadInvoicesSpy))
+    expect(Helper.getRoles('card')).toHaveLength(3)
   })
 
   test('Should call LoadInvoices on reload', async () => {
