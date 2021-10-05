@@ -1,5 +1,6 @@
-export * from './dashboard/dashboard-factory'
+export * from './dashboard'
 export * from './login'
 export * from './password-recovery'
 export * from './sign-up'
 export * from './change-password'
+export * from './invoices'

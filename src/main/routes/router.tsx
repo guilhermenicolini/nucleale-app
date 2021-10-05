@@ -5,7 +5,8 @@ import {
   makeSignUp,
   makeDashboard,
   makePasswordRecovery,
-  makeChangePassword
+  makeChangePassword,
+  makeInvoices
 } from '@/main/factories/pages'
 import { PrivateRoute, Private } from '@/presentation/components'
 
@@ -18,7 +19,7 @@ export const Router: React.FC = () => {
         <Route path="/password-recovery" exact component={makePasswordRecovery} />
         <Route path="/change-password/:token?" exact component={makeChangePassword} />
         <PrivateRoute path="/" exact component={makeDashboard} />
-        <PrivateRoute path="/invoices" exact component={() => <Private><div>Notas Fiscais</div></Private> } />
+        <PrivateRoute path="/invoices" exact component={makeInvoices} />
         <PrivateRoute path="/address" exact component={() => <Private><div>Endereço</div></Private> } />
         <PrivateRoute path="/childrens" exact component={() => <Private><div>Filhos</div></Private> } />
         <PrivateRoute path="/family" exact component={() => <Private><div>Família</div></Private> } />
