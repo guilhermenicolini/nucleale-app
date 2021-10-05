@@ -29,5 +29,9 @@ export const Invoices = styled.div<{ hasCards?: boolean }>`
     @media only screen and (min-width: ${theme.breakPoint.tablet}px) {
       grid-template-columns: ${hasCards ? '1fr 1fr' : '1fr'};
     }
+
+    @media only screen and (min-width: ${theme.breakPoint.desktop}px) {
+      grid-template-columns: ${hasCards ? '1fr 1fr 1fr' : '1fr'};
+    }
   `}
 `

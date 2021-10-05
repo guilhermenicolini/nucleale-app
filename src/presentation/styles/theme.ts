@@ -140,6 +140,7 @@ export const defaultTheme: Theme = {
   },
   breakPoint: {
     mobile: 350,
-    tablet: 640
+    tablet: 640,
+    desktop: 1281
   }
 }
