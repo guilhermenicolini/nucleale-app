@@ -13,7 +13,7 @@ export type CardProps = {
 
 export const Card: FC<CardProps> = (props: CardProps) => {
   return (
-    <S.Wrapper variant={props.variant}>
+    <S.Wrapper role="card" variant={props.variant}>
       <S.Subtitle>{props.subtitle}</S.Subtitle>
       <S.Title>{props.title}</S.Title>
       <S.Content>{props.content}</S.Content>
