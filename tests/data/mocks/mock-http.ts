@@ -1,4 +1,5 @@
 import { HttpClient, HttpRequest, HttpResponse, HttpStatusCode } from '@/data/protocols'
+import { AddressModel } from '@/domain/models'
 import faker from 'faker'
 
 export const mockHttpRequest = (): HttpRequest => ({
@@ -13,6 +14,18 @@ export const mockInvoiceItem = (): any => ({
   invoiceNo: faker.datatype.number(),
   invoiceDate: faker.date.recent().valueOf(),
   description: faker.random.words()
+})
+
+export const mockAddressModel = (): AddressModel => ({
+  address: faker.address.streetAddress(true),
+  number: faker.datatype.number().toString(),
+  complement: faker.address.secondaryAddress(),
+  district: faker.address.secondaryAddress(),
+  city: faker.address.cityName(),
+  cityId: faker.datatype.number(),
+  state: faker.address.stateAbbr(),
+  zip: faker.address.zipCode(),
+  country: faker.address.countryCode()
 })
 
 export class HttpClientSpy implements HttpClient {
