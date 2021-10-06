@@ -1,5 +1,5 @@
 import { HttpClient, HttpRequest, HttpResponse, HttpStatusCode } from '@/data/protocols'
-import { AddressModel } from '@/domain/models'
+import { AddressModel, ChildrenModel } from '@/domain/models'
 import faker from 'faker'
 
 export const mockHttpRequest = (): HttpRequest => ({
@@ -26,6 +26,13 @@ export const mockAddressModel = (): AddressModel => ({
   state: faker.address.stateAbbr(),
   zip: faker.address.zipCode(),
   country: faker.address.countryCode()
+})
+
+export const mockChildrenModel = (): ChildrenModel => ({
+  id: faker.datatype.uuid(),
+  name: faker.name.findName(),
+  birth: faker.date.past(5).valueOf(),
+  gender: faker.name.gender()
 })
 
 export class HttpClientSpy implements HttpClient {
