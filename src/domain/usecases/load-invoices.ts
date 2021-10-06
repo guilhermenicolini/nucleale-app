@@ -1,13 +1,9 @@
+import { InvoiceModel } from '@/domain/models'
+
 export interface LoadInvoices {
-  loadAll: () => Promise<LoadInvoices.Model[]>
+  loadAll: () => Promise<LoadInvoices.Model>
 }
 
 export namespace LoadInvoices {
-  export type Model = {
-    id: string
-    invoiceNo: number
-    invoiceDate: number
-    invoiceValue: number
-    description: string
-  }
+  export type Model = InvoiceModel[]
 }
