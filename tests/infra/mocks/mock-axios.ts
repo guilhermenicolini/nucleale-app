@@ -11,6 +11,11 @@ export const mockHttpResponseError = (): any => ({
   status: faker.datatype.number()
 })
 
+export const mockHttpArrayBufferError = (error: string): any => ({
+  data: Buffer.from(JSON.stringify({ error })),
+  status: faker.datatype.number()
+})
+
 export const mockHttpRequestError = (): any => ({
   status: faker.datatype.number()
 })

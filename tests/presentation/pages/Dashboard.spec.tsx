@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react'
 import { Helper } from '@/tests/presentation/helpers'
 import { Dashboard } from '@/presentation/pages'
-import { LoadInvoicesSpy } from '@/tests/presentation/mocks'
+import { LoadInvoicesSpy, DownloadFileSpy } from '@/tests/presentation/mocks'
 import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from '@/presentation/styles'
 import { ToastContainer } from '@/presentation/components'
@@ -14,11 +14,12 @@ import { mockInvoiceItem } from '@/tests/data/mocks'
 
 type SutTypes = {
   loadInvoicesSpy: LoadInvoicesSpy
+  downloadFileSpy: DownloadFileSpy
   history: MemoryHistory
   setCurrentAccountMock: (account: AccountModel) => void
 }
 
-const makeSut = (loadInvoicesSpy = new LoadInvoicesSpy()): SutTypes => {
+const makeSut = (loadInvoicesSpy = new LoadInvoicesSpy(), downloadFileSpy = new DownloadFileSpy()): SutTypes => {
   const history = createMemoryHistory({ initialEntries: ['/'] })
   const setCurrentAccountMock = jest.fn()
   render(
@@ -26,7 +27,8 @@ const makeSut = (loadInvoicesSpy = new LoadInvoicesSpy()): SutTypes => {
       <ThemeProvider theme={defaultTheme}>
           <Router history={history}>
             <Dashboard
-              loadInvoices={loadInvoicesSpy} />
+              loadInvoices={loadInvoicesSpy}
+              downloadFile={downloadFileSpy} />
           </Router>
         <ToastContainer />
       </ThemeProvider>
@@ -34,6 +36,7 @@ const makeSut = (loadInvoicesSpy = new LoadInvoicesSpy()): SutTypes => {
   )
   return {
     loadInvoicesSpy,
+    downloadFileSpy,
     history,
     setCurrentAccountMock
   }

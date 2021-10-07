@@ -1,7 +1,7 @@
 import { AxiosHttpAdapter } from '@/infra'
 import { mockHttpRequest } from '@/tests/data/mocks'
 import axios from 'axios'
-import { mockAxios, mockHttpRequestError, mockHttpResponseError, mockFileHeaders } from '@/tests/infra/mocks'
+import { mockAxios, mockHttpRequestError, mockHttpResponseError, mockFileHeaders, mockHttpArrayBufferError } from '@/tests/infra/mocks'
 import faker from 'faker'
 
 jest.mock('axios')
@@ -123,6 +123,24 @@ describe('AxioHttpClient Adapter', () => {
       expect(result.file).toEqual({
         mimeType,
         name
+      })
+    })
+
+    test('Should return correct arraybuffer response error', async () => {
+      const { sut, mockedAxios } = makeSut()
+      const errorMessage = faker.random.words(2)
+      const errorResponse = mockHttpArrayBufferError(errorMessage)
+
+      mockedAxios.request.mockRejectedValueOnce({
+        response: errorResponse
+      })
+      const request = mockHttpRequest()
+      request.responseType = 'arraybuffer'
+
+      const result = await sut.request(request)
+      expect(result).toEqual({
+        statusCode: errorResponse.status,
+        error: errorMessage
       })
     })
 

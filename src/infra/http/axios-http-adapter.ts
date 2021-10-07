@@ -1,4 +1,5 @@
 import { HttpClient, HttpRequest, HttpResponse } from '@/data/protocols'
+import { Buffer } from 'buffer'
 
 import axios, { AxiosResponse } from 'axios'
 
@@ -28,9 +29,10 @@ export class AxiosHttpAdapter implements HttpClient {
       })
     } catch (error) {
       if (error.response) {
+        const err = data.responseType === 'arraybuffer' ? JSON.parse(Buffer.from(error.response.data).toString()).error : error.response.data.error
         return {
           statusCode: error.response.status,
-          error: error.response.data.error
+          error: err
         }
       }
       if (error.request) {

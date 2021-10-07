@@ -1,13 +1,14 @@
 import React from 'react'
 import { Private, GridPage } from '@/presentation/components'
-import { LoadInvoices } from '@/domain/usecases'
+import { LoadInvoices, DownloadFile } from '@/domain/usecases'
 import moment from 'moment-timezone'
 
 type Props = {
   loadInvoices: LoadInvoices
+  downloadFile: DownloadFile
 }
 
-export const Dashboard: React.FC<Props> = ({ loadInvoices }: Props) => {
+export const Dashboard: React.FC<Props> = ({ loadInvoices, downloadFile }: Props) => {
   const loadAll = async (): Promise<any> => {
     return await loadInvoices.loadAll().then(invoices => invoices.slice(0, 3).map(invoice => ({
       key: invoice.id,
@@ -17,11 +18,16 @@ export const Dashboard: React.FC<Props> = ({ loadInvoices }: Props) => {
     })))
   }
 
+  const download = async (id: string): Promise<DownloadFile.Model> => {
+    return await downloadFile.download(id)
+  }
+
   return (
     <Private>
       <GridPage
         title="Últimas notas"
-        onLoad={loadAll} />
+        onLoad={loadAll}
+        onDownload={download} />
     </Private>
   )
 }

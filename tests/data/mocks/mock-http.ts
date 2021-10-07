@@ -5,7 +5,7 @@ import faker from 'faker'
 export const mockHttpRequest = (): HttpRequest => ({
   url: faker.internet.url(),
   method: faker.random.arrayElement(['get', 'post', 'put', 'delete']),
-  responseType: faker.random.arrayElement(['json', 'arraybuffer']),
+  responseType: 'json',
   body: faker.random.objectElement(),
   headers: faker.random.objectElement()
 })
