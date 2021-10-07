@@ -1,7 +1,7 @@
 import { HttpStatusCode } from '@/data/protocols'
 import { RemoteDownloadFile } from '@/data/usecases'
 import { ClientError, ServerError, UnauthorizedError } from '@/presentation/errors'
-import { HttpClientSpy, mockFileResponse } from '@/tests/data/mocks'
+import { HttpClientSpy, mockFileBuffer, mockFileResponse } from '@/tests/data/mocks'
 
 import faker from 'faker'
 
@@ -10,9 +10,9 @@ type SutTypes = {
   httpClientSpy: HttpClientSpy
 }
 
-const makeSut = (url: string = faker.internet.url(), mimeType = faker.system.mimeType()): SutTypes => {
+const makeSut = (url: string = faker.internet.url()): SutTypes => {
   const httpClientSpy = new HttpClientSpy(HttpStatusCode.ok)
-  const sut = new RemoteDownloadFile(url, httpClientSpy, mimeType)
+  const sut = new RemoteDownloadFile(url, httpClientSpy)
   return {
     sut,
     httpClientSpy
@@ -23,11 +23,19 @@ describe('RemoteDownloadFile Usecase', () => {
   test('Should call HttpClient with correct values', async () => {
     const url = faker.internet.url()
     const { sut, httpClientSpy } = makeSut(url)
-    await sut.download()
+    await sut.download(faker.datatype.uuid())
     expect(httpClientSpy.data).toEqual({
       url,
       method: 'get'
     })
+  })
+
+  test('Should replace :id in url on HttpClient', async () => {
+    const url = `${faker.internet.url()}/:id`
+    const id = faker.datatype.uuid()
+    const { sut, httpClientSpy } = makeSut(url)
+    await sut.download(id)
+    expect(httpClientSpy.data.url).toBe(url.replace(':id', id))
   })
 
   test('Should throw UnauthorizedError if HttpClient returns 401', async () => {
@@ -36,7 +44,7 @@ describe('RemoteDownloadFile Usecase', () => {
       statusCode: HttpStatusCode.unauthorized,
       error: 'any_error'
     }
-    const promise = sut.download()
+    const promise = sut.download(faker.datatype.uuid())
     expect(promise).rejects.toThrowError(new UnauthorizedError())
   })
 
@@ -46,7 +54,7 @@ describe('RemoteDownloadFile Usecase', () => {
       statusCode: HttpStatusCode.badRequest,
       error: 'any_error'
     }
-    const promise = sut.download()
+    const promise = sut.download(faker.datatype.uuid())
     expect(promise).rejects.toThrowError(new ClientError(httpClientSpy.result.error))
   })
 
@@ -56,7 +64,7 @@ describe('RemoteDownloadFile Usecase', () => {
       statusCode: HttpStatusCode.notFound,
       error: 'any_error'
     }
-    const promise = sut.download()
+    const promise = sut.download(faker.datatype.uuid())
     expect(promise).rejects.toThrowError(new ClientError(httpClientSpy.result.error))
   })
 
@@ -66,19 +74,21 @@ describe('RemoteDownloadFile Usecase', () => {
       statusCode: HttpStatusCode.serverError,
       error: 'any_error'
     }
-    const promise = sut.download()
+    const promise = sut.download(faker.datatype.uuid())
     expect(promise).rejects.toThrowError(new ServerError())
   })
 
   test('Should return file on success', async () => {
-    const mimeType = faker.system.mimeType()
-    const { sut, httpClientSpy } = makeSut(null, mimeType)
+    const { sut, httpClientSpy } = makeSut()
     httpClientSpy.result = {
       statusCode: HttpStatusCode.ok,
-      body: mockFileResponse(mimeType)
+      body: mockFileBuffer(),
+      file: mockFileResponse()
     }
 
-    const file = await sut.download()
-    expect(file).toEqual(httpClientSpy.result.body)
+    const file = await sut.download(faker.datatype.uuid())
+    expect(file.data).toEqual(httpClientSpy.result.body)
+    expect(file.fileName).toBe(httpClientSpy.result.file.name)
+    expect(file.mimeType).toBe(httpClientSpy.result.file.mimeType)
   })
 })

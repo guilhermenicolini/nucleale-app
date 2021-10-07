@@ -1,5 +1,5 @@
 export interface DownloadFile {
-  download: () => Promise<DownloadFile.Model>
+  download: (id: string) => Promise<DownloadFile.Model>
 }
 
 export namespace DownloadFile {

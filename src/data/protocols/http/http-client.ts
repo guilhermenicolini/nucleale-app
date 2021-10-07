@@ -5,6 +5,7 @@ export type HttpRequest = {
   method: HttpMethod
   body?: any
   headers?: any
+  responseType?: 'json' | 'arraybuffer'
 }
 
 export enum HttpStatusCode {
@@ -22,6 +23,10 @@ export type HttpResponse<T = any> = {
   statusCode: HttpStatusCode
   error?: string
   body?: T
+  file?: {
+    name: string
+    mimeType: string
+  }
 }
 
 export interface HttpClient<R = any> {

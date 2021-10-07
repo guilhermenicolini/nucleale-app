@@ -5,18 +5,21 @@ import { ClientError, ServerError, UnauthorizedError } from '@/presentation/erro
 export class RemoteDownloadFile implements DownloadFile {
   constructor (
     private readonly url: string,
-    private readonly httpClient: HttpClient<RemoteDownloadFile.Model>,
-    private readonly mimeType: string
+    private readonly httpClient: HttpClient<Buffer>
   ) {}
 
-  async download (): Promise<RemoteDownloadFile.Model> {
+  async download (id: string): Promise<RemoteDownloadFile.Model> {
     const httpResponse = await this.httpClient.request({
-      url: this.url,
+      url: this.url.replace(':id', id),
       method: 'get'
     })
-    const file = httpResponse.body
+    const result = {
+      fileName: httpResponse.file?.name,
+      mimeType: httpResponse.file?.mimeType,
+      data: httpResponse.body
+    }
     switch (httpResponse.statusCode) {
-      case HttpStatusCode.ok: return { ...file, mimeType: this.mimeType }
+      case HttpStatusCode.ok: return result
       case HttpStatusCode.badRequest:
       case HttpStatusCode.notFound: throw new ClientError(httpResponse.error)
       case HttpStatusCode.unauthorized: throw new UnauthorizedError()

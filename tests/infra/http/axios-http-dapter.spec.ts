@@ -1,7 +1,8 @@
 import { AxiosHttpAdapter } from '@/infra'
 import { mockHttpRequest } from '@/tests/data/mocks'
 import axios from 'axios'
-import { mockAxios, mockHttpRequestError, mockHttpResponseError } from '@/tests/infra/mocks'
+import { mockAxios, mockHttpRequestError, mockHttpResponseError, mockFileHeaders } from '@/tests/infra/mocks'
+import faker from 'faker'
 
 jest.mock('axios')
 
@@ -30,6 +31,23 @@ describe('AxioHttpClient Adapter', () => {
     expect(mockedAxios.request).toHaveBeenCalledWith({
       url: request.url,
       method: request.method,
+      responseType: request.responseType,
+      data: request.body,
+      headers: request.headers
+    })
+  })
+
+  test('Should call axios with response type json as default', async () => {
+    const request = mockHttpRequest()
+    request.responseType = null
+    const { sut, mockedAxios } = makeSut()
+
+    await sut.request(request)
+
+    expect(mockedAxios.request).toHaveBeenCalledWith({
+      url: request.url,
+      method: request.method,
+      responseType: 'json',
       data: request.body,
       headers: request.headers
     })
@@ -84,6 +102,92 @@ describe('AxioHttpClient Adapter', () => {
     const result = await sut.request(mockHttpRequest())
     expect(result).toEqual({
       statusCode: 500
+    })
+  })
+
+  describe('file()', () => {
+    test('Should return correct file response', async () => {
+      const { sut, mockedAxios } = makeSut()
+      const mimeType = faker.system.mimeType()
+      const fileName = faker.system.fileName()
+      const headers = mockFileHeaders(mimeType, fileName)
+
+      mockedAxios.request.mockResolvedValueOnce({
+        headers,
+        response: {
+          statusCode: 200
+        }
+      })
+      const result = await sut.request(mockHttpRequest())
+
+      expect(result.file).toEqual({
+        mimeType,
+        fileName
+      })
+    })
+
+    test('Should not return with missing content-disposition', async () => {
+      const { sut, mockedAxios } = makeSut()
+
+      mockedAxios.request.mockResolvedValueOnce({
+        headers: {
+          'content-type': 'any_type'
+        },
+        response: {
+          statusCode: 200
+        }
+      })
+      const result = await sut.request(mockHttpRequest())
+      expect(result.file).toEqual(undefined)
+    })
+
+    test('Should not return invalid inline content disposition', async () => {
+      const { sut, mockedAxios } = makeSut()
+      const fileName = faker.system.fileName()
+
+      mockedAxios.request.mockResolvedValueOnce({
+        headers: {
+          'content-disposition': `filename="${fileName}"`
+        },
+        response: {
+          statusCode: 200
+        }
+      })
+      const result = await sut.request(mockHttpRequest())
+      expect(result.file).toEqual(undefined)
+    })
+
+    test('Should not return with missing content-type', async () => {
+      const { sut, mockedAxios } = makeSut()
+      const fileName = faker.system.fileName()
+
+      mockedAxios.request.mockResolvedValueOnce({
+        headers: {
+          'content-disposition': `inline; filename="${fileName}"`
+        },
+        response: {
+          statusCode: 200
+        }
+      })
+      const result = await sut.request(mockHttpRequest())
+      expect(result.file).toEqual(undefined)
+    })
+
+    test('Should not return with invalid filename format', async () => {
+      const { sut, mockedAxios } = makeSut()
+      const fileName = faker.system.fileName()
+
+      mockedAxios.request.mockResolvedValueOnce({
+        headers: {
+          'content-disposition': `inline, fileName="${fileName}"`,
+          'content-type': 'any_type'
+        },
+        response: {
+          statusCode: 200
+        }
+      })
+      const result = await sut.request(mockHttpRequest())
+      expect(result.file).toEqual(undefined)
     })
   })
 })

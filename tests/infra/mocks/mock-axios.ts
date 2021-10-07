@@ -20,3 +20,8 @@ export const mockAxios = (): jest.Mocked<typeof axios> => {
   mockedAxios.request.mockClear().mockResolvedValue(mockHttpResponse())
   return mockedAxios
 }
+
+export const mockFileHeaders = (mimeType: string = faker.system.mimeType(), fileName: string = faker.system.fileName()): any => ({
+  'content-type': mimeType,
+  'content-disposition': `inline; filename="${fileName}"`
+})

@@ -1,28 +1,25 @@
 import React from 'react'
 import { Private, GridPage } from '@/presentation/components'
-import { LoadInvoices } from '@/domain/usecases'
+import { LoadInvoices, DownloadFile } from '@/domain/usecases'
 import moment from 'moment-timezone'
-import { Buffer } from 'buffer'
 
 type Props = {
   loadInvoices: LoadInvoices
+  downloadFile: DownloadFile
 }
 
-export const Invoices: React.FC<Props> = ({ loadInvoices }: Props) => {
+export const Invoices: React.FC<Props> = ({ loadInvoices, downloadFile }: Props) => {
   const loadAll = async (): Promise<any> => {
     return await loadInvoices.loadAll().then(invoices => invoices.map(invoice => ({
-      key: invoice.id,
+      key: invoice.invoiceNo,
       title: `# ${invoice.invoiceNo}`,
       subtitle: `R$ ${invoice.invoiceValue} - ${moment(invoice.invoiceDate).format('DD/MM/YYYY')}`,
       content: invoice.description
     })))
   }
 
-  const download = async (): Promise<{fileName: string, data: Buffer}> => {
-    return {
-      fileName: '234.txt',
-      data: Buffer.from('teste')
-    }
+  const download = async (id: string): Promise<DownloadFile.Model> => {
+    return await downloadFile.download(id)
   }
 
   return (
@@ -30,13 +27,7 @@ export const Invoices: React.FC<Props> = ({ loadInvoices }: Props) => {
       <GridPage
         title="Notas Fiscais"
         onLoad={loadAll}
-        downloadProps={(
-          {
-            type: 'text/plain',
-            fileNamePrefix: 'invoice',
-            onDownload: download
-          }
-        )} />
+        onDownload={download} />
     </Private>
   )
 }
