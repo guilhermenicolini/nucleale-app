@@ -9,9 +9,9 @@ const getFile = (headers: any = {}): any => {
     const matches = filenameRegex.exec(disposition)
 
     const mimeType = headers['content-type']
-    const fileName = matches?.length === 3 ? matches[1].replace(/['"]/g, '') : undefined
+    const name = matches?.length === 3 ? matches[1].replace(/['"]/g, '') : undefined
 
-    return mimeType && fileName ? { mimeType, fileName } : undefined
+    return mimeType && name ? { mimeType, name } : undefined
   }
 }
 

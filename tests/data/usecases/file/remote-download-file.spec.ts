@@ -26,7 +26,8 @@ describe('RemoteDownloadFile Usecase', () => {
     await sut.download(faker.datatype.uuid())
     expect(httpClientSpy.data).toEqual({
       url,
-      method: 'get'
+      method: 'get',
+      responseType: 'arraybuffer'
     })
   })
 

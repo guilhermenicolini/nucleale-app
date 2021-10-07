@@ -11,8 +11,10 @@ export class RemoteDownloadFile implements DownloadFile {
   async download (id: string): Promise<RemoteDownloadFile.Model> {
     const httpResponse = await this.httpClient.request({
       url: this.url.replace(':id', id),
-      method: 'get'
+      method: 'get',
+      responseType: 'arraybuffer'
     })
+
     const result = {
       fileName: httpResponse.file?.name,
       mimeType: httpResponse.file?.mimeType,

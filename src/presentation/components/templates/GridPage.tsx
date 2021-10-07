@@ -46,12 +46,12 @@ export const GridPage: React.FC<Props> = ({ title, onLoad, onDownload }: Props) 
       .then(response => {
         setState(old => ({ ...old, error: '', isLoading: false }))
         console.log(response)
-        const blob = new Blob([response.data], { type: response.mimeType })
-        const link = document.createElement('a')
-        link.href = window.URL.createObjectURL(blob)
-        link.target = '_blank'
-        link.download = response.fileName
-        link.click()
+        // const blob = new Blob([response.data], { type: response.mimeType })
+        // const link = document.createElement('a')
+        // link.href = window.URL.createObjectURL(blob)
+        // link.target = '_blank'
+        // link.download = response.fileName
+        // link.click()
       })
       .catch(handleToastError)
   }

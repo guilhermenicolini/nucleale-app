@@ -109,8 +109,8 @@ describe('AxioHttpClient Adapter', () => {
     test('Should return correct file response', async () => {
       const { sut, mockedAxios } = makeSut()
       const mimeType = faker.system.mimeType()
-      const fileName = faker.system.fileName()
-      const headers = mockFileHeaders(mimeType, fileName)
+      const name = faker.system.fileName()
+      const headers = mockFileHeaders(mimeType, name)
 
       mockedAxios.request.mockResolvedValueOnce({
         headers,
@@ -122,7 +122,7 @@ describe('AxioHttpClient Adapter', () => {
 
       expect(result.file).toEqual({
         mimeType,
-        fileName
+        name
       })
     })
 
