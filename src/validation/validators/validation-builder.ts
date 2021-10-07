@@ -7,7 +7,8 @@ import {
   SameAsFieldValidator,
   MobileValidator,
   DialCodeValidator,
-  MinLengthValidator
+  MinLengthValidator,
+  ZipValidator
 } from '@/validation/validators'
 import { EmailValidationAdapter, MobileValidationAdapter } from '@/infra/validations'
 
@@ -58,6 +59,11 @@ export class ValidationBuilder {
 
   min (minLength: number): ValidationBuilder {
     this.validations.push(new MinLengthValidator(this.field, minLength))
+    return this
+  }
+
+  zip (): ValidationBuilder {
+    this.validations.push(new ZipValidator(this.field))
     return this
   }
 
