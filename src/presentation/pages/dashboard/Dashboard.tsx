@@ -11,7 +11,7 @@ type Props = {
 export const Dashboard: React.FC<Props> = ({ loadInvoices, downloadFile }: Props) => {
   const loadAll = async (): Promise<any> => {
     return await loadInvoices.loadAll().then(invoices => invoices.slice(0, 3).map(invoice => ({
-      key: invoice.id,
+      key: invoice.invoiceNo,
       title: `# ${invoice.invoiceNo}`,
       subtitle: `R$ ${invoice.invoiceValue} - ${moment(invoice.invoiceDate).format('DD/MM/YYYY')}`,
       content: invoice.description
