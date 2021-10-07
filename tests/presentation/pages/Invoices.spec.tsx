@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react'
+import { render, waitFor, fireEvent } from '@testing-library/react'
 import { Helper } from '@/tests/presentation/helpers'
 import { Invoices } from '@/presentation/pages'
 import { LoadInvoicesSpy, DownloadFileSpy } from '@/tests/presentation/mocks'
@@ -96,5 +96,15 @@ describe('Dashboard Page', () => {
 
     await waitFor(() => Helper.clickButton('Tentar novamente'))
     expect(loadInvoicesSpy.calls).toBe(1)
+  })
+
+  test('Should call DownloadFile with correct value', async () => {
+    const loadInvoicesSpy = new LoadInvoicesSpy()
+    const downloadFileSpy = new DownloadFileSpy()
+    await waitFor(() => makeSut(loadInvoicesSpy, downloadFileSpy))
+    const buttons = Helper.getRoles('button')
+    await waitFor(() => fireEvent.click(buttons[2]))
+    expect(downloadFileSpy.calls).toBe(1)
+    expect(downloadFileSpy.id).toBe(loadInvoicesSpy.result[0].invoiceNo)
   })
 })
