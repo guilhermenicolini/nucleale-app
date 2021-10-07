@@ -2,6 +2,7 @@ import React from 'react'
 import { Private, GridPage } from '@/presentation/components'
 import { LoadInvoices } from '@/domain/usecases'
 import moment from 'moment-timezone'
+import { Buffer } from 'buffer'
 
 type Props = {
   loadInvoices: LoadInvoices
@@ -17,11 +18,25 @@ export const Invoices: React.FC<Props> = ({ loadInvoices }: Props) => {
     })))
   }
 
+  const download = async (): Promise<{fileName: string, data: Buffer}> => {
+    return {
+      fileName: '234.txt',
+      data: Buffer.from('teste')
+    }
+  }
+
   return (
     <Private>
       <GridPage
         title="Notas Fiscais"
-        onLoad={loadAll} />
+        onLoad={loadAll}
+        downloadProps={(
+          {
+            type: 'text/plain',
+            fileNamePrefix: 'invoice',
+            onDownload: download
+          }
+        )} />
     </Private>
   )
 }
