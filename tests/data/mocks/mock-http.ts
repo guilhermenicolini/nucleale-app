@@ -1,5 +1,6 @@
 import { HttpClient, HttpRequest, HttpResponse, HttpStatusCode } from '@/data/protocols'
 import { AddressModel, ChildrenModel, MemberModel } from '@/domain/models'
+import { DownloadFile } from '@/domain/usecases'
 import faker from 'faker'
 
 export const mockHttpRequest = (): HttpRequest => ({
@@ -45,6 +46,12 @@ export const mockMemberModel = (): MemberModel => ({
   birth: faker.date.past(10).valueOf(),
   status: faker.random.word().toLowerCase(),
   role: faker.random.word().toLowerCase()
+})
+
+export const mockFileResponse = (mimeType: string = faker.system.mimeType()): DownloadFile.Model => ({
+  fileName: faker.system.fileName(),
+  data: Buffer.from(faker.random.words(20)),
+  mimeType
 })
 
 export class HttpClientSpy implements HttpClient {
