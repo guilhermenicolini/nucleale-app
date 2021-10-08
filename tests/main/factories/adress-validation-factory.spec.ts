@@ -15,7 +15,7 @@ describe('SignUpValidationFactory', () => {
       new RequiredFieldValidator('number'),
       new RequiredFieldValidator('district'),
       new RequiredFieldValidator('state'),
-      new RequiredFieldValidator('city')
+      new RequiredFieldValidator('cityId')
     ]))
   })
 })

@@ -13,8 +13,14 @@ export const getText = (text: string): HTMLElement => screen.queryByText(text)
 
 export const getField = (placeholder: string): HTMLElement => screen.queryByPlaceholderText(placeholder)
 
+export const getLabel = (label: string): HTMLElement => screen.queryByLabelText(label)
+
 export const populateField = (placeholder: string, value: string = faker.random.word()): void => {
   fireEvent.input(getField(placeholder), { target: { value } })
+}
+
+export const populateSelect = (label: string, value: string): void => {
+  fireEvent.input(getLabel(label), { target: { value } })
 }
 
 export const submitButton = (name: string): void => {

@@ -38,8 +38,9 @@ export const Field = styled.input`
     border: 1px solid ${theme.general.form};
     padding-left: 3px;
     margin-bottom: 2px;
-    transition: background-color .2s,color .2s,border-color .2s,box-shadow .2s;
+    transition: color .2s, border-color .2s, box-shadow .2s;
     color: ${theme.colors.dark.highEmphasis};
+    background-color: transparent;
 
     ::placeholder {
       color: ${theme.general.placeholder};

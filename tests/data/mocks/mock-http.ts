@@ -23,9 +23,9 @@ export const mockAddressModel = (): AddressModel => ({
   complement: faker.address.secondaryAddress(),
   district: faker.address.secondaryAddress(),
   city: faker.address.cityName(),
-  cityId: faker.datatype.number(),
-  state: faker.address.stateAbbr(),
-  zip: faker.address.zipCode(),
+  cityId: faker.random.arrayElement([6175, 6357, 6595, 6831, 7107, 7149, 7225, 7237]),
+  state: 'SP',
+  zip: faker.address.zipCode('#####-###'),
   country: faker.address.countryCode()
 })
 
