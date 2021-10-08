@@ -20,7 +20,6 @@ export const Members: React.FC<Props> = ({ loadMembers }: Props) => {
   return (
     <Private>
       <GridPage
-        title="Família"
         onLoad={loadAll} />
     </Private>
   )

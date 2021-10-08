@@ -17,11 +17,11 @@ type SignUpProps = {
 
 export const Address: React.FC<SignUpProps> = ({ validation, loadAddress, saveAddress }: SignUpProps) => {
   const { register, getValues, watch, setValue, handleSubmit, formState: { isSubmitting, isValid, isDirty, errors } } = useForm<LoadAddress.Model>(
-    { mode: 'all' }
+    { mode: 'all', defaultValues: { zip: '' } }
   )
 
   const [state, setState] = useState({
-    isLoading: false,
+    isLoading: true,
     reload: false,
     error: ''
   })
@@ -42,7 +42,7 @@ export const Address: React.FC<SignUpProps> = ({ validation, loadAddress, saveAd
 
     setState(s => ({ ...s, isLoading: true }))
     try {
-      data.city = Cities.find(c => c.value === data.cityId).label
+      data.city = Cities.find(c => c.value === parseInt(data.cityId)).label
       data.country = 'BR'
       await saveAddress.save(data)
       toast.success('Endereço atualizado com sucesso')

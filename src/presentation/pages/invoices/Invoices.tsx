@@ -25,7 +25,6 @@ export const Invoices: React.FC<Props> = ({ loadInvoices, downloadFile }: Props)
   return (
     <Private>
       <GridPage
-        title="Notas Fiscais"
         onLoad={loadAll}
         onDownload={download} />
     </Private>

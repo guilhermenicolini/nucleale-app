@@ -32,7 +32,6 @@ export const Childrens: React.FC<Props> = ({ loadChildrens }: Props) => {
   return (
     <Private>
       <GridPage
-        title="Filhos"
         onLoad={loadAll} />
     </Private>
   )

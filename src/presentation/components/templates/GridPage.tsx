@@ -15,13 +15,13 @@ type ListItem = {
 }
 
 type Props = {
-  title: string
+  title?: string
   mimeType?: string
   onLoad: () => Promise<ListItem[]>
   onDownload?: (id: string) => Promise<DownloadFile.Model>
 }
 
-export const GridPage: React.FC<Props> = ({ title, onLoad, onDownload }: Props) => {
+export const GridPage: React.FC<Props> = ({ title = '', onLoad, onDownload }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
     records: null,
