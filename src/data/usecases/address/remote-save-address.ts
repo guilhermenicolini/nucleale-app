@@ -11,7 +11,7 @@ export class RemoteSaveAddress implements SaveAddress {
   async save (params: SaveAddress.Params): Promise<void> {
     const response = await this.httpClient.request({
       url: this.url,
-      method: 'post',
+      method: 'put',
       body: params
     })
     switch (response.statusCode) {

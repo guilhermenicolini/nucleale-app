@@ -4,16 +4,18 @@ import * as S from './Address.styles'
 import { FormContext } from '@/presentation/contexts'
 import { useForm } from 'react-hook-form'
 import { Validation } from '@/presentation/protocols'
-import { LoadAddress } from '@/domain/usecases'
+import { LoadAddress, SaveAddress } from '@/domain/usecases'
 import { toast } from 'react-toastify'
 import { useErrorHandler } from '@/presentation/hooks'
+import { States, Cities } from '@/domain/models'
 
 type SignUpProps = {
   validation: Validation
   loadAddress: LoadAddress
+  saveAddress: SaveAddress
 }
 
-export const Address: React.FC<SignUpProps> = ({ validation, loadAddress }: SignUpProps) => {
+export const Address: React.FC<SignUpProps> = ({ validation, loadAddress, saveAddress }: SignUpProps) => {
   const { register, getValues, watch, setValue, handleSubmit, formState: { isSubmitting, isValid, isDirty, errors } } = useForm<LoadAddress.Model>(
     { mode: 'all' }
   )
@@ -40,7 +42,9 @@ export const Address: React.FC<SignUpProps> = ({ validation, loadAddress }: Sign
 
     setState(s => ({ ...s, isLoading: true }))
     try {
-      data.city = cities.find(c => c.value === data.cityId).label
+      data.city = Cities.find(c => c.value === data.cityId).label
+      data.country = 'BR'
+      await saveAddress.save(data)
       toast.success('Endereço atualizado com sucesso')
     } catch (err) {
       toast.error(err.message)
@@ -67,24 +71,6 @@ export const Address: React.FC<SignUpProps> = ({ validation, loadAddress }: Sign
   }, [state.reload])
 
   const reload = (): void => setState(old => ({ ...old, invoices: [], error: '', reload: !old.reload }))
-
-  const states = [
-    {
-      value: 'SP',
-      label: 'São Paulo'
-    }
-  ]
-
-  const cities = [
-    { value: 6175, label: 'Campinas' },
-    { value: 6357, label: 'Cosmópolis' },
-    { value: 6595, label: 'Jaguariúna' },
-    { value: 6831, label: 'Paulínia' },
-    { value: 7107, label: 'São Paulo' },
-    { value: 7149, label: 'Sumaré' },
-    { value: 7225, label: 'Valinhos' },
-    { value: 7237, label: 'Vinhedo' }
-  ]
 
   return (
     <Private>
@@ -140,7 +126,7 @@ export const Address: React.FC<SignUpProps> = ({ validation, loadAddress }: Sign
                 label="Estado"
                 placeholder="Selecione o estado"
                 name="state"
-                items={states}
+                items={States}
                 {...register('state', { validate: () => validateField('state') })}
                 error={errors.state?.message}
                 touched={isDirty} />
@@ -148,7 +134,7 @@ export const Address: React.FC<SignUpProps> = ({ validation, loadAddress }: Sign
                 label="Cidade"
                 placeholder="Selecione a cidade"
                 name="cityId"
-                items={cities}
+                items={Cities}
                 {...register('cityId', { validate: () => validateField('cityId') })}
                 error={errors.cityId?.message}
                 touched={isDirty} />

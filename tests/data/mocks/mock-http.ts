@@ -1,5 +1,5 @@
 import { HttpClient, HttpRequest, HttpResponse, HttpStatusCode } from '@/data/protocols'
-import { AddressModel, ChildrenModel, MemberModel } from '@/domain/models'
+import { AddressModel, ChildrenModel, MemberModel, Cities, States } from '@/domain/models'
 import faker from 'faker'
 
 export const mockHttpRequest = (): HttpRequest => ({
@@ -17,17 +17,21 @@ export const mockInvoiceItem = (): any => ({
   description: faker.random.words()
 })
 
-export const mockAddressModel = (): AddressModel => ({
-  address: faker.address.streetAddress(true),
-  number: faker.datatype.number().toString(),
-  complement: faker.address.secondaryAddress(),
-  district: faker.address.secondaryAddress(),
-  city: faker.address.cityName(),
-  cityId: faker.random.arrayElement([6175, 6357, 6595, 6831, 7107, 7149, 7225, 7237]),
-  state: 'SP',
-  zip: faker.address.zipCode('#####-###'),
-  country: faker.address.countryCode()
-})
+export const mockAddressModel = (): AddressModel => {
+  const city = faker.random.arrayElement(Cities)
+
+  return {
+    address: faker.address.streetAddress(true),
+    number: faker.datatype.number().toString(),
+    complement: faker.address.secondaryAddress(),
+    district: faker.address.secondaryAddress(),
+    city: city.label,
+    cityId: city.value,
+    state: faker.random.arrayElement(States).value,
+    zip: faker.address.zipCode('#####-###'),
+    country: 'BR'
+  }
+}
 
 export const mockChildrenModel = (): ChildrenModel => ({
   id: faker.datatype.uuid(),

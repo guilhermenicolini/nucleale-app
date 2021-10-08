@@ -9,3 +9,21 @@ export type AddressModel = {
   zip: string
   country: string
 }
+
+export const States = [
+  {
+    value: 'SP',
+    label: 'São Paulo'
+  }
+]
+
+export const Cities = [
+  { value: 6175, label: 'Campinas' },
+  { value: 6357, label: 'Cosmópolis' },
+  { value: 6595, label: 'Jaguariúna' },
+  { value: 6831, label: 'Paulínia' },
+  { value: 7107, label: 'São Paulo' },
+  { value: 7149, label: 'Sumaré' },
+  { value: 7225, label: 'Valinhos' },
+  { value: 7237, label: 'Vinhedo' }
+]

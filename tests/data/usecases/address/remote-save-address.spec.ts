@@ -27,7 +27,7 @@ describe('RemoteSaveAddress Usecase', () => {
     await sut.save(params)
     expect(httpClientSpy.data).toEqual({
       url,
-      method: 'post',
+      method: 'put',
       body: params
     })
   })

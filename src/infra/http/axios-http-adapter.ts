@@ -29,7 +29,7 @@ export class AxiosHttpAdapter implements HttpClient {
       })
     } catch (error) {
       if (error.response) {
-        const err = data.responseType === 'arraybuffer' ? JSON.parse(Buffer.from(error.response.data).toString()).error : error.response.data.error
+        const err = data.responseType === 'arraybuffer' ? JSON.parse(Buffer.from(error.response.data).toString()).error : error.response.data?.error
         return {
           statusCode: error.response.status,
           error: err

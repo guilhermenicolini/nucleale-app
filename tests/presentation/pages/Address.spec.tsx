@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react'
 import { Helper } from '@/tests/presentation/helpers'
 import { Address } from '@/presentation/pages'
-import { ValidationSpy, LoadAddressSpy } from '@/tests/presentation/mocks'
+import { ValidationSpy, LoadAddressSpy, SaveAddressSpy } from '@/tests/presentation/mocks'
 import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from '@/presentation/styles'
 import { ToastContainer } from '@/presentation/components'
@@ -27,13 +27,15 @@ const form = {
 
 type SutTypes = {
   loadAddressSpy: LoadAddressSpy
+  saveAddressSpy: SaveAddressSpy
   history: MemoryHistory
   setCurrentAccountMock: (account: AccountModel) => void
 }
 
 const makeSut = (
   validationSpy: ValidationSpy = new ValidationSpy(faker.database.column()),
-  loadAddressSpy: LoadAddressSpy = new LoadAddressSpy()): SutTypes => {
+  loadAddressSpy: LoadAddressSpy = new LoadAddressSpy(),
+  saveAddressSpy: SaveAddressSpy = new SaveAddressSpy()): SutTypes => {
   const setCurrentAccountMock = jest.fn()
   const history = createMemoryHistory({ initialEntries: ['/address'] })
   render(
@@ -42,7 +44,8 @@ const makeSut = (
         <Router history={history}>
           <Address
             validation={validationSpy}
-            loadAddress={loadAddressSpy} />
+            loadAddress={loadAddressSpy}
+            saveAddress={saveAddressSpy} />
         </Router>
         <ToastContainer />
       </ThemeProvider>
@@ -50,6 +53,7 @@ const makeSut = (
   )
   return {
     loadAddressSpy,
+    saveAddressSpy,
     history,
     setCurrentAccountMock
   }
@@ -182,77 +186,59 @@ describe('Address Page', () => {
     })
   })
 
-  // test('Should call AddAccount with correct values', async () => {
-  //   const { addAccountSpy } = makeSut()
-  //   const input = mockInput()
+  test('Should call SaveAddress with correct values', async () => {
+    const { loadAddressSpy, saveAddressSpy } = await waitFor(() => makeSut())
 
-  //   simulateValidSubmit(input)
+    Helper.clickButton(form.save)
 
-  //   const { birth, ...rest } = input
+    await waitFor(() => {
+      expect(saveAddressSpy.calls).toBe(1)
+      expect(saveAddressSpy.params).toEqual(loadAddressSpy.result)
+    })
+  })
 
-  //   await waitFor(() => {
-  //     expect(addAccountSpy.params).toEqual({
-  //       ...rest,
-  //       birth: moment.utc(birth).valueOf()
-  //     })
-  //   })
-  // })
+  test('Should call SaveAddress only once', async () => {
+    const { saveAddressSpy } = await waitFor(() => makeSut())
 
-  // test('Should call Authentication only once', async () => {
-  //   const { addAccountSpy } = makeSut()
-  //   const spy = jest.spyOn(addAccountSpy, 'add')
+    Helper.clickButton(form.save)
+    Helper.clickButton(form.save)
 
-  //   simulateValidSubmit()
-  //   simulateValidSubmit()
+    await waitFor(() => {
+      expect(saveAddressSpy.calls).toBe(1)
+    })
+  })
 
-  //   await waitFor(() => {
-  //     expect(spy).toHaveBeenCalledTimes(1)
-  //   })
-  // })
+  test('Should not call SaveAddress if form is invalid', async () => {
+    const validationSpy = new ValidationSpy('random')
+    validationSpy.result = new Error(faker.random.words())
+    const { saveAddressSpy } = await waitFor(() => makeSut(validationSpy))
 
-  // test('Should not call Authentication if form is invalid', async () => {
-  //   const validationField = 'email'
-  //   const validationError = new Error(faker.random.words())
-  //   const { addAccountSpy } = makeSut({ validationError, validationField })
-  //   const spy = jest.spyOn(addAccountSpy, 'add')
+    Helper.clickButton(form.save)
 
-  //   simulateValidSubmit()
+    await waitFor(() => {
+      expect(saveAddressSpy.calls).toBe(0)
+    })
+  })
 
-  //   await waitFor(() => {
-  //     expect(spy).toHaveBeenCalledTimes(0)
-  //   })
-  // })
+  test('Should present error if SaveAddress fails', async () => {
+    const saveAddressSpy = new SaveAddressSpy()
+    const errorMessage = faker.random.words()
+    jest.spyOn(saveAddressSpy, 'save').mockRejectedValueOnce(new Error(errorMessage))
+    await waitFor(() => makeSut(undefined, undefined, saveAddressSpy))
 
-  // test('Should present error if Authentication fails', async () => {
-  //   const { addAccountSpy } = makeSut()
-  //   const errorMessage = faker.random.words()
-  //   jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(new Error(errorMessage))
+    Helper.clickButton(form.save)
 
-  //   simulateValidSubmit()
+    await waitFor(() => {
+      expect(Helper.testErrorMessage(errorMessage))
+    })
+  })
 
-  //   await waitFor(() => {
-  //     expect(Helper.testErrorMessage(errorMessage))
-  //   })
-  // })
+  test('Should present message on success', async () => {
+    await waitFor(() => makeSut())
+    Helper.clickButton(form.save)
 
-  // test('Should call SetCurrentAccount on success', async () => {
-  //   const { addAccountSpy, setCurrentAccountMock } = makeSut()
-  //   simulateValidSubmit()
-
-  //   await waitFor(() => {
-  //     expect(setCurrentAccountMock).toHaveBeenCalledWith(addAccountSpy.result)
-  //     expect(history.length).toBe(1)
-  //     expect(history.location.pathname).toBe('/')
-  //   })
-  // })
-
-  // test('Should go to login page', async () => {
-  //   makeSut()
-  //   Helper.clickLink(form.login)
-
-  //   await waitFor(() => {
-  //     expect(history.length).toBe(2)
-  //     expect(history.location.pathname).toBe('/login')
-  //   })
-  // })
+    await waitFor(() => {
+      expect(Helper.getText('Endereço atualizado com sucesso')).toBeInTheDocument()
+    })
+  })
 })
