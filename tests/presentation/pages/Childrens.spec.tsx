@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react'
+import { render, waitFor, fireEvent } from '@testing-library/react'
 import { Helper } from '@/tests/presentation/helpers'
 import { Childrens } from '@/presentation/pages'
 import { LoadChildrensSpy } from '@/tests/presentation/mocks'
@@ -84,5 +84,17 @@ describe('Childrens Page', () => {
 
     await waitFor(() => Helper.clickButton('Tentar novamente'))
     expect(loadChildrensSpy.calls).toBe(1)
+  })
+
+  test('Should go to children add page', async () => {
+    const { history } = await waitFor(() => makeSut())
+
+    const button = document.querySelector('button[name="add"]')
+    fireEvent.click(button)
+
+    await waitFor(() => {
+      expect(history.length).toBe(1)
+      expect(history.location.pathname).toBe('/childrens/add')
+    })
   })
 })
