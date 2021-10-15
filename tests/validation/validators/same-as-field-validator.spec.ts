@@ -22,12 +22,10 @@ describe('SameAsFieldValidator', () => {
   })
 
   test('Should return error if compare is invalid', () => {
-    const field = faker.database.column()
-    const fieldToCompare = faker.database.column()
-    const sut = makeSut(field, fieldToCompare)
+    const sut = makeSut('field1', 'field2')
     const error = sut.validate({
-      [field]: 'any_value',
-      [fieldToCompare]: 'other_value'
+      field1: 'any_value',
+      field2: 'other_value'
     })
     expect(error).toEqual(new InvalidFieldError())
   })
