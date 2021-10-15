@@ -43,7 +43,7 @@ const SelectBase: ForwardRefRenderFunction<any, SelectProps> = (
         {placeholder ? <option value="">{placeholder}</option> : null}
         {items?.map(item => <option key={item.value} value={item.value}>{item.label}</option>)}
       </S.Field>
-      <S.Span>{error}</S.Span>
+      <S.Span role={`${name}-alert`}>{error}</S.Span>
     </S.Wrapper>
   )
 }

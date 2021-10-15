@@ -58,7 +58,6 @@ export const ChildrenForm: React.FC<Props> = ({ validation, onLoadChildren, onSa
         gender: data.gender
       })
       history.replace('/childrens')
-      toast.success('Ok')
     } catch (err) {
       toast.error(err.message)
     } finally {

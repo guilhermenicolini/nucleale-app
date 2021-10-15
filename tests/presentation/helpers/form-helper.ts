@@ -20,7 +20,7 @@ export const populateField = (placeholder: string, value: string = faker.random.
 }
 
 export const populateSelect = (label: string, value: string): void => {
-  fireEvent.input(getLabel(label), { target: { value } })
+  fireEvent.change(getLabel(label), { target: { value } })
 }
 
 export const submitButton = (name: string): void => {
