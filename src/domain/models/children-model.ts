@@ -4,3 +4,8 @@ export type ChildrenModel = {
   birth: number
   gender: string
 }
+
+export const Genders = [
+  { value: 'male', label: 'Masculino' },
+  { value: 'female', label: 'Feminino' }
+]

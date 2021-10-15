@@ -9,7 +9,8 @@ import {
   makeInvoices,
   makeChildrens,
   makeMembers,
-  makeAddress
+  makeAddress,
+  makeAddChildren
 } from '@/main/factories/pages'
 import { PrivateRoute } from '@/presentation/components'
 
@@ -25,6 +26,7 @@ export const Router: React.FC = () => {
         <PrivateRoute path="/invoices" exact component={makeInvoices} />
         <PrivateRoute path="/address" exact component={makeAddress} />
         <PrivateRoute path="/childrens" exact component={makeChildrens} />
+        <PrivateRoute path="/childrens/add" exact component={makeAddChildren} />
         <PrivateRoute path="/family" exact component={makeMembers} />
       </Switch>
     </BrowserRouter>
