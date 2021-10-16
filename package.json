@@ -1,6 +1,6 @@
 {
   "name": "nucleale-app",
-  "version": "1.21.0",
+  "version": "1.22.0",
   "description": "Official Nucleale App",
   "main": "index.js",
   "scripts": {
