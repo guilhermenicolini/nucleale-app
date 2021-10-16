@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Spinner, Card, Reload, IconButton } from '@/presentation/components'
 import * as S from './GridPage.styles'
 import { useErrorHandler } from '@/presentation/hooks'
-import { DownloadIcon } from '../icons'
+import { DeleteIcon, DownloadIcon } from '../icons'
 import { DownloadFile } from '@/domain/usecases'
 import { toast } from 'react-toastify'
-export { DownloadIcon } from '@/presentation/components/icons'
+export { DownloadIcon, DeleteIcon } from '@/presentation/components/icons'
 
 type ListItem = {
   key: string
@@ -19,9 +19,10 @@ type Props = {
   mimeType?: string
   onLoad: () => Promise<ListItem[]>
   onDownload?: (id: string) => Promise<DownloadFile.Model>
+  onDelete?: (id: string) => Promise<void>
 }
 
-export const GridPage: React.FC<Props> = ({ title = '', onLoad, onDownload }: Props) => {
+export const GridPage: React.FC<Props> = ({ title = '', onLoad, onDownload, onDelete }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
     records: null,
@@ -55,6 +56,21 @@ export const GridPage: React.FC<Props> = ({ title = '', onLoad, onDownload }: Pr
       .catch(handleToastError)
   }
 
+  const remove = (id: string): void => {
+    setState(old => ({ ...old, error: '', isLoading: true }))
+    onDelete(id)
+      .then(() => {
+        toast.success('Filho removido com sucesso')
+        setState(old => ({
+          ...old,
+          error: '',
+          isLoading: false,
+          records: old.records.filter(r => r.key !== id)
+        }))
+      })
+      .catch(handleToastError)
+  }
+
   useEffect(() => {
     setState(old => ({ ...old, error: '', isLoading: true }))
     onLoad()
@@ -79,7 +95,18 @@ export const GridPage: React.FC<Props> = ({ title = '', onLoad, onDownload }: Pr
                   <IconButton
                     variant="primary"
                     svg="stroke"
-                    onClick={async () => download(item.key)}><DownloadIcon /></IconButton>
+                    onClick={async () => download(item.key)}>
+                    <DownloadIcon />
+                  </IconButton>
+                }
+                {
+                  onDelete &&
+                    <IconButton
+                      variant="primary"
+                      svg="stroke"
+                      onClick={async () => remove(item.key)}>
+                      <DeleteIcon />
+                    </IconButton>
                 }
             </Card>)}
         </S.Content>

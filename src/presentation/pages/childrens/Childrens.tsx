@@ -1,15 +1,16 @@
 import React from 'react'
 import { Private, GridPage, Fab } from '@/presentation/components'
-import { LoadChildrens } from '@/domain/usecases'
+import { DeleteChildren, LoadChildrens } from '@/domain/usecases'
 import { AddIcon } from '@/presentation/components/icons'
 import moment from 'moment-timezone'
 import { useHistory } from 'react-router-dom'
 
 type Props = {
   loadChildrens: LoadChildrens
+  deleteChildren: DeleteChildren
 }
 
-export const Childrens: React.FC<Props> = ({ loadChildrens }: Props) => {
+export const Childrens: React.FC<Props> = ({ loadChildrens, deleteChildren }: Props) => {
   const now = moment.utc()
   const history = useHistory()
 
@@ -33,6 +34,10 @@ export const Childrens: React.FC<Props> = ({ loadChildrens }: Props) => {
     }))
   }
 
+  const remove = async (id: string): Promise<void> => {
+    return await deleteChildren.delete(id)
+  }
+
   const add = (): void => {
     history.replace('/childrens/add')
   }
@@ -40,7 +45,8 @@ export const Childrens: React.FC<Props> = ({ loadChildrens }: Props) => {
   return (
     <Private>
       <GridPage
-        onLoad={loadAll} />
+        onLoad={loadAll}
+        onDelete={remove} />
       <Fab name="add" onClick={add}>
         <AddIcon />
       </Fab >

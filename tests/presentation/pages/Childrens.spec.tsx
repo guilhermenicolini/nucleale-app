@@ -25,7 +25,8 @@ const makeSut = (loadChildrensSpy = new LoadChildrensSpy()): SutTypes => {
       <ThemeProvider theme={defaultTheme}>
           <Router history={history}>
             <Childrens
-              loadChildrens={loadChildrensSpy} />
+              loadChildrens={loadChildrensSpy}
+              deleteChildren={null} />
           </Router>
         <ToastContainer />
       </ThemeProvider>
