@@ -1,7 +1,7 @@
 import { render, waitFor, fireEvent } from '@testing-library/react'
 import { Helper } from '@/tests/presentation/helpers'
 import { Childrens } from '@/presentation/pages'
-import { LoadChildrensSpy } from '@/tests/presentation/mocks'
+import { LoadChildrensSpy, DeleteChildrenSpy } from '@/tests/presentation/mocks'
 import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from '@/presentation/styles'
 import { ToastContainer } from '@/presentation/components'
@@ -13,20 +13,24 @@ import { ServerError, UnauthorizedError } from '@/presentation/errors'
 
 type SutTypes = {
   loadChildrensSpy: LoadChildrensSpy
+  deleteChildrenSpy: DeleteChildrenSpy
   history: MemoryHistory
   setCurrentAccountMock: (account: AccountModel) => void
 }
 
-const makeSut = (loadChildrensSpy = new LoadChildrensSpy()): SutTypes => {
-  const history = createMemoryHistory({ initialEntries: ['/'] })
-  const setCurrentAccountMock = jest.fn()
+const makeSut = ({
+  loadChildrensSpy = new LoadChildrensSpy(),
+  deleteChildrenSpy = new DeleteChildrenSpy(),
+  history = createMemoryHistory({ initialEntries: ['/childrens'] }),
+  setCurrentAccountMock = jest.fn()
+} = {}): SutTypes => {
   render(
     <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock }}>
       <ThemeProvider theme={defaultTheme}>
           <Router history={history}>
             <Childrens
               loadChildrens={loadChildrensSpy}
-              deleteChildren={null} />
+              deleteChildren={deleteChildrenSpy} />
           </Router>
         <ToastContainer />
       </ThemeProvider>
@@ -34,6 +38,7 @@ const makeSut = (loadChildrensSpy = new LoadChildrensSpy()): SutTypes => {
   )
   return {
     loadChildrensSpy,
+    deleteChildrenSpy,
     history,
     setCurrentAccountMock
   }
@@ -57,7 +62,7 @@ describe('Childrens Page', () => {
     const loadChildrensSpy = new LoadChildrensSpy()
     const error = new ServerError()
     jest.spyOn(loadChildrensSpy, 'loadAll').mockRejectedValueOnce(error)
-    makeSut(loadChildrensSpy)
+    makeSut({ loadChildrensSpy })
     await waitFor(() => {
       expect(Helper.testErrorMessage(error.message))
     })
@@ -66,7 +71,7 @@ describe('Childrens Page', () => {
   test('Should logout on UnauthorizedError', async () => {
     const loadChildrensSpy = new LoadChildrensSpy()
     jest.spyOn(loadChildrensSpy, 'loadAll').mockRejectedValueOnce(new UnauthorizedError())
-    const { setCurrentAccountMock, history } = makeSut(loadChildrensSpy)
+    const { setCurrentAccountMock, history } = makeSut({ loadChildrensSpy })
     await waitFor(() => {
       expect(setCurrentAccountMock).toHaveBeenCalledWith(undefined)
       expect(history.location.pathname).toBe('/login')
@@ -81,7 +86,7 @@ describe('Childrens Page', () => {
   test('Should call LoadChildrens on reload', async () => {
     const loadChildrensSpy = new LoadChildrensSpy()
     jest.spyOn(loadChildrensSpy, 'loadAll').mockRejectedValueOnce(new ServerError())
-    await waitFor(() => makeSut(loadChildrensSpy))
+    await waitFor(() => makeSut({ loadChildrensSpy }))
 
     await waitFor(() => Helper.clickButton('Tentar novamente'))
     expect(loadChildrensSpy.calls).toBe(1)
@@ -96,6 +101,17 @@ describe('Childrens Page', () => {
     await waitFor(() => {
       expect(history.length).toBe(1)
       expect(history.location.pathname).toBe('/childrens/add')
+    })
+  })
+
+  test('Should call DeleteChildren with correct value', async () => {
+    const { loadChildrensSpy, deleteChildrenSpy } = await waitFor(() => makeSut())
+    const buttons = Helper.getRoles('button')
+    fireEvent.click(buttons[2])
+    await waitFor(() => {
+      expect(deleteChildrenSpy.calls).toBe(1)
+      expect(deleteChildrenSpy.id).toBe(loadChildrensSpy.result[0].id)
+      expect(Helper.getText('Filho removido com sucesso')).toBeInTheDocument()
     })
   })
 })

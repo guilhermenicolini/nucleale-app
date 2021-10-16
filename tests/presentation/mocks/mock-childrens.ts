@@ -1,4 +1,4 @@
-import { LoadChildrens, SaveChildren } from '@/domain/usecases'
+import { LoadChildrens, SaveChildren, DeleteChildren } from '@/domain/usecases'
 import { mockChildrenModel } from '@/tests/data/mocks'
 import faker from 'faker'
 
@@ -21,5 +21,15 @@ export class SaveChildrenSpy implements SaveChildren {
     this.calls++
     this.data = data
     return this.result
+  }
+}
+
+export class DeleteChildrenSpy implements DeleteChildren {
+  calls = 0
+  id: string
+
+  async delete (id: string): Promise<void> {
+    this.id = id
+    this.calls++
   }
 }
