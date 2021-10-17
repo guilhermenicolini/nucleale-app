@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Field, Button, Spinner, Reload, Select } from '@/presentation/components'
+import { Field, Button, Spinner, Reload, Select, LinkButton } from '@/presentation/components'
 import { FormContext } from '@/presentation/contexts'
 import { useForm } from 'react-hook-form'
 import { useErrorHandler } from '@/presentation/hooks'
@@ -116,6 +116,7 @@ export const ChildrenForm: React.FC<Props> = ({ validation, onLoadChildren, onSa
                 error={errors.birth?.message}
                 touched={isDirty} />
               <Button type="submit" block disabled={!isValid} >Salvar</Button>
+              <LinkButton type="text" block to="/childrens">Voltar para filhos</LinkButton>
             </S.Form>
           }
           {state.error &&

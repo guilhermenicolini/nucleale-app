@@ -21,7 +21,7 @@ export const Members: React.FC<Props> = ({ loadMembers }: Props) => {
   }
 
   const add = (): void => {
-    history.replace('/members/add')
+    history.replace('/family/add')
   }
 
   return (

@@ -94,7 +94,7 @@ describe('Members Page', () => {
 
     await waitFor(() => {
       expect(history.length).toBe(1)
-      expect(history.location.pathname).toBe('/members/add')
+      expect(history.location.pathname).toBe('/family/add')
     })
   })
 })
