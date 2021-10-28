@@ -6,6 +6,6 @@ export const makeInvoices: React.FC = () => {
   return (
     <Invoices
       loadInvoices={makeRemoteLoadInvoices()}
-      downloadFile={makeRemoteDownloadFile('/invoices/:id/download')} />
+      downloadFile={makeRemoteDownloadFile('/me/invoices/:id/download')} />
   )
 }

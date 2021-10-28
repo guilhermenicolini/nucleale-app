@@ -4,5 +4,5 @@ import { makeAuthorizeHttpClientDecorator } from '@/main/factories/decorators'
 import { makeApiUrl } from '@/main/factories/http'
 
 export const makeRemoteLoadAddress = (): LoadAddress => {
-  return new RemoteLoadAddress(makeApiUrl('/address'), makeAuthorizeHttpClientDecorator())
+  return new RemoteLoadAddress(makeApiUrl('/me/address'), makeAuthorizeHttpClientDecorator())
 }

@@ -4,5 +4,5 @@ import { makeAuthorizeHttpClientDecorator } from '@/main/factories/decorators'
 import { makeApiUrl } from '@/main/factories/http'
 
 export const makeRemoteLoadMembers = (): LoadMembers => {
-  return new RemoteLoadMembers(makeApiUrl('/accounts'), makeAuthorizeHttpClientDecorator())
+  return new RemoteLoadMembers(makeApiUrl('/me/accounts'), makeAuthorizeHttpClientDecorator())
 }

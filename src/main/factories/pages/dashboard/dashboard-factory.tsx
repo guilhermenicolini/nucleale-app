@@ -6,6 +6,6 @@ export const makeDashboard: React.FC = () => {
   return (
     <Dashboard
       loadInvoices={makeRemoteLoadInvoices()}
-      downloadFile={makeRemoteDownloadFile('/invoices/:id/download')} />
+      downloadFile={makeRemoteDownloadFile('/me/invoices/:id/download')} />
   )
 }

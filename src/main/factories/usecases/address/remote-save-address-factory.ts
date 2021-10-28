@@ -4,5 +4,5 @@ import { makeAuthorizeHttpClientDecorator } from '@/main/factories/decorators'
 import { makeApiUrl } from '@/main/factories/http'
 
 export const makeRemoteSaveAddress = (): SaveAddress => {
-  return new RemoteSaveAddress(makeApiUrl('/address'), makeAuthorizeHttpClientDecorator())
+  return new RemoteSaveAddress(makeApiUrl('/me/address'), makeAuthorizeHttpClientDecorator())
 }

@@ -4,5 +4,5 @@ import { makeAuthorizeHttpClientDecorator } from '@/main/factories/decorators'
 import { InviteMember } from '@/domain/usecases'
 
 export const makeRemoteInviteMember = (): InviteMember => {
-  return new RemoteInviteMember(makeApiUrl('/accounts/invite'), makeAuthorizeHttpClientDecorator())
+  return new RemoteInviteMember(makeApiUrl('/me/invite'), makeAuthorizeHttpClientDecorator())
 }
