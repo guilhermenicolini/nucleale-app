@@ -12,6 +12,7 @@ export const Header = styled.header`
     padding: 0 10px;
 
     & > svg {
+      min-width: 140px;
       width: 140px;
     }
 

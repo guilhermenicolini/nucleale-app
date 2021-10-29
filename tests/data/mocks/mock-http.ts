@@ -1,5 +1,5 @@
 import { HttpClient, HttpRequest, HttpResponse, HttpStatusCode } from '@/data/protocols'
-import { AddressModel, ChildrenModel, MemberModel, Cities, States } from '@/domain/models'
+import { AddressModel, ChildrenModel, MemberModel, Cities, States, CertificateModel } from '@/domain/models'
 import faker from 'faker'
 
 export const mockHttpRequest = (): HttpRequest => ({
@@ -72,3 +72,12 @@ export class HttpClientSpy implements HttpClient {
     return this.result
   }
 }
+
+export const mockCertificateItem = (): CertificateModel => ({
+  hash: faker.random.alphaNumeric(8).toLowerCase(),
+  type: faker.random.word().toLowerCase(),
+  course: faker.random.words(4),
+  date: faker.date.recent().valueOf(),
+  name: faker.name.findName(),
+  hours: faker.datatype.number()
+})

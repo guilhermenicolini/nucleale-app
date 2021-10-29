@@ -51,7 +51,7 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
         taxId: data.taxId.replace(/[^0-9]/g, ''),
         name: data.name,
         email: data.email,
-        mobilePhone: data.mobilePhone,
+        mobilePhone: data.mobilePhone.replace(/[^0-9|+]/g, ''),
         birth: moment.utc(data.birth).valueOf(),
         password: data.password,
         passwordConfirmation: data.passwordConfirmation
@@ -97,15 +97,16 @@ export const SignUp: React.FC<SignUpProps> = ({ validation, addAccount }: SignUp
             {...register('email', { validate: () => validateField('email') })}
             error={errors.email?.message}
             touched={isDirty} />
-          <Field
+          <FieldMask
             label="Whatsapp"
             placeholder="Informe seu whatsapp"
             name="mobilePhone"
             type="text"
             required
+            mask="+55 (99) 99999-9999"
+            message="(ex: +55...)"
             {...register('mobilePhone', { validate: () => validateField('mobilePhone') })}
             error={errors.mobilePhone?.message}
-            message="(ex: +55...)"
             touched={isDirty} />
           <Field
             label="Nascimento"

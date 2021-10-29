@@ -31,10 +31,11 @@ export const Nav = styled.nav<OrientationProps>`
 const setMenuOrientation = {
   vertical: () => css`
     flex-direction: column;
+    margin: 10px;
   `,
   horizontal: () => css`
-    max-width: 500px;
     justify-content: space-around;
+    margin: 10px 20px;
   `
 }
 
@@ -43,7 +44,7 @@ export const Menu = styled.ul<OrientationProps>`
     display: inline-flex;
     list-style-type: none;
     width: 100%;
-    margin: 10px;
+    
     ${setMenuOrientation[orientation]};
   `}
 `
@@ -58,6 +59,8 @@ const setItemOrientation = {
 export const Item = styled.li<OrientationProps>`
   ${({ orientation = 'horizontal' }) => css`
     ${setItemOrientation[orientation]};
+    white-space: nowrap;
+    margin: 0 5px;
   `}
 `
 
