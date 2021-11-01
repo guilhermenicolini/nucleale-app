@@ -1,5 +1,6 @@
 import { HttpClient, HttpRequest, HttpResponse, HttpStatusCode } from '@/data/protocols'
 import { AddressModel, ChildrenModel, MemberModel, Cities, States, CertificateModel } from '@/domain/models'
+import { ValidateCertificate } from '@/domain/usecases'
 import faker from 'faker'
 
 export const mockHttpRequest = (): HttpRequest => ({
@@ -80,4 +81,10 @@ export const mockCertificateItem = (): CertificateModel => ({
   date: faker.date.recent().valueOf(),
   name: faker.name.findName(),
   hours: faker.datatype.number()
+})
+
+export const mockValidCertificateItem = (): ValidateCertificate.Model => ({
+  hash: faker.random.alphaNumeric(8).toLowerCase(),
+  course: faker.random.words(4),
+  date: faker.date.recent().valueOf()
 })

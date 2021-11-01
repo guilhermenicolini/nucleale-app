@@ -12,7 +12,8 @@ import {
   makeAddress,
   makeAddChildren,
   makeAddMember,
-  makeCertificates
+  makeCertificates,
+  makeCheckCertificate
 } from '@/main/factories/pages'
 import { PrivateRoute } from '@/presentation/components'
 
@@ -24,6 +25,7 @@ export const Router: React.FC = () => {
         <Route path="/sign-up" exact component={makeSignUp} />
         <Route path="/password-recovery" exact component={makePasswordRecovery} />
         <Route path="/change-password/:token?" exact component={makeChangePassword} />
+        <Route path="/certificates/:hash?" exact component={makeCheckCertificate} />
         <PrivateRoute path="/" exact component={makeDashboard} />
         <PrivateRoute path="/invoices" exact component={makeInvoices} />
         <PrivateRoute path="/certificates" exact component={makeCertificates} />
