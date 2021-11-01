@@ -16,14 +16,14 @@ type SutTypes = {
 }
 
 const hash = faker.random.alphaNumeric(8).toLowerCase()
-const history = createMemoryHistory({ initialEntries: [`/certificates/${hash}`] })
+const history = createMemoryHistory({ initialEntries: [`/certificate/${hash}`] })
 const makeSut = (validateCertificateSpy = new ValidateCertificateSpy()): SutTypes => {
   const page = <CheckCertificate validateCertificate={validateCertificateSpy} />
 
   render(
     <ThemeProvider theme={defaultTheme}>
       <Router history={history}>
-        <Route path="/certificates/:hash" render={() => page} />
+        <Route path="/certificate/:hash" render={() => page} />
       </Router>
       <ToastContainer />
     </ThemeProvider>
