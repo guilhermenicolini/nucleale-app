@@ -38,14 +38,14 @@ export const Address: React.FC<SignUpProps> = ({ validation, loadAddress, findLo
     return error ? error.message : true
   }
 
-  const submit = async (data: any): Promise<void> => {
+  const submit = async (data: LoadAddress.Model): Promise<void> => {
     if (state.isLoading || isSubmitting) {
       return
     }
 
     setState(s => ({ ...s, isLoading: true }))
     try {
-      data.city = Cities.find(c => c.value === parseInt(data.cityId)).label
+      data.city = Cities.find(c => c.value === data.cityId).label
       data.country = 'BR'
       await saveAddress.save(data)
       toast.success('Endereço atualizado com sucesso')
