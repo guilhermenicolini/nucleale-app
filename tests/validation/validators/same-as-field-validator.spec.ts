@@ -6,18 +6,14 @@ const makeSut = (field: string, fieldToCompare: string): SameAsFieldValidator =>
 
 describe('SameAsFieldValidator', () => {
   test('Should return falsy if field is not present', () => {
-    const field = faker.database.column()
-    const fieldToCompare = faker.database.column()
-    const sut = makeSut(field, fieldToCompare)
+    const sut = makeSut('field1', 'field2')
     const error = sut.validate({ any_field: '' })
     expect(error).toBeFalsy()
   })
 
   test('Should return error if field is null', () => {
-    const field = faker.database.column()
-    const fieldToCompare = faker.database.column()
-    const sut = makeSut(field, fieldToCompare)
-    const error = sut.validate({ [field]: null, [fieldToCompare]: 'other_Value' })
+    const sut = makeSut('field1', 'field2')
+    const error = sut.validate({ field1: null, field2: 'other_Value' })
     expect(error).toEqual(new InvalidFieldError())
   })
 
@@ -31,13 +27,11 @@ describe('SameAsFieldValidator', () => {
   })
 
   test('Should return falsy if compare is valid', () => {
-    const field = faker.database.column()
-    const fieldToCompare = faker.database.column()
     const value = faker.random.word()
-    const sut = makeSut(field, fieldToCompare)
+    const sut = makeSut('field1', 'field2')
     const error = sut.validate({
-      [field]: value,
-      [fieldToCompare]: value
+      field1: value,
+      field2: value
     })
     expect(error).toBeFalsy()
   })
