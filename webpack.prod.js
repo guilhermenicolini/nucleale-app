@@ -31,8 +31,7 @@ module.exports = merge(common, {
   },
   externals: {
     react: 'React',
-    'react-dom': 'ReactDOM',
-    'react-router-dom': 'ReactRouterDOM'
+    'react-dom': 'ReactDOM'
   },
   plugins: [
     new DefinePlugin({
@@ -42,7 +41,7 @@ module.exports = merge(common, {
       template: './template.prod.html'
     }),
     new MiniCssExtractPlugin({
-      filename: 'bundle-[hash].css'
+      filename: 'bundle-[fullhash].css'
     })
   ]
 })
