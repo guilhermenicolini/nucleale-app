@@ -3,7 +3,7 @@ import { ApiContext } from '@/presentation/contexts'
 import { mockAccountModel } from '@/tests/domain/mocks'
 import { render } from '@testing-library/react'
 import { createMemoryHistory, MemoryHistory } from 'history'
-import { Router } from 'react-router'
+import { Router } from 'react-router-dom'
 
 type SutTypes = {
   history: MemoryHistory

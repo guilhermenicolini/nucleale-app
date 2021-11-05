@@ -1,6 +1,6 @@
 import { HttpClient, HttpRequest, HttpResponse, HttpStatusCode } from '@/data/protocols'
 import { AddressModel, ChildrenModel, MemberModel, Cities, States, CertificateModel } from '@/domain/models'
-import { ValidateCertificate } from '@/domain/usecases'
+import { ValidateCertificate, FindLocation } from '@/domain/usecases'
 import faker from 'faker'
 
 export const mockHttpRequest = (): HttpRequest => ({
@@ -88,3 +88,14 @@ export const mockValidCertificateItem = (): ValidateCertificate.Model => ({
   course: faker.random.words(4),
   date: faker.date.recent().valueOf()
 })
+
+export const mockFindLocationResult = (): FindLocation.Model => {
+  const city = faker.random.arrayElement(Cities)
+
+  return {
+    address: faker.address.streetAddress(true),
+    district: faker.address.secondaryAddress(),
+    city: city.label,
+    state: faker.random.arrayElement(States).value
+  }
+}

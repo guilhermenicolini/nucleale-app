@@ -1,6 +1,6 @@
 import { LinkButton, LinkButtonProps } from './LinkButton'
 import { Story, Meta } from '@storybook/react'
-import { Router } from 'react-router'
+import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 
 const meta: Meta = {

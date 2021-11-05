@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react'
 import { Helper } from '@/tests/presentation/helpers'
 import { Address } from '@/presentation/pages'
-import { ValidationSpy, LoadAddressSpy, SaveAddressSpy } from '@/tests/presentation/mocks'
+import { ValidationSpy, LoadAddressSpy, FindLocationSpy, SaveAddressSpy } from '@/tests/presentation/mocks'
 import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from '@/presentation/styles'
 import { ToastContainer } from '@/presentation/components'
@@ -27,6 +27,7 @@ const form = {
 
 type SutTypes = {
   loadAddressSpy: LoadAddressSpy
+  findLocationSpy: FindLocationSpy
   saveAddressSpy: SaveAddressSpy
   history: MemoryHistory
   setCurrentAccountMock: (account: AccountModel) => void
@@ -35,6 +36,7 @@ type SutTypes = {
 const makeSut = (
   validationSpy: ValidationSpy = new ValidationSpy(faker.database.column()),
   loadAddressSpy: LoadAddressSpy = new LoadAddressSpy(),
+  findLocationSpy: FindLocationSpy = new FindLocationSpy(),
   saveAddressSpy: SaveAddressSpy = new SaveAddressSpy()): SutTypes => {
   const setCurrentAccountMock = jest.fn()
   const history = createMemoryHistory({ initialEntries: ['/address'] })
@@ -45,6 +47,7 @@ const makeSut = (
           <Address
             validation={validationSpy}
             loadAddress={loadAddressSpy}
+            findLocation={findLocationSpy}
             saveAddress={saveAddressSpy} />
         </Router>
         <ToastContainer />
@@ -53,6 +56,7 @@ const makeSut = (
   )
   return {
     loadAddressSpy,
+    findLocationSpy,
     saveAddressSpy,
     history,
     setCurrentAccountMock
@@ -224,7 +228,7 @@ describe('Address Page', () => {
     const saveAddressSpy = new SaveAddressSpy()
     const errorMessage = faker.random.words()
     jest.spyOn(saveAddressSpy, 'save').mockRejectedValueOnce(new Error(errorMessage))
-    await waitFor(() => makeSut(undefined, undefined, saveAddressSpy))
+    await waitFor(() => makeSut(undefined, undefined, undefined, saveAddressSpy))
 
     Helper.clickButton(form.save)
 

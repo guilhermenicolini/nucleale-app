@@ -4,7 +4,7 @@ import * as S from './Address.styles'
 import { FormContext } from '@/presentation/contexts'
 import { useForm } from 'react-hook-form'
 import { Validation } from '@/presentation/protocols'
-import { LoadAddress, SaveAddress } from '@/domain/usecases'
+import { FindLocation, LoadAddress, SaveAddress } from '@/domain/usecases'
 import { toast } from 'react-toastify'
 import { useErrorHandler } from '@/presentation/hooks'
 import { States, Cities } from '@/domain/models'
@@ -12,10 +12,11 @@ import { States, Cities } from '@/domain/models'
 type SignUpProps = {
   validation: Validation
   loadAddress: LoadAddress
+  findLocation: FindLocation
   saveAddress: SaveAddress
 }
 
-export const Address: React.FC<SignUpProps> = ({ validation, loadAddress, saveAddress }: SignUpProps) => {
+export const Address: React.FC<SignUpProps> = ({ validation, loadAddress, findLocation, saveAddress }: SignUpProps) => {
   const { register, getValues, watch, setValue, handleSubmit, formState: { isSubmitting, isValid, isDirty, errors } } = useForm<LoadAddress.Model>(
     { mode: 'all', defaultValues: { zip: '' } }
   )
@@ -23,7 +24,9 @@ export const Address: React.FC<SignUpProps> = ({ validation, loadAddress, saveAd
   const [state, setState] = useState({
     isLoading: true,
     reload: false,
-    error: ''
+    search: false,
+    error: '',
+    lastValidZip: ''
   })
 
   const handleError = useErrorHandler((error: Error) => {
@@ -59,6 +62,7 @@ export const Address: React.FC<SignUpProps> = ({ validation, loadAddress, saveAd
       .then(data => {
         setState(old => ({ ...old, error: '', isLoading: false }))
         if (!data) return
+        setState(old => ({ ...old, lastValidZip: data.zip }))
         setValue('zip', data.zip, { shouldValidate: true })
         setValue('address', data.address, { shouldValidate: true })
         setValue('number', data.number, { shouldValidate: true })
@@ -70,7 +74,28 @@ export const Address: React.FC<SignUpProps> = ({ validation, loadAddress, saveAd
       .catch(handleError)
   }, [state.reload])
 
-  const reload = (): void => setState(old => ({ ...old, invoices: [], error: '', reload: !old.reload }))
+  const reload = (): void => setState(old => ({ ...old, error: '', reload: !old.reload }))
+
+  useEffect(() => {
+    const zip = watch('zip').replace(/[^0-9]/g, '')
+    const oldZip = state.lastValidZip.replace(/[^0-9]/g, '')
+    if (!validation.validate('zip', { zip }) && zip !== oldZip) {
+      findLocation.find(zip)
+        .then(data => {
+          setState(old => ({ ...old, lastValidZip: zip }))
+          if (!data) return
+          setValue('address', data.address, { shouldValidate: true })
+          setValue('number', '', { shouldValidate: true })
+          setValue('complement', '', { shouldValidate: true })
+          setValue('district', data.district, { shouldValidate: true })
+          setValue('state', data.state, { shouldValidate: true })
+          const city = Cities.find(c => c.label === data.city)
+          if (city) {
+            setValue('cityId', city.value, { shouldValidate: true })
+          }
+        })
+    }
+  }, [watch('zip')])
 
   return (
     <Private>
