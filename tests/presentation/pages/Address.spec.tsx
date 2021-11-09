@@ -63,7 +63,7 @@ const makeSut = (
   }
 }
 
-describe('Address Page', () => {
+describe('Address Page2', () => {
   test('Should load address on start', async () => {
     const { loadAddressSpy } = await waitFor(() => makeSut())
 
@@ -197,7 +197,17 @@ describe('Address Page', () => {
 
     await waitFor(() => {
       expect(saveAddressSpy.calls).toBe(1)
-      expect(saveAddressSpy.params).toEqual(loadAddressSpy.result)
+      expect(saveAddressSpy.params).toEqual({
+        zip: loadAddressSpy.result.zip.replace(/[^0-9]/g, ''),
+        address: loadAddressSpy.result.address,
+        number: loadAddressSpy.result.number,
+        complement: loadAddressSpy.result.complement,
+        district: loadAddressSpy.result.district,
+        state: loadAddressSpy.result.state,
+        cityId: loadAddressSpy.result.cityId,
+        city: loadAddressSpy.result.city,
+        country: 'BR'
+      })
     })
   })
 

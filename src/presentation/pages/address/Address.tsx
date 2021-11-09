@@ -47,7 +47,17 @@ export const Address: React.FC<SignUpProps> = ({ validation, loadAddress, findLo
     try {
       data.city = Cities.find(c => c.value === data.cityId).label
       data.country = 'BR'
-      await saveAddress.save(data)
+      await saveAddress.save({
+        zip: data.zip.replace(/[^0-9]/g, ''),
+        address: data.address,
+        number: data.number,
+        complement: data.complement,
+        district: data.district,
+        state: data.state,
+        cityId: data.cityId,
+        city: Cities.find(c => c.value === data.cityId).label,
+        country: 'BR'
+      })
       toast.success('Endereço atualizado com sucesso')
     } catch (err) {
       toast.error(err.message)
