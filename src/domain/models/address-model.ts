@@ -21,6 +21,7 @@ export const Cities = [
   { value: 6175, label: 'Artur Nogueira' },
   { value: 6291, label: 'Campinas' },
   { value: 6357, label: 'Cosmópolis' },
+  { value: 2951, label: 'Hortolância' },
   { value: 6511, label: 'Indaiatuba' },
   { value: 6595, label: 'Jaguariúna' },
   { value: 6831, label: 'Paulínia' },
