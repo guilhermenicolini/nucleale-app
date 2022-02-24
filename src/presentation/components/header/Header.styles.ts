@@ -16,13 +16,6 @@ export const Header = styled.header`
       width: 140px;
     }
 
-    & #logout {
-      display: none;
-      @media only screen and (min-width: ${theme.breakPoint.tablet}px) {
-        display: block;
-      }
-    }
-
     & #menu {
       @media only screen and (min-width: ${theme.breakPoint.tablet}px) {
         display: none;

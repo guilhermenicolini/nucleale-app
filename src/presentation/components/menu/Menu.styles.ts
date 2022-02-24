@@ -1,71 +1,49 @@
-import { darken, lighten } from '@/presentation/styles/utils'
+import { darken } from '@/presentation/styles/utils'
 import { NavLink, NavLinkProps } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import { MenuProps } from './Menu'
 
 type ReactLinkProps = Pick<MenuProps, 'mode'> & NavLinkProps
-type OrientationProps = Pick<MenuProps, 'orientation'>
 
-const setOrientation = {
-  vertical: () => css`
-    display: flex;
-    width: 100%;
-    justify-content: center;
-  `,
-  horizontal: ({ theme }) => css`
-    display: none;
-    @media only screen and (min-width: ${theme.breakPoint.tablet}px) {
-      display: flex;
+export const Nav = styled.nav`
+  ${({ theme }) => css`
+    @media only screen and (max-width: ${theme.breakPoint.tablet}px) {
+      position: fixed;
+      bottom: 0;
+      left: 0;
       width: 100%;
+      background-color: ${theme.colors.palette.primary.color};
+      height: 70px;
+
+      display: flex;
+      align-items: center;
       justify-content: center;
     }
-  `
-}
-
-export const Nav = styled.nav<OrientationProps>`
-  ${({ orientation = 'horizontal' }) => css`
-    ${setOrientation[orientation]};
   `}
 `
 
-const setMenuOrientation = {
-  vertical: () => css`
-    flex-direction: column;
-    margin: 10px;
-  `,
-  horizontal: () => css`
-    justify-content: space-around;
-    margin: 10px 20px;
-  `
-}
-
-export const Menu = styled.ul<OrientationProps>`
-  ${({ orientation = 'horizontal' }) => css`
+export const Menu = styled.ul`
+  ${({ theme }) => css`
     display: inline-flex;
     list-style-type: none;
     width: 100%;
     
-    ${setMenuOrientation[orientation]};
+    justify-content: space-around;
+    margin: 10px 20px;
   `}
 `
 
-const setItemOrientation = {
-  vertical: () => css`
-    margin: 10px 0;
-  `,
-  horizontal: () => css``
-}
-
-export const Item = styled.li<OrientationProps>`
-  ${({ orientation = 'horizontal' }) => css`
-    ${setItemOrientation[orientation]};
-    white-space: nowrap;
-    margin: 0 5px;
-  `}
+export const Item = styled.li`
+  white-space: nowrap;
+  margin: 0 5px;
 `
 
-const setMode = {
-  light: ({ theme }) => css`
+export const ReactLink = styled(NavLink)<ReactLinkProps>`
+  ${({ theme }) => css`
+    ${theme.typography.headline6}
+    
+    text-decoration: none;
+    transition: color .2s;
     color: ${theme.colors.light.mediumEmphasis};
     &:hover {
       color: ${darken(theme.colors.light.mediumEmphasis, 15)};
@@ -74,24 +52,22 @@ const setMode = {
     &.active {
       color: ${theme.colors.palette.secondary.color};
     }
-  `,
-  dark: ({ theme }) => css`
-    color: ${theme.colors.dark.highEmphasis};
-    &:hover {
-      color: ${lighten(theme.colors.dark.highEmphasis, 40)};
-    }
-    &.active {
-      color: ${theme.colors.palette.primary.color};
-    }
-  `
-}
 
-export const ReactLink = styled(NavLink)<ReactLinkProps>`
-  ${({ theme, mode = 'light' }) => css`
-    ${theme.typography.headline6}
-    
-    text-decoration: none;
-    transition: color .2s;
-    ${setMode[mode]};
+    i {
+      display: none;
+    }
+
+    @media only screen and (max-width: ${theme.breakPoint.tablet}px) {
+      font-size: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      & i {
+        display: block;
+        font-size: 24px;
+      }
+    }
   `}
 `

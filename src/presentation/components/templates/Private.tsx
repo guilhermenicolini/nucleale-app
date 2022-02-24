@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import * as S from './Private.styles'
-import { Header, SideMenu, Menu, LinkButton, Footer } from '@/presentation/components'
+import { Header, Footer } from '@/presentation/components'
 import { useLogout } from '@/presentation/hooks'
 
 type PrivateProps = {
@@ -9,17 +9,6 @@ type PrivateProps = {
 
 export const Private: React.FC<PrivateProps> = ({ children }: PrivateProps) => {
   const logout = useLogout()
-  const [state, setState] = useState({
-    opened: false
-  })
-
-  const openMenu = (): void => {
-    setState(s => ({ ...s, opened: true }))
-  }
-
-  const closeMenu = (): void => {
-    setState(s => ({ ...s, opened: false }))
-  }
 
   const doLogout = (): void => {
     logout()
@@ -27,11 +16,7 @@ export const Private: React.FC<PrivateProps> = ({ children }: PrivateProps) => {
 
   return (
     <S.Wrapper>
-      <Header onOpenMenu={openMenu} onLogout={doLogout} opened={state.opened} />
-      <SideMenu onCloseMenu={closeMenu} opened={state.opened}>
-        < Menu mode="dark" orientation="vertical" />
-        <LinkButton type="text" block onClick={doLogout}>Sair</LinkButton>
-      </SideMenu>
+      <Header onLogout={doLogout} />
       <S.Content>
         {children}
       </S.Content>

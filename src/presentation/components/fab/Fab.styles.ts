@@ -20,6 +20,10 @@ export const Button = styled.button<StyleProps>`
     color: ${contrast(theme.colors.palette[variant].color)};
     cursor: pointer;
 
+    @media only screen and (max-width: ${theme.breakPoint.tablet}px) {
+      bottom: 85px;
+    }
+
     & svg {
       width: 23px;
       & path {

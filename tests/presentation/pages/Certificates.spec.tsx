@@ -102,9 +102,11 @@ describe('Certificates Page', () => {
     const loadCertificatesSpy = new LoadCertificatesSpy()
     const downloadFileSpy = new DownloadFileSpy()
     await waitFor(() => makeSut(loadCertificatesSpy, downloadFileSpy))
+
     const buttons = Helper.getRoles('button')
+
     await waitFor(() => fireEvent.click(buttons[2]))
     expect(downloadFileSpy.calls).toBe(1)
-    expect(downloadFileSpy.id).toBe(loadCertificatesSpy.result[0].hash)
+    expect(downloadFileSpy.id).toBe(loadCertificatesSpy.result[1].hash)
   })
 })

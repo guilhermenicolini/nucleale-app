@@ -105,6 +105,6 @@ describe('Dashboard Page', () => {
     const buttons = Helper.getRoles('button')
     await waitFor(() => fireEvent.click(buttons[2]))
     expect(downloadFileSpy.calls).toBe(1)
-    expect(downloadFileSpy.id).toBe(loadInvoicesSpy.result[0].invoiceNo)
+    expect(downloadFileSpy.id).toBe(loadInvoicesSpy.result[1].invoiceNo)
   })
 })

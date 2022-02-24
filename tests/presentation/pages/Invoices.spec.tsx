@@ -103,7 +103,7 @@ describe('Invoices Page', () => {
     const downloadFileSpy = new DownloadFileSpy()
     await waitFor(() => makeSut(loadInvoicesSpy, downloadFileSpy))
     const buttons = Helper.getRoles('button')
-    await waitFor(() => fireEvent.click(buttons[2]))
+    await waitFor(() => fireEvent.click(buttons[1]))
     expect(downloadFileSpy.calls).toBe(1)
     expect(downloadFileSpy.id).toBe(loadInvoicesSpy.result[0].invoiceNo)
   })

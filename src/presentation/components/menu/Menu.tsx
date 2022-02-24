@@ -8,14 +8,44 @@ export type MenuProps = {
 
 export const Menu: React.FC<MenuProps> = ({ mode = 'light', orientation = 'horizontal' }: MenuProps) => {
   return (
-    <S.Nav orientation={orientation}>
-      <S.Menu orientation={orientation}>
-        <S.Item orientation={orientation}><S.ReactLink exact mode={mode} to="/">Painel</S.ReactLink></S.Item>
-        <S.Item orientation={orientation}><S.ReactLink exact mode={mode} to="/invoices">Notas Fiscais</S.ReactLink></S.Item>
-        <S.Item orientation={orientation}><S.ReactLink exact mode={mode} to="/certificates">Certificados</S.ReactLink></S.Item>
-        <S.Item orientation={orientation}><S.ReactLink exact mode={mode} to="/address">Endereço</S.ReactLink></S.Item>
-        <S.Item orientation={orientation}><S.ReactLink exact mode={mode} to="/childrens">Filhos</S.ReactLink></S.Item>
-        <S.Item orientation={orientation}><S.ReactLink exact mode={mode} to="/family">Família</S.ReactLink></S.Item>
+    <S.Nav>
+      <S.Menu>
+        <S.Item>
+          <S.ReactLink exact mode={mode} to="/">
+            <i className='bx bx-home'></i>
+            Painel
+          </S.ReactLink>
+        </S.Item>
+        <S.Item>
+          <S.ReactLink exact mode={mode} to="/invoices">
+            <i className='bx bx-receipt'></i>
+            Notas Fiscais
+          </S.ReactLink>
+        </S.Item>
+        <S.Item>
+          <S.ReactLink exact mode={mode} to="/certificates">
+            <i className='bx bx-award'></i>
+            Certificados
+          </S.ReactLink>
+        </S.Item>
+        <S.Item>
+          <S.ReactLink exact mode={mode} to="/address">
+            <i className='bx bx-map'></i>
+            Endereço
+          </S.ReactLink>
+        </S.Item>
+        <S.Item>
+          <S.ReactLink exact mode={mode} to="/childrens">
+            <i className='bx bx-face'></i>
+            Filhos
+          </S.ReactLink>
+        </S.Item>
+        <S.Item>
+          <S.ReactLink exact mode={mode} to="/family">
+            <i className='bx bx-group'></i>
+            Família
+          </S.ReactLink>
+        </S.Item>
       </S.Menu>
     </S.Nav>
   )

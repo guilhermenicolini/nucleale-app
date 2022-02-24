@@ -107,7 +107,7 @@ describe('Childrens Page', () => {
   test('Should call DeleteChildren with correct value', async () => {
     const { loadChildrensSpy, deleteChildrenSpy } = await waitFor(() => makeSut())
     const buttons = Helper.getRoles('button')
-    fireEvent.click(buttons[2])
+    fireEvent.click(buttons[1])
     await waitFor(() => {
       expect(deleteChildrenSpy.calls).toBe(1)
       expect(deleteChildrenSpy.id).toBe(loadChildrensSpy.result[0].id)
